@@ -1,0 +1,15 @@
+.items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 272px));
+  grid-row-gap: 32px;
+  grid-column-gap: 24px;
+  composes: ml-4 mr-4 from global;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  max-width: 272px;
+  position: relative;
+  composes: ml-6 mb-10 from global;
+}

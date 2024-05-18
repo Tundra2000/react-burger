@@ -1,7 +1,25 @@
-.wrapper {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-    flex-shrink: 0;
-    height: 85vh;
-  }
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+
+}
+
+.container {
+  display: flex;
+  width: 1200px;
+  justify-content: center;
+}
+
+.container_div_left {
+  float: left;
+  flex: 50%;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.container_div_right {
+  float: right;
+  flex: 50%;
+  box-sizing: border-box;
+  padding: 15px;
+}

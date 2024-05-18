@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+  gap: 20px;
+  columns: 1;
+  height: 600px;
+  overflow-y: scroll;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.constructor {
+  width: 600px;
+  composes: ml-5 pt-25 from global;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

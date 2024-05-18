@@ -1,44 +1,39 @@
-/* eslint-disable no-unreachable */
-/*import React from 'react';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components';
-import {  BurgerIcon, ListIcon, ProfileIcon  } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './appHeader.module.css' ;
-import { NavLink, Link } from "react-router-dom";
-*/
+import {
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./app-header.module.css";
 
-import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './app-header.module.css' ;
-
-export default function AppHeader(){
-    return(
+export default function AppHeader() {
+  return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
-      <ul className={styles.nav_menu}>
-            <li>
-              <div className={styles.item_wrapper}>
-                <div>
-                    <p>Конструктор</p>
-                    <BurgerIcon />
-                </div>
-                <div>
-                    <p>Лента заказов</p>
-                    <ListIcon />
-                </div>
+        <ul className={styles.nav_menu}>
+          <li>
+            <div className={styles.menu_wrapper}>
+              <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
+                <BurgerIcon type="primary" />
+                <p>Конструктор</p>
+              </a>
+              <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
+                <ListIcon />
+                <p>Лента заказов</p>
+              </a>
             </div>
-            </li>
-            <li className={styles.logo}>
-              <Logo />
-           </li>
-            <li>
-              <div>
-                <p>Личный кабинет</p>
-                <ProfileIcon />
-              </div>
-            </li>
+          </li>
+          <li className={styles.logo}>
+            <Logo />
+          </li>
+          <li>
+            <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
+              <ProfileIcon />
+              <p>Личный кабинет</p>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
-    );
+  );
 }
