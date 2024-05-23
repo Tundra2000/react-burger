@@ -15,7 +15,6 @@ export default function BurgerConstructor() {
 
   return (
     <>
-      <div className=""></div>
       <div className={styles.container}>
         <div className={styles.box}>
           <ConstructorElement
@@ -24,6 +23,8 @@ export default function BurgerConstructor() {
             thumbnail={bun.image_mobile}
           />
         </div>
+
+        <div className={styles.scroller}>
 
         <div className={styles.box}>
           <DragIcon type="primary" />
@@ -44,16 +45,46 @@ export default function BurgerConstructor() {
         </div>
 
         <div className={styles.box}>
+          <DragIcon type="primary" />
+          <ConstructorElement
+            text={main.name}
+            price={main.price}
+            thumbnail={main.image_mobile}
+          />
+        </div>
+
+        <div className={styles.box}>
+          <DragIcon type="primary" />
+          <ConstructorElement
+            text={main.name}
+            price={main.price}
+            thumbnail={main.image_mobile}
+          />
+        </div>
+
+        <div className={styles.box}>
+          <DragIcon type="primary" />
+          <ConstructorElement
+            text={main.name}
+            price={main.price}
+            thumbnail={main.image_mobile}
+          />
+        </div>
+
+        </div>
+
+
+        <div className={styles.box}>
           <ConstructorElement
             text={bun.name}
             price={bun.price}
             thumbnail={bun.image_mobile}
           />
         </div>
-      </div>
+      
 
-      <div style={{ float: "right" }}>
-        <p>
+      <div className={styles.order}>
+        <p className={styles.price}>
           {price + " "}
           <CurrencyIcon type="primary" />
           <Button htmlType="button" type="primary" size="medium">
@@ -61,6 +92,7 @@ export default function BurgerConstructor() {
           </Button>
         </p>
       </div>
+    </div>
     </>
   );
 }

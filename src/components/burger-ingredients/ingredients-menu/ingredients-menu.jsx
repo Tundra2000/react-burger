@@ -4,32 +4,29 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import menuStyles from "./ingredients-menu.module.css";
+import styles from "./ingredients-menu.module.css";
 
 export default function IngredientsMenu() {
   return (
     <>
-      <div className="">
         <div className="">
-          <div className="">
-            <h2>Булки</h2>
-          </div>
-          <div className={menuStyles.items}>
+          <h2 className={styles.title}>Булки</h2>
+          <div className={styles.items}>
             {data
               .filter((item) => item.type === "bun")
               .map((bun) => (
-                <div className={menuStyles.item} key={bun._id}>
+                <div className={styles.item} key={bun._id}>
                   <Counter count={1} />
                   <div>
                     <img src={bun.image} alt={bun.name} />
                     <div>
-                      <p className="text text_type_main-default pr-1 m-1 p-1">
+                      <p className={styles.price}>
                         {bun.price}
                         <CurrencyIcon type="primary" />
                       </p>
                     </div>
                     <div>
-                      <p className="text text_type_main-default pr-1">
+                      <p className={styles.text}>
                         {bun.name}
                       </p>
                     </div>
@@ -40,25 +37,23 @@ export default function IngredientsMenu() {
         </div>
 
         <div>
-          <div>
-            <h2>Соусы</h2>
-          </div>
-          <div className={menuStyles.items}>
+          <h2 className={styles.title}>Соусы</h2>
+          <div className={styles.items}>
             {data
               .filter((item) => item.type === "sauce")
               .map((sauce) => (
-                <div className={menuStyles.item} key={sauce._id}>
+                <div className={styles.item} key={sauce._id}>
                   <Counter count={1} />
                   <div>
                     <img src={sauce.image} alt={sauce.name} />
                     <div>
-                      <p className="text text_type_main-default pr-1 m-1 p-1">
+                      <p className={styles.price}>
                         {sauce.price}
                         <CurrencyIcon type="primary" />
                       </p>
                     </div>
                     <div>
-                      <p className="text text_type_main-default pr-1">
+                      <p className={styles.text}>
                         {sauce.name}
                       </p>
                     </div>
@@ -69,25 +64,23 @@ export default function IngredientsMenu() {
         </div>
 
         <div>
-          <div>
-            <h2>Начинки</h2>
-          </div>
-          <div className={menuStyles.items}>
+          <h2 className={styles.title}>Начинки</h2>
+          <div className={styles.items}>
             {data
               .filter((item) => item.type === "main")
               .map((main) => (
-                <div className={menuStyles.item} key={main._id}>
+                <div className={styles.item} key={main._id}>
                   <Counter count={1} />
                   <div>
                     <img src={main.image} alt={main.name} />
                     <div>
-                      <p className="text text_type_main-default pr-1 m-1 p-1">
+                      <p className={styles.price}>
                         {main.price}
                         <CurrencyIcon type="primary" />
                       </p>
                     </div>
                     <div>
-                      <p className="text text_type_main-default pr-1">
+                      <p className={styles.text}>
                         {main.name}
                       </p>
                     </div>
@@ -96,30 +89,6 @@ export default function IngredientsMenu() {
               ))}
           </div>
         </div>
-      </div>
     </>
   );
 }
-
-/*            <div>
-                {buns.map((bun) => (
-                    <IngridientCard item={bun}/> 
-                ))}
-            </div>
-            <h2>Соусы</h2>
-            <div> 
-                {data.filter((item) => item.type === "sauce").map((sauce) => (
-                    <IngridientCard item={sauce}/> 
-                ))}           
-            </div>
-            <h2>Начинки</h2>
-            <div>              
-                {data.filter((item) => item.type === "main").map((main) => (
-                    <IngridientCard item={main}/> 
-                ))}
-            </div>
-
-        </div>
-        </>
-    );
-}*/

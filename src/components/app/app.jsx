@@ -10,12 +10,11 @@ function App() {
     <>
         <AppHeader />
           <div className={styles.container}>
-            <div className={styles.container_div_left}>
+            
               <BurgerIngredients />
-            </div>
-            <div className={styles.container_div_right}>
+            
               <BurgerConstructor />
-            </div>
+            
           </div>
     </>
   );

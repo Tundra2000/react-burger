@@ -7,10 +7,16 @@
 }
 
 .container_div_left {
-  float: left;
-  flex: 50%;
-  box-sizing: border-box;
-  padding: 15px;
+  //float: left;
+  //flex: 50%;
+  //box-sizing: border-box;
+  //padding: 15px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  composes: mr-5 from global;
+  flex-grow: 0;
 }
 
 .container_div_right {
@@ -21,7 +27,7 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .wrapper {
+  .container {
       height: 100vh;
   }
 }

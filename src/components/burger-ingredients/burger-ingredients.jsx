@@ -5,15 +5,17 @@ import styles from './burger-ingredients.module.css';
 export default function BurgerIngredients() {
   return (
     <>
+    <section className={styles.container}>
       <h1 className={styles.title}>Соберите бургер</h1>
-      <div style={{display: 'flex'}}>       
+      <div className={styles.tab}>       
         <Tab value="bun">Булки</Tab>
         <Tab value="sauce">Соусы</Tab>
         <Tab value="main">Начинки</Tab>
       </div>
-      <div className={styles.container}>
+      <div className={styles.scroller}>
         <IngridientsMenu />
       </div>
+    </section>
     </>
   );
 }
