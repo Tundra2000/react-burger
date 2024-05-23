@@ -1,7 +1,7 @@
 .header {
   box-sizing: border-box;
   margin: auto;
-  background-color: #1C1C21;
+  background-color: #1c1c21;
   height: 88px;
   display: flex;
   align-items: center;
@@ -49,10 +49,10 @@
 }
 
 .text:hover,
-  .text:active {
-    color: #f2f2f3;
-  }
+.text:active {
+  color: #f2f2f3;
+}
 
-  .text_active {
-    color: #f2f2f3;
-  }
+.text_active {
+  color: #f2f2f3;
+}

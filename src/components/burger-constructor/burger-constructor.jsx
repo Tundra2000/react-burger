@@ -20,79 +20,77 @@ export default function BurgerConstructor() {
           <ConstructorElement
             text={bun.name}
             price={bun.price}
+            isLocked={true}
             thumbnail={bun.image_mobile}
           />
         </div>
 
         <div className={styles.scroller}>
+          <div className={styles.box}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={sauce.name}
+              price={sauce.price}
+              thumbnail={sauce.image_mobile}
+            />
+          </div>
 
-        <div className={styles.box}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={sauce.name}
-            price={sauce.price}
-            thumbnail={sauce.image_mobile}
-          />
+          <div className={styles.box}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={main.name}
+              price={main.price}
+              thumbnail={main.image_mobile}
+            />
+          </div>
+
+          <div className={styles.box}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={main.name}
+              price={main.price}
+              thumbnail={main.image_mobile}
+            />
+          </div>
+
+          <div className={styles.box}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={main.name}
+              price={main.price}
+              thumbnail={main.image_mobile}
+            />
+          </div>
+
+          <div className={styles.box}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={main.name}
+              price={main.price}
+              thumbnail={main.image_mobile}
+            />
+          </div>
         </div>
-
-        <div className={styles.box}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={main.name}
-            price={main.price}
-            thumbnail={main.image_mobile}
-          />
-        </div>
-
-        <div className={styles.box}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={main.name}
-            price={main.price}
-            thumbnail={main.image_mobile}
-          />
-        </div>
-
-        <div className={styles.box}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={main.name}
-            price={main.price}
-            thumbnail={main.image_mobile}
-          />
-        </div>
-
-        <div className={styles.box}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text={main.name}
-            price={main.price}
-            thumbnail={main.image_mobile}
-          />
-        </div>
-
-        </div>
-
 
         <div className={styles.box}>
           <ConstructorElement
             text={bun.name}
             price={bun.price}
+            isLocked={true}
             thumbnail={bun.image_mobile}
           />
         </div>
-      
 
-      <div className={styles.order}>
-        <p className={styles.price}>
-          {price + " "}
-          <CurrencyIcon type="primary" />
-          <Button htmlType="button" type="primary" size="medium">
-            Оформить заказ
-          </Button>
-        </p>
+        <div className={styles.order}>
+          <p className={styles.price}>
+            {price + " "}
+            <CurrencyIcon type="primary" />
+            <Button htmlType="button" type="primary" size="medium">
+              Оформить заказ
+            </Button>
+          </p>
+        </div>
       </div>
-    </div>
     </>
   );
 }

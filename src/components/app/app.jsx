@@ -8,14 +8,11 @@ const ingredientsUrl = "https://norma.nomoreparties.space/api/ingredients";
 function App() {
   return (
     <>
-        <AppHeader />
-          <div className={styles.container}>
-            
-              <BurgerIngredients />
-            
-              <BurgerConstructor />
-            
-          </div>
+      <AppHeader />
+      <div className={styles.container}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </div>
     </>
   );
 }
