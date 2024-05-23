@@ -5,13 +5,14 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import data from "../../data/data.json";
 
-export default function BurgerConstructor() {
-  const bun = data.find((item) => item.type === "bun");
-  const sauce = data.find((item) => item.type === "sauce");
-  const main = data.find((item) => item.type === "main");
-  let price = bun.price * 2 + sauce.price + main.price;
+export default function BurgerConstructor(props) {
+
+
+  const bun = props.data.find((item) => item.type === "bun");
+  const sauce = props.data.find((item) => item.type === "sauce");
+  const main = props.data.find((item) => item.type === "main");
+  let price = 1000;//bun.price * 2 + sauce.price + main.price;
 
   return (
     <>

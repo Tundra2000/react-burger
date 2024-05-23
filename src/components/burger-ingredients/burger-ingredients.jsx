@@ -2,7 +2,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngridientsMenu from "./ingredients-menu/ingredients-menu";
 import styles from "./burger-ingredients.module.css";
 
-export default function BurgerIngredients() {
+export default function BurgerIngredients({data}) {
   return (
     <>
       <section className={styles.container}>
@@ -13,7 +13,8 @@ export default function BurgerIngredients() {
           <Tab value="main">Начинки</Tab>
         </div>
         <div className={styles.scroller}>
-          <IngridientsMenu />
+
+          {<IngridientsMenu data={data}/>}
         </div>
       </section>
     </>

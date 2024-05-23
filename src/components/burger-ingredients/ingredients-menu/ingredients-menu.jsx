@@ -1,8 +1,7 @@
 import IngredientCard from "../ingredient-card/ingredient-card";
-import data from "../../../data/data.json";
 import styles from "./ingredients-menu.module.css";
 
-export default function IngredientsMenu() {
+export default function IngredientsMenu({data}) {
   return (
     <>
       <div className={styles.tab}>
