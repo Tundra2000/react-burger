@@ -1,23 +1,22 @@
 import AppHeader from "../app-header/app-header.jsx";
 import styles from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngridients from "../burger-ingridients/burger-ingridients";
-//import data from '../../data/data.json'
+import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
+
+const ingredientsUrl = "https://norma.nomoreparties.space/api/ingredients";
 
 function App() {
   return (
     <>
-      <div className={styles.page}>
         <AppHeader />
           <div className={styles.container}>
             <div className={styles.container_div_left}>
-              <BurgerIngridients />
+              <BurgerIngredients />
             </div>
             <div className={styles.container_div_right}>
               <BurgerConstructor />
             </div>
           </div>
-        </div>
     </>
   );
 }

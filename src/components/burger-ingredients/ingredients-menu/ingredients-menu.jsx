@@ -1,19 +1,18 @@
-import IngridientCard from "../ingridient-card/ingridient-card";
-import data from "../../data/data.json";
+import IngredientCard from "../ingredient-card/ingredient-card";
+import data from "../../../data/data.json";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import menuStyles from "./ingridients-menu.module.css";
+import menuStyles from "./ingredients-menu.module.css";
 
-export default function IngridientsMenu() {
-  //<h1>Меню ингридиентов</h1>
+export default function IngredientsMenu() {
   return (
     <>
       <div className="">
         <div className="">
           <div className="">
-            <h1>Булки</h1>
+            <h2>Булки</h2>
           </div>
           <div className={menuStyles.items}>
             {data
@@ -42,7 +41,7 @@ export default function IngridientsMenu() {
 
         <div>
           <div>
-            <h1>Соусы</h1>
+            <h2>Соусы</h2>
           </div>
           <div className={menuStyles.items}>
             {data
@@ -71,7 +70,7 @@ export default function IngridientsMenu() {
 
         <div>
           <div>
-            <h1>Начинки</h1>
+            <h2>Начинки</h2>
           </div>
           <div className={menuStyles.items}>
             {data

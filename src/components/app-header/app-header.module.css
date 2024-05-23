@@ -1,7 +1,7 @@
 .header {
   box-sizing: border-box;
   margin: auto;
-  background-color: rgb(8, 8, 8);
+  background-color: #1C1C21;
   height: 88px;
   display: flex;
   align-items: center;
@@ -34,9 +34,25 @@
   line-height: 24px;
   text-decoration: none;
   color: #f2f2f3;
+  composes: pt-4 pb-4 pl-5 pb-5 from global;
 }
 
 .logo {
   transform: translateX(-70px);
   align-self: center;
 }
+
+.text {
+  margin-left: 4px;
+  color: #8585ad;
+  composes: text text_type_main-default pl-2 from global;
+}
+
+.text:hover,
+  .text:active {
+    color: #f2f2f3;
+  }
+
+  .text_active {
+    color: #f2f2f3;
+  }

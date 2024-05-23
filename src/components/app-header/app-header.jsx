@@ -13,13 +13,17 @@ export default function AppHeader() {
         <ul className={styles.nav_menu}>
           <li>
             <div className={styles.menu_wrapper}>
-              <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
-                <BurgerIcon type="primary" />
-                <p>Конструктор</p>
+              <a href="/" className={styles.link}>
+                <span className={styles.icon}>
+                  <BurgerIcon type="primary" />
+                </span>
+                <p className={`${styles.text} text text_type_main-default pl-2`}>Конструктор</p>
               </a>
-              <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
-                <ListIcon />
-                <p>Лента заказов</p>
+              <a href="/" className={styles.link}>
+                <span className={styles.icon}>
+                  <ListIcon />
+                </span>
+                <p className={`${styles.text} text text_type_main-default pl-2`}>Лента заказов</p>
               </a>
             </div>
           </li>
@@ -27,9 +31,11 @@ export default function AppHeader() {
             <Logo />
           </li>
           <li>
-            <a href="/" className={`${styles.link} pt-4 pb-4 pl-5 pb-5`}>
-              <ProfileIcon />
-              <p>Личный кабинет</p>
+            <a href="/" className={styles.link}>
+              <span className={styles.icon}>
+                <ProfileIcon />
+              </span>
+              <p className={`${styles.text} text text_type_main-default pl-2`}>Личный кабинет</p>
             </a>
           </li>
         </ul>

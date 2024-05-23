@@ -1,0 +1,14 @@
+
+.container {
+    display: flex;
+    box-sizing: border-box;
+    flex:100%;
+    height: 600px;
+    overflow-y: scroll;
+    composes: mr-5 from global;
+  }
+
+  .title {
+    composes: text_type_main-large mt-10 mb-5 from global;
+    align-self: flex-start;
+  }
