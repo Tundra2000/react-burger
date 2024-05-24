@@ -1,0 +1,17 @@
+.number {
+    composes: text text_type_digits-large pb-16 from global;
+}
+
+.image {
+    composes: pt-14 pb-14 from global;
+}
+
+.text_1 {
+    composes: text text_type_main-medium from global;
+}
+.text_2 {
+    composes: text text_type_main-default pb-2 from global;
+}
+.text_3 {
+    composes: text text_type_main-default text_color_inactive from global;
+}

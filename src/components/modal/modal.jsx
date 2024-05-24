@@ -29,11 +29,9 @@ export default function Modal({ header, onClose, children }) {
         <span className={styles.close} onClick={onClose}>
           <CloseIcon />
         </span>
-        <p>modal</p>
         {children}
       </div> 
       <ModalOverlay onClick={onClose}>
-        <h1>ModalOverlay</h1>
       </ModalOverlay>       
     </>,
     modalRoot

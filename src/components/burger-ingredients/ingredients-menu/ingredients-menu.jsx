@@ -10,7 +10,7 @@ export default function IngredientsMenu({data}) {
           {data
             .filter((item) => item.type === "bun")
             .map((bun) => (
-              <IngredientCard item={bun} key={bun._id} count={0} />
+              <IngredientCard item={bun} key={bun._id} count={1} />
             ))}
         </div>
       </div>

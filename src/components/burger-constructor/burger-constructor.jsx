@@ -7,6 +7,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import Modal from '../modal/modal';
 import React from 'react';
+import OrderDetails from "./order-details/order-details";
 
 export default function BurgerConstructor(props) {
   const [visible, setVisible] = React.useState(false);
@@ -105,9 +106,9 @@ export default function BurgerConstructor(props) {
       {
         visible && 
           (
-            <Modal header="Внимание!" onClose={closeModal}> 
+            <Modal header="" onClose={closeModal}> 
               
-              <h1>Спасибо за внимание!</h1>
+              <OrderDetails />
               
             </Modal> 
           ) 

@@ -5,6 +5,7 @@ import {
 import styles from "./ingredient-card.module.css";
 import Modal from '../../modal/modal';
 import React from 'react';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 export default function IngridientCard({ item, count }) {
 const [visible, setVisible] = React.useState(false);
@@ -36,9 +37,9 @@ const closeModal = () => {
       {
         visible && 
           (
-            <Modal header="Внимание!" onClose={closeModal}> 
+            <Modal header="" onClose={closeModal}> 
               
-              <h1>Спасибо за внимание!</h1>
+              <IngredientDetails props={modalData}/>
               
             </Modal> 
           ) 
