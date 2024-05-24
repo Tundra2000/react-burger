@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import styles from './modal-overlay.module.css';
 
 export default function ModalOverlay({onClick, children}) {
@@ -7,7 +7,7 @@ export default function ModalOverlay({onClick, children}) {
     React.useEffect(() => {
       const handleOverlayClick = (e) => {
         if (e.target === overlay.current) {
-          onClick(e);
+          onClick();
         }
       };
       document.addEventListener("click", handleOverlayClick);

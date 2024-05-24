@@ -10,7 +10,7 @@ export default function Modal({ header, onClose, children }) {
   React.useEffect(() => {
     const escClick = (e) => {
       if (e.keyCode === 27) {
-        onClose(e);
+        onClose();
       }
     };
     window.addEventListener("keydown", escClick);
@@ -23,8 +23,7 @@ export default function Modal({ header, onClose, children }) {
   // Возвращаем ReactDOM.createPortal,
   // который поместит дочерние элементы в modalRoot
   return ReactDOM.createPortal(
-    <>
-      
+    <>      
       <div className={styles.modal}>
         <h2 className={styles.heading}>{header}</h2>
         <span className={styles.close} onClick={onClose}>
@@ -35,8 +34,7 @@ export default function Modal({ header, onClose, children }) {
       </div> 
       <ModalOverlay onClick={onClose}>
         <h1>ModalOverlay</h1>
-      </ModalOverlay>
-             
+      </ModalOverlay>       
     </>,
     modalRoot
   );

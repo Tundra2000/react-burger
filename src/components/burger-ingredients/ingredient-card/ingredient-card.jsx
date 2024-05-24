@@ -7,30 +7,17 @@ import Modal from '../../modal/modal';
 import React from 'react';
 
 export default function IngridientCard({ item, count }) {
-
 const [visible, setVisible] = React.useState(false);
 const [modalData, setModalData] = React.useState({});
-  /*
-  const openIngModal = (data) => {
-    setIsIngModalOpen(true)
-    setIngredientToShow(data)
-}*/
+
 const  openIngridientModal = (data) => {
   setVisible(true);
   setModalData(data);
 }
 
-const closeIngridientModal = (e) => {
+const closeIngridientModal = () => {
   setVisible(false);
 }
-
-/*      {this.state.visible && 
-      <Modal header="Внимание!" onClose={this.handleCloseModal}> 
-                <p>Спасибо за внимание!<p>
-                <p>Открывай меня, если станет скучно :)</p>
-            </Modal>
-            }*/
-
   return (
     <div>
       <div className={styles.item} key={item._id} onClick={() => openIngridientModal(item)}>
