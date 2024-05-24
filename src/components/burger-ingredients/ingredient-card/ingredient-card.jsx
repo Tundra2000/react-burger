@@ -10,17 +10,17 @@ export default function IngridientCard({ item, count }) {
 const [visible, setVisible] = React.useState(false);
 const [modalData, setModalData] = React.useState({});
 
-const  openIngridientModal = (data) => {
+const  openModal = (data) => {
   setVisible(true);
   setModalData(data);
 }
 
-const closeIngridientModal = () => {
+const closeModal = () => {
   setVisible(false);
 }
   return (
     <div>
-      <div className={styles.item} key={item._id} onClick={() => openIngridientModal(item)}>
+      <div className={styles.item} key={item._id} onClick={() => openModal(item)}>
       
         {count > 0 && <Counter count={count} />}
         <picture className={styles.picture}>
@@ -36,7 +36,7 @@ const closeIngridientModal = () => {
       {
         visible && 
           (
-            <Modal header="Внимание!" onClose={closeIngridientModal}> 
+            <Modal header="Внимание!" onClose={closeModal}> 
               
               <h1>Спасибо за внимание!</h1>
               
