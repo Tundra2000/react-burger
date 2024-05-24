@@ -18,6 +18,7 @@
 }
 
 .text_block {
+    margin-left: 4px;
     flex: "25%";
 }
 

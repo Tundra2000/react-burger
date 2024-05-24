@@ -1,7 +1,8 @@
 import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./ingredients-menu.module.css";
+import PropTypes from "prop-types";
 
-export default function IngredientsMenu({data}) {
+export default function IngredientsMenu({ data }) {
   return (
     <>
       <div className={styles.tab}>
@@ -39,3 +40,17 @@ export default function IngredientsMenu({data}) {
     </>
   );
 }
+
+IngredientsMenu.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string.isRequired,
+      image_large: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};

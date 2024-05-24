@@ -1,8 +1,9 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngridientsMenu from "./ingredients-menu/ingredients-menu";
 import styles from "./burger-ingredients.module.css";
+import PropTypes from "prop-types";
 
-export default function BurgerIngredients({data}) {
+export default function BurgerIngredients({ data }) {
   return (
     <>
       <section className={styles.container}>
@@ -12,11 +13,22 @@ export default function BurgerIngredients({data}) {
           <Tab value="sauce">Соусы</Tab>
           <Tab value="main">Начинки</Tab>
         </div>
-        <div className={styles.scroller}>
-
-          {<IngridientsMenu data={data}/>}
-        </div>
+        <div className={styles.scroller}>{<IngridientsMenu data={data} />}</div>
       </section>
     </>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string.isRequired,
+      image_large: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+};

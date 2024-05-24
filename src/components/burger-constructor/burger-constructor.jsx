@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CurrencyIcon,
   Button,
@@ -5,9 +6,9 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import Modal from '../modal/modal';
-import React from 'react';
+import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
+import PropTypes from "prop-types";
 
 export default function BurgerConstructor(props) {
   const [visible, setVisible] = React.useState(false);
@@ -15,15 +16,15 @@ export default function BurgerConstructor(props) {
   const bun = props.data.find((item) => item.type === "bun");
   const sauce = props.data.find((item) => item.type === "sauce");
   const main = props.data.find((item) => item.type === "main");
-  let price = 1000;//bun.price * 2 + sauce.price + main.price;
+  let price = 1000;
 
-  const  openModal = (data) => {
+  const openModal = () => {
     setVisible(true);
-  }
-  
+  };
+
   const closeModal = () => {
     setVisible(false);
-  }
+  };
 
   return (
     <>
@@ -97,22 +98,33 @@ export default function BurgerConstructor(props) {
           <p className={styles.price}>
             {price + " "}
             <CurrencyIcon type="primary" />
-            <Button htmlType="button" type="primary" size="medium" onClick={openModal}>
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={openModal}
+            >
               Оформить заказ
             </Button>
           </p>
         </div>
       </div>
-      {
-        visible && 
-          (
-            <Modal header="" onClose={closeModal}> 
-              
-              <OrderDetails />
-              
-            </Modal> 
-          ) 
-      }
+      {visible && (
+        <Modal header="" onClose={closeModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 }
+
+BurgerConstructor.propTypes = {
+  props: PropTypes.arrayOf(
+    PropTypes.shape({
+      price: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      image_mobile: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+};

@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from '../modal-overlay/modal-overlay';
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
@@ -20,8 +21,7 @@ export default function Modal({ header, onClose, children }) {
     };
   }, [onClose]);
 
-  // Возвращаем ReactDOM.createPortal,
-  // который поместит дочерние элементы в modalRoot
+
   return ReactDOM.createPortal(
     <>      
       <div className={styles.modal}>
@@ -36,4 +36,11 @@ export default function Modal({ header, onClose, children }) {
     </>,
     modalRoot
   );
+}
+
+
+Modal.propTypes = {
+  header: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired
 }
