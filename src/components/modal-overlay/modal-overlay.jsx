@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Children } from 'react';
 import styles from './modal-overlay.module.css';
 
-export default function ModalOverlay({ isOpen, onClick }) {
+export default function ModalOverlay({onClick, children}) {
     const overlay = React.useRef(null)
+    
     React.useEffect(() => {
       const handleOverlayClick = (e) => {
         if (e.target === overlay.current) {
@@ -17,6 +18,8 @@ export default function ModalOverlay({ isOpen, onClick }) {
     }, [onClick]);
     
     return (
-      <div className={styles.overlay_opened} ref={overlay}></div>
+      <div className={styles.overlay} ref={overlay}>
+        {children}
+      </div>
     );
   }
