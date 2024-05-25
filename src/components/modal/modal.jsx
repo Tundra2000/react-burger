@@ -10,7 +10,7 @@ const modalRoot = document.getElementById("react-modals");
 export default function Modal({ header, onClose, children }) {
   React.useEffect(() => {
     const escClick = (e) => {
-      if (e.keyCode === 27) {
+      if (e.key === "Escape") {
         onClose();
       }
     };
@@ -41,6 +41,6 @@ export default function Modal({ header, onClose, children }) {
 
 Modal.propTypes = {
   header: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired
+  onClose: PropTypes.func,
+  children: PropTypes.object
 }

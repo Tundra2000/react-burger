@@ -6,7 +6,7 @@ import styles from "./ingredient-card.module.css";
 import Modal from "../../modal/modal";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../../utils/utils";
 
 export default function IngridientCard({ item, count }) {
   const [visible, setVisible] = React.useState(false);
@@ -47,13 +47,5 @@ export default function IngridientCard({ item, count }) {
 }
 
 IngridientCard.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired
-  }).isRequired
+  item: IngredientPropTypes
 };

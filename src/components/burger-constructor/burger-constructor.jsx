@@ -9,13 +9,14 @@ import styles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
 import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../utils/utils";
 
-export default function BurgerConstructor(props) {
+export default function BurgerConstructor({data}) {
   const [visible, setVisible] = React.useState(false);
 
-  const bun = props.data.find((item) => item.type === "bun");
-  const sauce = props.data.find((item) => item.type === "sauce");
-  const main = props.data.find((item) => item.type === "main");
+  const bun = data.find((item) => item.type === "bun");
+  const sauce = data.find((item) => item.type === "sauce");
+  const main = data.find((item) => item.type === "main");
   let price = 1000;
 
   const openModal = () => {
@@ -119,12 +120,5 @@ export default function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  props: PropTypes.arrayOf(
-    PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired
 };

@@ -1,5 +1,4 @@
 import OrderDone from "../../../images/done.PNG";
-import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-details.module.css";
 
 export default function OrderDetails() {

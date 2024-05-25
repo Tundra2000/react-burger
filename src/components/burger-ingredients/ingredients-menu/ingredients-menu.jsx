@@ -1,15 +1,30 @@
 import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./ingredients-menu.module.css";
 import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../../utils/utils";
+import { useMemo } from "react";
 
-export default function IngredientsMenu({ data }) {
+export function IngredientsMenu({ data }) {
+  
+  const bunIngredients = useMemo(() => {
+    return data.filter((item) => item.type === "bun");
+  }, [data]);
+
+  const sauceIngredients = useMemo(() => {
+    return data.filter((item) => item.type === "sauce");
+  }, [data]);
+
+  const mainIngredients = useMemo(() => {
+    return data.filter((item) => item.type === "main");
+  }, [data]);
+
+
   return (
     <>
       <div className={styles.tab}>
         <h2 className={styles.title}>Булки</h2>
         <div className={styles.items}>
-          {data
-            .filter((item) => item.type === "bun")
+          {bunIngredients
             .map((bun) => (
               <IngredientCard item={bun} key={bun._id} count={1} />
             ))}
@@ -19,8 +34,7 @@ export default function IngredientsMenu({ data }) {
       <div className={styles.tab}>
         <h2 className={styles.title}>Соусы</h2>
         <div className={styles.items}>
-          {data
-            .filter((item) => item.type === "sauce")
+          {sauceIngredients
             .map((sauce) => (
               <IngredientCard item={sauce} key={sauce._id} count={0} />
             ))}
@@ -30,8 +44,7 @@ export default function IngredientsMenu({ data }) {
       <div className={styles.tab}>
         <h2 className={styles.title}>Начинки</h2>
         <div className={styles.items}>
-          {data
-            .filter((item) => item.type === "main")
+          {mainIngredients
             .map((main) => (
               <IngredientCard item={main} key={main._id} count={0} />
             ))}
@@ -42,15 +55,5 @@ export default function IngredientsMenu({ data }) {
 }
 
 IngredientsMenu.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string.isRequired,
-      image_large: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired
 };

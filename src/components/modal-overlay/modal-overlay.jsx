@@ -26,6 +26,6 @@ export default function ModalOverlay({onClick, children}) {
   }
 
   ModalOverlay.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.object.isRequired
+    onClick: PropTypes.func.isRequired,
+    children: PropTypes.object
   }

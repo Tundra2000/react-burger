@@ -3,10 +3,10 @@ import styles from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
 import React from "react";
-const dataUrl = "https://norma.nomoreparties.space/api/ingredients";
+import api from "../utils/api.jsx";
 
 function App() {
-  const [state, setState] = React.useState({
+  const [ingredients, setIngredients] = React.useState({
     isLoading: false,
     hasError: false,
     data: [],
@@ -14,17 +14,19 @@ function App() {
 
   const getData = async () => {
     try {
-      setState({ ...state, hasError: false, isLoading: true });
-      await fetch(dataUrl)
-        .then((res) => res.json())
-        .then((data) => setState({ ...state, data: data.data, isLoading: false }))
+      setIngredients({ ...ingredients, hasError: false, isLoading: true });
+      api
+        .getIngredients()
+        .then((data) =>
+          setIngredients({ ...ingredients, data: data.data, isLoading: false })
+        )
         .catch((e) => {
           console.log(e);
-          setState({ ...state, hasError: true, isLoading: false });
+          setIngredients({ ...ingredients, hasError: true, isLoading: false });
         });
     } catch (err) {
       console.log(err);
-      console.log(state.data);
+      console.log(ingredients.data);
       console.log("Произошла ошибка : ", err.message);
     }
   };
@@ -33,7 +35,7 @@ function App() {
     getData();
   }, []);
 
-  const { data, isLoading, hasError } = state;
+  const { data, isLoading, hasError } = ingredients;
 
   return (
     <>
