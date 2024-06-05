@@ -2,10 +2,18 @@ import AppHeader from "../app-header/app-header.jsx";
 import styles from "./app.module.css";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
-import React from "react";
-import api from "../utils/api.jsx";
+import { useEffect } from "react";
+//import api from "../utils/api.jsx";
+import { useDispatch } from "react-redux";
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+import { getIngredientsData } from "../../services/actions/ingredients";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(getIngredientsData()), [dispatch]);
+
+  /*
   const [ingredients, setIngredients] = React.useState({
     isLoading: false,
     hasError: false,
@@ -36,18 +44,19 @@ function App() {
   }, []);
 
   const { data, isLoading, hasError } = ingredients;
+*/
+
 
   return (
     <>
       <AppHeader />
-      {isLoading && <p>"Загрузка..."</p>}
-      {hasError && <p>"Произошла ошибка"</p>}
-      {!isLoading && !hasError && data.length && (
         <div className={styles.container}>
-          <BurgerIngredients data={data} />
-          <BurgerConstructor data={data} />
+        <DndProvider backend = {HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider> 
         </div>
-      )}
+
     </>
   );
 }

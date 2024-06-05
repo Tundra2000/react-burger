@@ -3,26 +3,43 @@ import styles from "./ingredients-menu.module.css";
 import PropTypes from "prop-types";
 import { IngredientPropTypes } from "../../utils/utils";
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-export function IngredientsMenu({ data }) {
-  
+export function IngredientsMenu({setCurrent}) {
+  const { ingredients } = useSelector(store => store.ingredients);
+
+  const [bunRef, inViewBun] = useInView({ threshold: 0 });
+  const [sauceRef, inViewSauce] = useInView({ threshold: 0 });
+  const [mainRef, inViewMain] = useInView({ threshold: 0 });
+
   const bunIngredients = useMemo(() => {
-    return data.filter((item) => item.type === "bun");
-  }, [data]);
+    return ingredients.filter((item) => item.type === "bun");
+  }, [ingredients]);
 
   const sauceIngredients = useMemo(() => {
-    return data.filter((item) => item.type === "sauce");
-  }, [data]);
+    return ingredients.filter((item) => item.type === "sauce");
+  }, [ingredients]);
 
   const mainIngredients = useMemo(() => {
-    return data.filter((item) => item.type === "main");
-  }, [data]);
+    return ingredients.filter((item) => item.type === "main");
+  }, [ingredients]);
 
+  useEffect(() => {
+    if (inViewBun) {
+        setCurrent('bun')
+    } else if (inViewSauce) {
+        setCurrent('sauce')
+    } else if (inViewMain) {
+        setCurrent('main')
+    } 
+}, [setCurrent, inViewBun, inViewSauce, inViewMain])
 
   return (
     <>
       <div className={styles.tab}>
-        <h2 className={styles.title}>Булки</h2>
+        <h2 className={styles.title}  refs={bunRef}>Булки</h2>
         <div className={styles.items}>
           {bunIngredients
             .map((bun) => (
@@ -32,7 +49,7 @@ export function IngredientsMenu({ data }) {
       </div>
 
       <div className={styles.tab}>
-        <h2 className={styles.title}>Соусы</h2>
+        <h2 className={styles.title} refs={sauceRef}>Соусы</h2>
         <div className={styles.items}>
           {sauceIngredients
             .map((sauce) => (
@@ -42,7 +59,7 @@ export function IngredientsMenu({ data }) {
       </div>
 
       <div className={styles.tab}>
-        <h2 className={styles.title}>Начинки</h2>
+        <h2 className={styles.title} refs={mainRef}>Начинки</h2>
         <div className={styles.items}>
           {mainIngredients
             .map((main) => (
@@ -55,5 +72,5 @@ export function IngredientsMenu({ data }) {
 }
 
 IngredientsMenu.propTypes = {
-  data: PropTypes.arrayOf(IngredientPropTypes).isRequired
+ // data: PropTypes.arrayOf(IngredientPropTypes).isRequired
 };
