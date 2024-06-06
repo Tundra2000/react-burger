@@ -1,8 +1,8 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsMenu } from "./ingredients-menu/ingredients-menu";
 import styles from "./burger-ingredients.module.css";
-import PropTypes from "prop-types";
-import { IngredientPropTypes } from "../utils/utils";
+//import PropTypes from "prop-types";
+//import { IngredientPropTypes } from "../utils/utils";
 import { useState } from "react";
 
 export default function BurgerIngredients() {

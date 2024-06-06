@@ -1,6 +1,6 @@
 import {
     INGREDIENTS_SUCCESS,
-    INGREDIENTS_ERROR,
+    INGREDIENTS_FAILED,
     INGREDIENTS_REQUEST
   } from '../actions/ingredients';
   
@@ -8,7 +8,7 @@ import {
   const ingredientsInitialState = { 
     ingredients: [],
     ingredientsRequest: false,
-    ingredientsError: false,
+    ingredientsFailed: false,
 };
   
   export const ingredientsReducer = (state = ingredientsInitialState, action) => {
@@ -17,21 +17,19 @@ import {
         return {
           ...state,
           ingredientsRequest: true,
-          ingredientsError: false,
         };
       case INGREDIENTS_SUCCESS:
         return {
           ...state,
-          ingredients: action.data,
+          ingredients: action.ingredients,
           ingredientsRequest: false,
-          ingredientsError: false,
+          ingredientsFailed: false,
         };
-      case INGREDIENTS_ERROR:
+      case INGREDIENTS_FAILED:
         return {
           ...state,
           ingredientsRequest: false,
-          ingredientsError: true,
-          ingredients: [],
+          ingredientsFailed: true
         };
       default:
         return state;

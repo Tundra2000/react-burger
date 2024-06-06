@@ -8,10 +8,12 @@ import {
 import styles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import PropTypes from "prop-types";
-import { IngredientPropTypes } from "../utils/utils";
+//import PropTypes from "prop-types";
+//import { IngredientPropTypes } from "../utils/utils";
+import { useSelector } from "react-redux";
 
-export default function BurgerConstructor({data}) {
+export default function BurgerConstructor() {
+  const { data } = useSelector(store => store.ingredients);
   const [visible, setVisible] = React.useState(false);
 
   const bun = data.find((item) => item.type === "bun");
@@ -119,6 +121,7 @@ export default function BurgerConstructor({data}) {
   );
 }
 
-BurgerConstructor.propTypes = {
+/*BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(IngredientPropTypes).isRequired
 };
+*/

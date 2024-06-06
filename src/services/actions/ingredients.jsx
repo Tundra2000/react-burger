@@ -1,24 +1,27 @@
 import api from "../../components/utils/api.jsx";
 
 export const INGREDIENTS_REQUEST = "INGREDIENTS_REQUEST";
-export const INGREDIENTS_SUCCESS = "BURGER_INGREDIENTS_SUCCESS";
-export const INGREDIENTS_ERROR = "BURGER_INGREDIENTS_ERROR";
+export const INGREDIENTS_SUCCESS = "INGREDIENTS_SUCCESS";
+export const INGREDIENTS_FAILED = "INGREDIENTS_FAILED";
 
 
 
-
-export function getIngredientsData() {
-    return function (dispatch) {
+/*
+export const getIngredientsData = () => (dispatch) => {
+    
         dispatch({
             type: INGREDIENTS_REQUEST
         });
         api
         .getIngredients()
-        .then((data) =>
+        .then((response) =>
+            {
+            console.log(response);
             dispatch({
                 type: INGREDIENTS_SUCCESS,
-                data: data.data
+                data: response.data
             })
+        }
         )
         .catch((err) => {
           console.log(err);
@@ -26,7 +29,27 @@ export function getIngredientsData() {
             type: INGREDIENTS_ERROR,
         });
         });
-
-
-    }
+    
 }
+*/
+
+
+export function getIngredients() {
+    return function(dispatch) {
+      dispatch({
+        type: INGREDIENTS_REQUEST
+      });
+      api.getIngredients().then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: INGREDIENTS_SUCCESS,
+            ingredients: res.data
+          });
+        } else {
+          dispatch({
+            type: INGREDIENTS_FAILED
+          });
+        }
+      });
+    };
+  }
