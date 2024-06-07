@@ -12,7 +12,11 @@ import IngredientsList from "./ingredient-list/ingredient-list";
 import { useDrop } from "react-dnd";
 import { ADD_TO_CONSTRUCTOR } from "../../services/actions/constructor";
 import { v4 as add_uuid } from "uuid";
-import { postOrder, ORDER_MODAL_CLOSE } from "../../services/actions/order";
+import {
+  postOrder,
+  ORDER_MODAL_CLOSE,
+  ORDER_MODAL_OPEN,
+} from "../../services/actions/order";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -69,6 +73,9 @@ export default function BurgerConstructor() {
   function openModal() {
     if (idsArray) {
       dispatch(postOrder({ ingredients: idsArray }));
+      dispatch({
+        type: ORDER_MODAL_OPEN,
+      });
     }
   }
   const closeModal = () => {

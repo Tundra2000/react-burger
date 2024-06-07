@@ -24,9 +24,6 @@ export function postOrder(data) {
           data: data.order.number,
         });
         dispatch({
-          type: ORDER_MODAL_OPEN,
-        });
-        dispatch({
           type: CLEAR_CONSTRUCTOR,
         });
       })
