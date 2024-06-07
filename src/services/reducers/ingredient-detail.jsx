@@ -1,37 +1,25 @@
 import {
-    INGREDIENTDETAILS_QUERY,
-    INGREDIENTDETAILS_CLOSE,
-    INGREDIENTDETAILS_ERROR
-  } from '../actions/ingredient-detail';
-  
+  SET_DETAIL_INGREDIENT,
+  CLEAR_DETAIL_INGREDIENT,
+} from "../actions/ingredient-detail";
 
-  
-  //объект созданного заказа.
-  const ingredientDetailsInitialState = { item: null, requestError: false }
- export const ingredientDetailReducer = (state = ingredientDetailsInitialState, action) => {
-//    console.log('ingredientDetailReducer');
-//    console.log(action);
-    switch (action.type) {
-      
-      case INGREDIENTDETAILS_QUERY: {
-        return {
-          item: action.item,
-          requestError: false,
-        };
-      }
-      case INGREDIENTDETAILS_CLOSE: {
-        return {
-            item: null,
-            requestError: false
-        }
-      }
-      case  INGREDIENTDETAILS_ERROR: {
-        return {
-            item: null,
-            requestError: true
-        }
-      }
-      default:
-        return state 
-    }
-  };
+const initialState = {
+  ingredient: {},
+};
+
+export const ingredientDetail = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_DETAIL_INGREDIENT:
+      return {
+        ...state,
+        ingredient: action.ingredient,
+      };
+    case CLEAR_DETAIL_INGREDIENT:
+      return {
+        ...state,
+        ingredient: {},
+      };
+    default:
+      return state;
+  }
+};

@@ -1,57 +1,36 @@
 import styles from "./ingredient-details.module.css";
-import { IngredientPropTypes } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
-export default function IngredientDetails(props) {
+export default function IngredientDetails() {
+  const { ingredient } = useSelector((store) => store.ingredientDetail);
   return (
     <div>
       <p>
         <img
-          src={props.props.image}
+          src={ingredient.image}
           className={styles.image}
-          alt={props.props.name}
+          alt={ingredient.name}
         />
       </p>
-      <p className={styles.name}>
-        {props.props.name}
-      </p>
+      <p className={styles.name}>{ingredient.name}</p>
       <div className={styles.description}>
         <div className={styles.text_block}>
-          <p className={styles.text}>
-            Калории,ккал 
-          </p>
-          <p className={styles.text}>
-            {props.props.calories}
-          </p>
+          <p className={styles.text}>Калории,ккал</p>
+          <p className={styles.text}>{ingredient.calories}</p>
         </div>
         <div className={styles.text_block}>
-          <p className={styles.text}>
-            Белки,г 
-          </p>
-          <p className={styles.text}>
-            {props.props.proteins}
-          </p>
+          <p className={styles.text}>Белки,г</p>
+          <p className={styles.text}>{ingredient.proteins}</p>
         </div>
         <div className={styles.text_block}>
-          <p className={styles.text}>
-            Жиры,г 
-          </p>
-          <p className={styles.text}>
-            {props.props.fat}
-          </p>
+          <p className={styles.text}>Жиры,г</p>
+          <p className={styles.text}>{ingredient.fat}</p>
         </div>
         <div className={styles.text_block}>
-          <p className={styles.text}>
-            Углеводы,г 
-          </p>
-          <p className={styles.text}>
-            {props.props.carbohydrates}
-          </p>
+          <p className={styles.text}>Углеводы,г</p>
+          <p className={styles.text}>{ingredient.carbohydrates}</p>
         </div>
       </div>
     </div>
   );
-}
-
-IngredientDetails.propTypes = {
-    props: IngredientPropTypes
 }

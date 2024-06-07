@@ -1,69 +1,61 @@
-import { 
-    BURGER_CONSTRUCTOR_ADD_INGREDIENT,
-    BURGER_CONSTRUCTOR_CHANGE_BUN,
-    BURGER_CONSTRUCTOR_DELETE,
-    BURGER_CONSTRUCTOR_SORT,
-    BURGER_CONSTRUCTOR_MOVE,
-    BURGER_CONSTRUCTOR_CLEAR,
-  } from '../actions/constructor';
+import {
+  ADD_TO_CONSTRUCTOR,
+  DEL_FROM_CONSTRUCTOR,
+  MOVE_IN_CONSTRUCTOR,
+} from "../actions/constructor";
 
-  // список всех ингредиентов в текущем конструкторе бургера,
-  const burgerConstructorInitialState = { items: [], bun:  null }
+// список всех ингредиентов в текущем конструкторе бургера,
+const burgerConstructorInitialState = {
+  filling: [],
+  bun: null,
+  counts: {},
+};
 
-  
- export  const burgerConstructorReducer = (state = burgerConstructorInitialState, action) => {
-    switch (action.type) {
-      case BURGER_CONSTRUCTOR_ADD_INGREDIENT: {
+export const constructorReducer = (
+  state = burgerConstructorInitialState,
+  action
+) => {
+  switch (action.type) {
+    case ADD_TO_CONSTRUCTOR: {
+      if (action.item.type === "bun") {
         return {
           ...state,
-          items: 
-                [...state.items , action.item  ],
-       
+          bun: action.item,
+        };
+      } else {
+        return {
+          ...state,
+          filling: [...state.filling, action.item],
+          counts: {
+            ...state.counts,
+            [action.item._id]: (state.counts[action.item._id] || 0) + 1,
+          },
+        };
       }
     }
-      case BURGER_CONSTRUCTOR_CHANGE_BUN: {
-        return {
-          ...state,
-          bun: action.bun,
-        };
-      }
-      case BURGER_CONSTRUCTOR_DELETE: {
-        return {
-          ...state,
-          items:  [...state.items].filter(
-            item => item.sortedId !== action.sortedId) 
-        }
-      }
-   
-      case BURGER_CONSTRUCTOR_SORT: {
-        let tempArray = [...state.items].sort((a,b) => a.sortedId > b.sortedId)
-        
-        return {
-          ...state,
-          items: tempArray,
-        };
-      }
-      case BURGER_CONSTRUCTOR_CLEAR: {
-        //console.log('BURGER_CONSTRUCTOR_CLEAR');
-        return {
-          items: [], 
-          bun:  null,
-        };
-      }    
-      case BURGER_CONSTRUCTOR_MOVE: {
-       // console.log(BURGER_CONSTRUCTOR_MOVE);
-        let tempArray = [...state.items];
-        [ tempArray[action.dragIndex], 
-        tempArray[action.hoverIndex] ] = 
-            [ tempArray[action.hoverIndex], 
-            tempArray[action.dragIndex] ];
-        //tempArray[action.dragIndex].sortedId=  tempArray[action.hoverIndex].sortedId;
-        return {
-          ...state,
-          items: tempArray,
-        };
-      }
-      default:
-              return state;
+    case DEL_FROM_CONSTRUCTOR: {
+      return {
+        ...state,
+        filling: [...state.filling].filter(
+          (item, index) => index !== action.index
+        ),
+        counts: {
+          ...state.counts,
+          [action.id]: state.counts[action.id] - 1,
+        },
+      };
+    }
+    case MOVE_IN_CONSTRUCTOR: {
+      const newArray = [...state.filling];
+      const hoverItem = newArray.splice(action.payload.from, 1)[0];
+      newArray.splice(action.payload.to, 0, hoverItem);
+      return {
+        ...state,
+        filling: newArray,
+      };
+    }
+    default: {
+      return state;
     }
   }
+};
