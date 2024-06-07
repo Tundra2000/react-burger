@@ -1,29 +1,25 @@
-import { dataPath, orderPath } from "./constants";
-
-class Api {
-  constructor(dataUrl, orderUrl) {
-    this._dataUrl = dataUrl;
-    this._orderUrl = orderUrl;
+// создаем функцию проверки ответа на `ok`
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
   }
+  // прокидываем ошибку, чтобы она попала в `catch`
+  return Promise.reject(`Ошибка ${res.status}`);
+};
 
-  checkResponse(response) {
-    return response.ok ? response.json() : Promise.reject("Error!!!");
+// создаем функцию проверки на `success`
+const checkSuccess = (res) => {
+  if (res && res.success) {
+    return res;
   }
+  // нпрокидываем ошибку наверх, чтобы она попала в `catch`
+  return Promise.reject(`Ответ не success: ${res}`);
+};
 
-  getIngredients() {
-    return fetch(this._dataUrl).then(this.checkResponse);
-  }
-
-  postOrder(data) {
-    return fetch(this._orderUrl, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-    }).then(this.checkResponse);
-  }
-}
-
-const api = new Api(dataPath, orderPath);
-export default api;
+// создаем универсальную фукнцию запроса с проверкой ответа и `success`
+// url для запроса храним в urls.jsx, options - параметры запроса (PUT, POST, ... )
+export const request = (url, options) => { 
+  return fetch(url, options)
+    .then(checkResponse)
+    .then(checkSuccess);
+};

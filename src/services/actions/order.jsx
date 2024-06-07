@@ -1,4 +1,5 @@
-import api from "../../components/utils/api.jsx";
+import { ordersUrl } from "../../components/utils/urls.jsx";
+import { request } from "../../components/utils/api.jsx";
 import { CLEAR_CONSTRUCTOR } from "./constructor.jsx";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
@@ -12,8 +13,11 @@ export function postOrder(data) {
     dispatch({
       type: POST_ORDER_REQUEST,
     });
-    api
-      .postOrder(data)
+    request(ordersUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(data),
+    })
       .then((data) => {
         dispatch({
           type: POST_ORDER_SUCCESS,
@@ -23,15 +27,14 @@ export function postOrder(data) {
           type: ORDER_MODAL_OPEN,
         });
         dispatch({
-            type: CLEAR_CONSTRUCTOR,
-          });
+          type: CLEAR_CONSTRUCTOR,
+        });
       })
       .catch((err) => {
         console.log(err);
         dispatch({
-          type: POST_ORDER_FAILED
+          type: POST_ORDER_FAILED,
         });
-
       });
   };
 }

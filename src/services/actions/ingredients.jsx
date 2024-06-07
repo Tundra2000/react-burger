@@ -1,4 +1,5 @@
-import api from "../../components/utils/api.jsx";
+import { ingredientsUrl } from "../../components/utils/urls.jsx";
+import { request } from "../../components/utils/api.jsx";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -9,7 +10,7 @@ export function getIngredients() {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
-    api.getIngredients().then((res) => {
+    request(ingredientsUrl).then((res) => {
       if (res && res.success) {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
