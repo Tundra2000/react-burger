@@ -2,6 +2,7 @@ import {
   ADD_TO_CONSTRUCTOR,
   DEL_FROM_CONSTRUCTOR,
   MOVE_IN_CONSTRUCTOR,
+  CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
 
 // список всех ингредиентов в текущем конструкторе бургера,
@@ -54,6 +55,13 @@ export const constructorReducer = (
         filling: newArray,
       };
     }
+    case CLEAR_CONSTRUCTOR:
+      return {
+        ...state,
+        filling: [],
+        bun: null,
+        counts: {},
+      };
     default: {
       return state;
     }

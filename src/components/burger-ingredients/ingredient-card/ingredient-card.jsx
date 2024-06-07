@@ -76,5 +76,5 @@ export default function IngridientCard({ item }) {
 }
 
 IngridientCard.propTypes = {
-  item: IngredientPropTypes,
+  item: IngredientPropTypes.isRequired,
 };

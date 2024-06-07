@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
 
-export default function ModalOverlay({ onClick, children }) {
+export default function ModalOverlay({ onClick}) {
   const overlay = React.useRef(null);
 
   React.useEffect(() => {
@@ -20,12 +20,11 @@ export default function ModalOverlay({ onClick, children }) {
 
   return (
     <div className={styles.overlay} ref={overlay}>
-      {children}
+      
     </div>
   );
 }
 
 ModalOverlay.propTypes = {
   onClick: PropTypes.func.isRequired,
-  children: PropTypes.object,
 };

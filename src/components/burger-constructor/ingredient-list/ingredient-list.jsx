@@ -10,7 +10,7 @@ const IngredientsList = () => {
       {filling.length > 0 &&
         filling.map((item, index) => (
           <Ingredient
-            key={item._id}
+            key={item.uuid}
             item={item}
             id={item._id}
             type={item.type}

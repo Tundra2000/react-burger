@@ -11,7 +11,7 @@ class Api {
   }
 
   getIngredients() {
-    return fetch(this._dataUrl).then(this.checkResponse).catch(console.log);
+    return fetch(this._dataUrl).then(this.checkResponse);
   }
 
   postOrder(data) {
@@ -21,9 +21,7 @@ class Api {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-    })
-      .then(this.checkResponse)
-      .catch(console.log);
+    }).then(this.checkResponse);
   }
 }
 

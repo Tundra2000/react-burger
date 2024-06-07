@@ -1,4 +1,5 @@
 import api from "../../components/utils/api.jsx";
+import { CLEAR_CONSTRUCTOR } from "./constructor.jsx";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
@@ -21,12 +22,16 @@ export function postOrder(data) {
         dispatch({
           type: ORDER_MODAL_OPEN,
         });
+        dispatch({
+            type: CLEAR_CONSTRUCTOR,
+          });
       })
       .catch((err) => {
+        console.log(err);
         dispatch({
-          type: POST_ORDER_FAILED,
-          requestError: String(err),
+          type: POST_ORDER_FAILED
         });
+
       });
   };
 }

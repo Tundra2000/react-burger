@@ -19,6 +19,17 @@ export default function BurgerConstructor() {
   const { bun, filling } = useSelector((store) => store.burgerConstructor);
   const { order, isVisible } = useSelector((store) => store.order);
 
+  //`action creator` для добавления уникального id ингредиента
+  const addToConstructor = (item) => {
+    return {
+      type: ADD_TO_CONSTRUCTOR,
+      item: {
+        ...item,
+        uuid: add_uuid(),
+      },
+    };
+  };
+
   //Перетаскивание
   const [{ isHover }, dropRef] = useDrop({
     accept: "ingredients",
@@ -26,10 +37,7 @@ export default function BurgerConstructor() {
       isHover: monitor.isOver(),
     }),
     drop(item) {
-      dispatch({
-        type: ADD_TO_CONSTRUCTOR,
-        item: { ...item, uuid: add_uuid() },
-      });
+      dispatch(addToConstructor(item));
     },
   });
 
@@ -68,6 +76,9 @@ export default function BurgerConstructor() {
     dispatch({ type: ORDER_MODAL_CLOSE });
   };
 
+  //Кнопка доступна, если в в кконструктор добавлены булки и что-нибудь ещё
+  const isDisabled = bun != null && idsArray.length > 1 ? true : false;
+
   const border = isHover ? "2px dashed green" : "none";
   return (
     <>
@@ -85,6 +96,7 @@ export default function BurgerConstructor() {
               htmlType="button"
               type="primary"
               size="medium"
+              disabled={!isDisabled ? "disabled" : ""}
               onClick={openModal}
             >
               Оформить заказ

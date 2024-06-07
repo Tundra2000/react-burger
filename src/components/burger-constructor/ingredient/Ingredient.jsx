@@ -105,6 +105,7 @@ const Ingredient = ({ id, item, index, type }) => {
 export default Ingredient;
 
 Ingredient.propTypes = {
+  id: PropTypes.string.isRequired,
   item: IngredientPropTypes.isRequired,
   index: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
