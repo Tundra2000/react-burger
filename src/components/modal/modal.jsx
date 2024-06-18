@@ -21,26 +21,23 @@ export default function Modal({ header, onClose, children }) {
     };
   }, [onClose]);
 
-
   return ReactDOM.createPortal(
-    <>      
+    <>
       <div className={styles.modal}>
         <h2 className={styles.heading}>{header}</h2>
         <span className={styles.close} onClick={onClose}>
           <CloseIcon />
         </span>
         {children}
-      </div> 
-      <ModalOverlay onClick={onClose}>
-      </ModalOverlay>       
+      </div>
+      <ModalOverlay onClick={onClose}></ModalOverlay>
     </>,
     modalRoot
   );
 }
 
-
 Modal.propTypes = {
-  header: PropTypes.string,
-  onClose: PropTypes.func,
-  children: PropTypes.object
-}
+  header: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired,
+};
