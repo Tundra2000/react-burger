@@ -88,7 +88,7 @@ export const userReducer = (state = checkoutInitialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                isUserAuth: false,
+                isUserAuth: true,
                 requestError: '',
             };
         }
