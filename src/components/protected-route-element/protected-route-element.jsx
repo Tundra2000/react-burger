@@ -1,24 +1,13 @@
 import PropTypes from "prop-types";
-import { Navigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getCookie } from "../utils/cookie";
-import { getUser } from "../../services/actions/user";
+import { Navigate} from "react-router-dom";
+import { useSelector} from "react-redux";
 
 export const ProtectedRouteElement = ({ element, notAuth = false }) => {
   const isUserAuth = useSelector((state) => state.user.isUserAuth);
   const isLoading = useSelector((state) => state.user.isLoading);
-  const location = useLocation();
-  console.log( location);
-  const from = location.state?.from || "/";
-
-  /*const cookie = getCookie("token");
-  const dispatch = useDispatch();
-  if (!isUserAuth && cookie && cookie !== "" && !isLoading) {
-    dispatch(getUser("get"));
-  }*/
 
   if (isUserAuth && notAuth && !isLoading) {
-    return <Navigate to="/" />;;//return <Navigate to={from} />;
+    return <Navigate to="/" />;;
   }
 
   if (!isUserAuth && !notAuth && !isLoading) {
