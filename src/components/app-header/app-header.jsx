@@ -5,39 +5,48 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
-
+import { Link, NavLink } from "react-router-dom";
+//login
 export default function AppHeader() {
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
         <ul className={styles.nav_menu}>
-          <li>
-            <div className={styles.menu_wrapper}>
-              <a href="/" className={styles.link}>
-                <span className={styles.icon}>
-                  <BurgerIcon />
-                </span>
-                <p className={styles.text}>Конструктор</p>
-              </a>
-              <a href="/" className={styles.link}>
-                <span className={styles.icon}>
-                  <ListIcon />
-                </span>
-                <p className={styles.text}>Лента заказов</p>
-              </a>
-            </div>
-          </li>
-          <li className={styles.logo}>
+          <NavLink className={({ isActive }) => (isActive ? styles.link_active : styles.link)} to={"/"} >
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Конструктор</span>
+            </>
+          )}
+          </NavLink>
+          <NavLink className={({ isActive }) => (isActive ? styles.link_active : styles.link)} to={"/orders"} >
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Лента заказов</span>
+            </>
+          )}
+          </NavLink>  
+          <Link className={styles.logo} to={"/"}>
             <Logo />
-          </li>
-          <li>
-            <a href="/" className={styles.link}>
-              <span className={styles.icon}>
-                <ProfileIcon />
-              </span>
-              <p className={styles.text}>Личный кабинет</p>
-            </a>
-          </li>
+          </Link>
+          <NavLink className={styles.link} to={"/login"}>
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Авторизация</span>
+            </>
+          )} 
+          </NavLink>
+          <NavLink className={({ isActive }) => (isActive ? styles.link_active : styles.link)} to={"/profile"}>
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Личный кабинет</span>
+            </>
+          )}
+          </NavLink>
         </ul>
       </nav>
     </header>

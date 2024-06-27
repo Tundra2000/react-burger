@@ -1,39 +1,62 @@
 import AppHeader from "../app-header/app-header.jsx";
 import styles from "./app.module.css";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
 import { getIngredients } from "../../services/actions/ingredients";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { MainPage } from "../../pages/main/main.jsx";
+import { LoginPage } from "../../pages/login/login.jsx";
+import { RegisterPage } from "../../pages/register/register.jsx";
+import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password.jsx";
+import { ResetPasswordPage } from "../../pages/reset-password/reset-password.jsx";
+import { ProfilePage } from "../../pages/profile/profile.jsx";
+import { OrderPage } from "../../pages/order/order.jsx";
+import { UserProfilePage } from "../../pages/profile/user-profil-page/user-profil-page.jsx";
+import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
+import { NotFoundPage } from "../../pages/not-found/not-found.jsx"
+import { IngredientPage } from '../../pages/ingredient/ingredient';
 
 function App() {
-  const { ingredientsRequest, ingredientsFailed } = useSelector(
+  //const location = useLocation();
+  //const background = location.state && location.state.background;
+
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
     (state) => state.ingredients
   );
 
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("запуск запроса");
-    dispatch(getIngredients());
-  }, [dispatch]);
+    if (!ingredients.length) dispatch(getIngredients());
+  }, [dispatch, ingredients.length]);
 
   return (
     <>
-      <AppHeader />
-      <div className={styles.container}>
-        {ingredientsRequest ? (
-          <h2>Идет загрузка данных...</h2>
-        ) : ingredientsFailed ? (
-          <h2>Произошла ошибка</h2>
-        ) : (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        )}
-      </div>
+      <BrowserRouter>
+        <AppHeader />
+        <div className={styles.container}>
+          {ingredientsRequest ? (
+            <h2>Идет загрузка данных...</h2>
+          ) : ingredientsFailed ? (
+            <h2>Произошла ошибка</h2>
+          ) : (
+            <Routes>{/*location={background || location}*/}
+              <Route path="/" element={<MainPage />} />
+              <Route path="/login" element={<ProtectedRouteElement element={<LoginPage />}  notAuth={true} />} />
+              <Route path="/register" element={<ProtectedRouteElement element={<RegisterPage />} notAuth={true} />}  />
+              <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPasswordPage />} notAuth={true} />}  />
+              <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPasswordPage />} notAuth={true} />}  />
+              <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage notAuth={false} />} />} >
+                <Route path='' element={<UserProfilePage />} />
+                <Route path='orders' element={<NotFoundPage />} />
+              </Route>
+              <Route path="/orders" element={<OrderPage />} />
+              <Route path="/*" element={<NotFoundPage />} />
+              <Route path='ingredients/:id' element={<IngredientPage />} />
+            </Routes>
+          )}
+        </div>
+      </BrowserRouter>
     </>
   );
 }
