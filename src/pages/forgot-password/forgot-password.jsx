@@ -39,7 +39,7 @@ export function ForgotPasswordPage() {
           placeholder="Укажите e-mail"
           extraClass="mb-6"
           onChange={(e) => setEmail(e.target.value)}
-          error={forgotError !== ''}
+          error={forgotError !== ""}
           errorText={forgotError}
         />
         <Button

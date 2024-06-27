@@ -25,17 +25,17 @@ export function RegisterPage() {
   const regFormSend = async (e) => {
     e.preventDefault();
 
-        dispatch(
-            userApi(
-                'register',
-                {
-                    'email': email,
-                    'password': password,
-                    'name': name
-                },
-                () => navigate('/')
-            )
-        )
+    dispatch(
+      userApi(
+        "register",
+        {
+          email: email,
+          password: password,
+          name: name,
+        },
+        () => navigate("/")
+      )
+    );
   };
 
   return (
@@ -49,7 +49,7 @@ export function RegisterPage() {
           placeholder="Имя"
           extraClass="mb-6"
           onChange={(e) => setName(e.target.value)}
-          error={regError !== ''}
+          error={regError !== ""}
           errorText={regError}
         />
         <EmailInput

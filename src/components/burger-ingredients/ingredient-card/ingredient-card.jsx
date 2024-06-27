@@ -13,7 +13,7 @@ import {
   SET_DETAIL_INGREDIENT,
   CLEAR_DETAIL_INGREDIENT,
 } from "../../../services/actions/ingredient-detail";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function IngridientCard({ item }) {

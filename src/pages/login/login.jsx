@@ -17,23 +17,22 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginError = useSelector(state => state.user.requestError)
+  const loginError = useSelector((state) => state.user.requestError);
 
   const loginFormSend = async (e) => {
     e.preventDefault();
 
     dispatch(
       userApi(
-        'login',
+        "login",
         {
-          'email': email,
-          'password': password
+          email: email,
+          password: password,
         },
-        () => navigate('/')
+        () => navigate("/")
       )
-    )
-    
-  }
+    );
+  };
 
   return (
     <div className={styles.content}>
@@ -45,7 +44,7 @@ export function LoginPage() {
           placeholder="E-mail"
           extraClass="mb-6"
           onChange={(e) => setEmail(e.target.value)}
-          error={loginError !== ''}
+          error={loginError !== ""}
           errorText={loginError}
         />
         <PasswordInput
