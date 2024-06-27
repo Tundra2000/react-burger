@@ -75,12 +75,20 @@ export const userReducer = (state = checkoutInitialState, action) => {
         }
       
         case GET_FORGOT_SUCCESS: 
+        return {
+            ...state,
+            isUserAuth: false
+        };
         case GET_REFRESH_SUCCESS: 
+        return {
+            ...state,
+            isUserAuth: false
+        };
         case GET_RESET_SUCCESS: {
             return {
                 ...state,
                 isLoading: false,
-                isUserAuth: true,
+                isUserAuth: false,
                 requestError: '',
             };
         }
