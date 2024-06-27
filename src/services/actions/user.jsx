@@ -51,41 +51,25 @@ export function getUser() {
     dispatch({
       type: GET_USER_REQUEST,
     });
-    fetch(userUrl, {
+    request(userUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         authorization: "Bearer " + getCookie("token"),
       },
     })
-    request(userUrl,{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        authorization: "Bearer " + getCookie("token"),
-      }
-    })
-      .then((res) => {
-        if (res.ok || res.status === 401 || res.status === 403) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
       .then((data) => {
-        if (data.success) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            data: data,
-          });
-        } else {
-          dispatch({
-            type: GET_USER_FAILED,
-            data: String(data.message),
-          });
-        }
+        dispatch({
+          type: GET_USER_SUCCESS,
+          data: data,
+        });
       })
       .catch((err) => {
         console.error(err);
+        dispatch({
+          type: GET_USER_FAILED,
+          data: String(err.message),
+        });
       });
   };
 }
@@ -159,7 +143,7 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
       dispatch({
         type: reqAction,
       });
-      request(endpoint,{
+      request(endpoint, {
         method: method,
         body: JSON.stringify(data),
         headers: {
@@ -167,44 +151,32 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
           authorization: "Bearer " + getCookie("token"),
         },
       })
-        .then((res) => {
-          if (res.ok || res.status === 401 || res.status === 403) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка ${res.status}`);
-        })
         .then((data) => {
-          if (data.success) {
-            dispatch({
-              type: successAction,
-              data: data,
-            });
-            if (saveTokens) {
-              let authToken;
-              if (data.accessToken.indexOf("Bearer") === 0) {
-                authToken = data.accessToken.split("Bearer ")[1];
-              }
-              if (authToken) {
-                setCookie("token", authToken, { expires: 20 * 60 });
-                localStorage.setItem("refreshToken", data.refreshToken);
-              }
+          dispatch({
+            type: successAction,
+            data: data,
+          });
+          if (saveTokens) {
+            let authToken;
+            if (data.accessToken.indexOf("Bearer") === 0) {
+              authToken = data.accessToken.split("Bearer ")[1];
             }
-            if (delTokens) {
-              deleteCookie("token");
-              localStorage.clear();
-            }
-            callbackFunction();
-          } else {
-            dispatch({
-              type: failedAction,
-              data: String(data.message),
-            });
-            if (data.message === "jwt expired") {
-              dispatch(refreshToken(userApi(type, data, callbackFunction())));
+            if (authToken) {
+              setCookie("token", authToken, { expires: 20 * 60 });
+              localStorage.setItem("refreshToken", data.refreshToken);
             }
           }
+          if (delTokens) {
+            deleteCookie("token");
+            localStorage.clear();
+          }
+          callbackFunction();
         })
         .catch((err) => {
+          dispatch({
+            type: failedAction,
+            data: String(err.message),
+          });
           if (err === "jwt expired") {
             dispatch(refreshToken(userApi(type, data, callbackFunction())));
           }
@@ -219,7 +191,7 @@ const refreshToken = (afterRefresh) => (type, dataAfter, callbackFunction) => {
     dispatch({
       type: GET_REFRESH_REQUEST,
     });
-    request(tokenUrl,{
+    request(tokenUrl, {
       method: "POST",
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken"),
@@ -228,37 +200,26 @@ const refreshToken = (afterRefresh) => (type, dataAfter, callbackFunction) => {
         "Content-Type": "application/json;charset=utf-8",
       },
     })
-      .then((res) => {
-        if (res.ok || res.status === 401 || res.status === 403) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
       .then((data) => {
-        if (data.success) {
-          dispatch({
-            type: GET_REFRESH_SUCCESS,
-          });
-
-          let authToken;
-          if (data.accessToken.indexOf("Bearer") === 0) {
-            authToken = data.accessToken.split("Bearer ")[1];
-          }
-          if (authToken) {
-            setCookie("token", authToken, { expires: 20 * 60 });
-            localStorage.setItem("refreshToken", data.refreshToken);
-          }
-
-          dispatch(afterRefresh(type, dataAfter, callbackFunction));
-        } else {
-          dispatch({
-            type: GET_REFRESH_FAILED,
-            data: String(data.message),
-          });
+        dispatch({
+          type: GET_REFRESH_SUCCESS,
+        });
+        let authToken;
+        if (data.accessToken.indexOf("Bearer") === 0) {
+          authToken = data.accessToken.split("Bearer ")[1];
         }
+        if (authToken) {
+          setCookie("token", authToken, { expires: 20 * 60 });
+          localStorage.setItem("refreshToken", data.refreshToken);
+        }
+        dispatch(afterRefresh(type, dataAfter, callbackFunction));
       })
       .catch((err) => {
         console.error(err);
+        dispatch({
+          type: GET_REFRESH_FAILED,
+          data: String(err.message),
+        });
       });
   };
 };

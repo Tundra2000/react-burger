@@ -1,6 +1,6 @@
 // создаем функцию проверки ответа на `ok`
 const checkResponse = (res) => {
-  if (res.ok) {
+  if (res.ok || res.status === 401 || res.status === 403) {
     return res.json();
   }
   // прокидываем ошибку, чтобы она попала в `catch`
