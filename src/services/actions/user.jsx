@@ -89,52 +89,52 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
       endpoint = loginUrl;
       typeMatch = true;
       saveTokens = true;
-      reqAction = "GET_AUTH_REQUEST";
-      successAction = "GET_AUTH_SUCCESS";
-      failedAction = "GET_AUTH_FAILED";
+      reqAction = GET_AUTH_REQUEST;
+      successAction = GET_AUTH_SUCCESS;
+      failedAction = GET_AUTH_FAILED;
       break;
 
     case "register":
       endpoint = registerUrl;
       typeMatch = true;
       saveTokens = true;
-      reqAction = "GET_REG_REQUEST";
-      successAction = "GET_REG_SUCCESS";
-      failedAction = "GET_REG_FAILED";
+      reqAction = GET_REG_REQUEST;
+      successAction = GET_REG_SUCCESS;
+      failedAction = GET_REG_FAILED;
       break;
 
     case "forgot":
       endpoint = passwordResetUrl;
       typeMatch = true;
-      reqAction = "GET_FORGOT_REQUEST";
-      successAction = "GET_FORGOT_SUCCESS";
-      failedAction = "GET_FORGOT_FAILED";
+      reqAction = GET_FORGOT_REQUEST;
+      successAction = GET_FORGOT_SUCCESS;
+      failedAction = GET_FORGOT_FAILED;
       break;
 
     case "reset":
       endpoint = passwordResetResetUrl;
       typeMatch = true;
-      reqAction = "GET_RESET_REQUEST";
-      successAction = "GET_RESET_SUCCESS";
-      failedAction = "GET_RESET_FAILED";
+      reqAction = GET_RESET_REQUEST;
+      successAction = GET_RESET_SUCCESS;
+      failedAction = GET_RESET_FAILED;
       break;
 
     case "logout":
       endpoint = logoutUrl;
       typeMatch = true;
       delTokens = true;
-      reqAction = "GET_LOGOUT_REQUEST";
-      successAction = "GET_LOGOUT_SUCCESS";
-      failedAction = "GET_LOGOUT_FAILED";
+      reqAction = GET_LOGOUT_REQUEST;
+      successAction = GET_LOGOUT_SUCCESS;
+      failedAction = GET_LOGOUT_FAILED;
       break;
 
     case "edit":
       endpoint = userUrl;
       method = "PATCH";
       typeMatch = true;
-      reqAction = "GET_EDIT_REQUEST";
-      successAction = "GET_EDIT_SUCCESS";
-      failedAction = "GET_EDIT_FAILED";
+      reqAction = GET_EDIT_REQUEST;
+      successAction = GET_EDIT_SUCCESS;
+      failedAction = GET_EDIT_FAILED;
       break;
   }
 
