@@ -7,11 +7,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
 import { userApi } from "../../services/actions/user";
+import { useLocation } from "react-router-dom";
 
 //forgot-password - страница восстановления пароля.
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
 
   const forgotError = useSelector((state) => state.user.requestError);
@@ -24,7 +27,7 @@ export function ForgotPasswordPage() {
         {
           email: email,
         },
-        () => navigate("/reset-password")
+        () => navigate("/reset-password", { state: { from: location } })
       )
     );
   };

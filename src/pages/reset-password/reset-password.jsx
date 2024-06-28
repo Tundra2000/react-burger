@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
@@ -13,6 +13,7 @@ import styles from "./reset-password.module.css";
 export function ResetPasswordPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
@@ -33,6 +34,12 @@ export function ResetPasswordPage() {
       )
     );
   };
+
+  //ПОПАСТЬ МОЖНО ТОЛЬКО СО СТРАНИЦЫ 'forgot-password'
+  let from = location.state?.from?.pathname;
+  if ( from !== '/forgot-password') {
+    return <Navigate to="/login" replace />
+  }
 
   return (
     <div className={styles.content}>
