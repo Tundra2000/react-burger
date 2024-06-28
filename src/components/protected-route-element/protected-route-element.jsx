@@ -11,6 +11,10 @@ export const ProtectedRouteElement = ({ element, notAuth = false }) => {
   const location = useLocation();
   const from = location.state?.from || "/";
 
+  console.log(location);
+  console.log(isUserAuth);
+  console.log(isLoading);
+
   const cookie = getCookie("token");
   const dispatch = useDispatch();
   if (!isUserAuth && cookie && cookie !== "" && !isLoading) {

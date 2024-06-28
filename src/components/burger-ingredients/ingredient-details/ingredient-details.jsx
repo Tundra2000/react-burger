@@ -14,14 +14,14 @@ export default function IngredientDetails() {
   currentIngredient = ingredientsData.find((item) => item._id === id);
 
   return currentIngredient ? (
-    <div>
+    <div className={styles.modal}>
       <p>
         <img
-          src={currentIngredient.image}
+          src={currentIngredient.image_large}
           className={styles.image}
           alt={currentIngredient.name}
         />
-      </p>
+      </p>     
       <p className={styles.name}>{currentIngredient.name}</p>
       <div className={styles.description}>
         <div className={styles.text_block}>
