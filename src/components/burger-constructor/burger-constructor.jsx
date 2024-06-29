@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {
   CurrencyIcon,
   Button,
@@ -17,11 +17,15 @@ import {
   ORDER_MODAL_CLOSE,
   ORDER_MODAL_OPEN,
 } from "../../services/actions/order";
+import { useNavigate } from "react-router-dom";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { bun, filling } = useSelector((store) => store.burgerConstructor);
   const { order, isVisible } = useSelector((store) => store.order);
+
+  const { isUserAuth } = useSelector((store) => store.user);
 
   //`action creator` для добавления уникального id ингредиента
   const addToConstructor = (item) => {
@@ -71,12 +75,14 @@ export default function BurgerConstructor() {
 
   // Открытие/Закрытие модального окна
   function openModal() {
-    if (idsArray) {
-      dispatch(postOrder({ ingredients: idsArray }));
-      dispatch({
-        type: ORDER_MODAL_OPEN,
-      });
-    }
+    if (isUserAuth) { // авторизован?
+      if (idsArray) {
+        dispatch(postOrder({ ingredients: idsArray }));
+        dispatch({
+          type: ORDER_MODAL_OPEN,
+        });
+      }
+    } else navigate("/login");
   }
   const closeModal = () => {
     console.log(order.number);

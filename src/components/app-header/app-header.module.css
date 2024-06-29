@@ -37,22 +37,22 @@
   composes: pt-4 pb-4 pl-5 pb-5 from global;
 }
 
+.link_active {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  color:#F2F2F3;
+}
+
 .logo {
   transform: translateX(-70px);
   align-self: center;
 }
 
 .text {
-  margin-left: 4px;
-  color: #8585ad;
-  composes: text text_type_main-default pl-2 from global;
-}
-
-.text:hover,
-.text:active {
-  color: #f2f2f3;
+  composes: text text_type_main-default from global;
 }
 
 .text_active {
-  color: #f2f2f3;
+  composes: text text_type_main-default text_color_inactive from global;
 }

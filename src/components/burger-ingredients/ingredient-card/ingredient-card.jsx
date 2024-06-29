@@ -13,9 +13,12 @@ import {
   SET_DETAIL_INGREDIENT,
   CLEAR_DETAIL_INGREDIENT,
 } from "../../../services/actions/ingredient-detail";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function IngridientCard({ item }) {
+  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [visible, setVisible] = React.useState(false);
   const { counts, bun } = useSelector((store) => store.burgerConstructor);
@@ -32,12 +35,14 @@ export default function IngridientCard({ item }) {
   });
 
   const openModal = (data) => {
-    console.log(data);
+    //console.log(data);
     dispatch({
       type: SET_DETAIL_INGREDIENT,
       ingredient: data,
     });
-    setVisible(true);
+    //setVisible(true);
+    //window.history.replaceState(null, data.name, "/ingredients/" + data._id);
+    navigate(`/ingredients/${data._id}`, { state: { background: location } });
   };
 
   const closeModal = () => {
@@ -46,7 +51,18 @@ export default function IngridientCard({ item }) {
       ingredient: {},
     });
     setVisible(false);
+    navigate("/");
   };
+
+  /*const handleIngredientClick = () => {
+    window.history.replaceState(null, null, "/");
+    console.log(item);
+    dispatch({
+      type: SET_DETAIL_INGREDIENT,
+      ingredient: item,
+    });
+    navigate(`/ingredients/${item._id}`, { state: { background: location } });
+  };*/
 
   return (
     <div>
@@ -67,7 +83,7 @@ export default function IngridientCard({ item }) {
         </picture>
       </div>
       {visible && (
-        <Modal header="" onClose={closeModal}>
+        <Modal header="Детали ингредиента" onClose={closeModal}>
           <IngredientDetails />
         </Modal>
       )}

@@ -7,7 +7,11 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-export default function Modal({ header, onClose, children }) {
+export default function Modal({
+  header,
+  onClose,
+  children
+}) {
   React.useEffect(() => {
     const escClick = (e) => {
       if (e.key === "Escape") {
@@ -28,7 +32,7 @@ export default function Modal({ header, onClose, children }) {
         <span className={styles.close} onClick={onClose}>
           <CloseIcon />
         </span>
-        {children}
+          {children}
       </div>
       <ModalOverlay onClick={onClose}></ModalOverlay>
     </>,
