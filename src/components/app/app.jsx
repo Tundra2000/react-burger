@@ -97,12 +97,17 @@ function App() {
         )}
       </div>
 
-      {background && (
-        <Modal header="Детали ингредиента" onClose={closeModal}>
-          <Routes>
-            <Route path="/ingredients/:id" element={<IngredientDetails />} />
-          </Routes>
-        </Modal>
+      {background && (  
+        <Routes>  
+          <Route  
+            path="/ingredients/:id"  
+            element={  
+              <Modal header="Детали ингредиента" onClose={closeModal}>  
+                <IngredientDetails />  
+              </Modal>  
+            }  
+          />  
+        </Routes>  
       )}
     </>
   );
