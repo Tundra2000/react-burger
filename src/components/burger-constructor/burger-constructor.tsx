@@ -11,6 +11,7 @@ import Bun from "./bun/bun";
 import IngredientsList from "./ingredient-list/ingredient-list";
 import { useDrop } from "react-dnd";
 import { ADD_TO_CONSTRUCTOR } from "../../services/actions/constructor";
+//@ts-ignore
 import { v4 as add_uuid } from "uuid";
 import {
   postOrder,
@@ -18,17 +19,18 @@ import {
   ORDER_MODAL_OPEN,
 } from "../../services/actions/order";
 import { useNavigate } from "react-router-dom";
+import { IIngredient } from "../utils/types";
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { bun, filling } = useSelector((store) => store.burgerConstructor);
-  const { order, isVisible } = useSelector((store) => store.order);
+  const { bun, filling } = useSelector((store: any) => store.burgerConstructor);
+  const { order, isVisible } = useSelector((store: any) => store.order);
 
-  const { isUserAuth } = useSelector((store) => store.user);
+  const { isUserAuth } = useSelector((store: any) => store.user);
 
   //`action creator` для добавления уникального id ингредиента
-  const addToConstructor = (item) => {
+  const addToConstructor = (item: IIngredient) => {
     return {
       type: ADD_TO_CONSTRUCTOR,
       item: {
@@ -45,7 +47,7 @@ export default function BurgerConstructor() {
       isHover: monitor.isOver(),
     }),
     drop(item) {
-      dispatch(addToConstructor(item));
+      dispatch(addToConstructor(item as IIngredient));
     },
   });
 
@@ -54,7 +56,7 @@ export default function BurgerConstructor() {
     if (bun != null || filling.length > 0) {
       const bunPrice = bun != null ? bun.price * 2 : 0;
       console.log(bunPrice);
-      const fillingPrice = filling.reduce((acc, cur) => acc + cur.price, 0);
+      const fillingPrice = filling.reduce((acc: number, cur: any) => acc + cur.price, 0);
       console.log(fillingPrice);
       const total = bunPrice + fillingPrice;
       return total;
@@ -66,7 +68,7 @@ export default function BurgerConstructor() {
 
   //Расчёт ингредиентов в заказе
   const idsArray = useMemo(() => {
-    const itemsArr = filling.map((item) => item._id);
+    const itemsArr = filling.map((item: IIngredient) => item._id);
     if (bun) {
       itemsArr.push(bun._id);
     }
@@ -77,6 +79,7 @@ export default function BurgerConstructor() {
   function openModal() {
     if (isUserAuth) { // авторизован?
       if (idsArray) {
+        //@ts-ignore
         dispatch(postOrder({ ingredients: idsArray }));
         dispatch({
           type: ORDER_MODAL_OPEN,
@@ -93,14 +96,15 @@ export default function BurgerConstructor() {
   const isDisabled = bun != null && idsArray.length > 1 ? true : false;
 
   const border = isHover ? "2px dashed green" : "none";
+  /*data={bun}*/
   return (
     <>
       <div className={styles.container} ref={dropRef} style={{ border }}>
-        <Bun position="top" data={bun} />
+        <Bun position="top" />
         <div className={styles.scroller}>
           <IngredientsList />
         </div>
-        <Bun position="bottom" data={bun} />
+        <Bun position="bottom"/>
         <div className={styles.order}>
           <p className={styles.price}>
             {totalPrice + " "}
@@ -109,7 +113,7 @@ export default function BurgerConstructor() {
               htmlType="button"
               type="primary"
               size="medium"
-              disabled={!isDisabled ? "disabled" : ""}
+              disabled={isDisabled}
               onClick={openModal}
             >
               Оформить заказ

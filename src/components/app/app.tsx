@@ -1,8 +1,8 @@
-import AppHeader from "../app-header/app-header.jsx";
+import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../services/actions/ingredients";
+import { getIngredients } from "../../services/actions/ingredients.jsx";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { MainPage } from "../../pages/main/main.jsx";
 import { LoginPage } from "../../pages/login/login.jsx";
@@ -12,9 +12,9 @@ import { ResetPasswordPage } from "../../pages/reset-password/reset-password.jsx
 import { ProfilePage } from "../../pages/profile/profile.jsx";
 import { OrderPage } from "../../pages/order/order.jsx";
 import { UserProfilePage } from "../../pages/profile/user-profil-page/user-profil-page.jsx";
-import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
+import { ProtectedRouteElement } from "../protected-route-element/protected-route-element.jsx";
 import { NotFoundPage } from "../../pages/not-found/not-found.jsx";
-import { IngredientPage } from "../../pages/ingredient/ingredient";
+import { IngredientPage } from "../../pages/ingredient/ingredient.jsx";
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details.jsx";
 
@@ -23,13 +23,14 @@ function App() {
   const navigate = useNavigate();
   let background = location.state && location.state.background;
 
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    (state) => state.ingredients
+  const { ingredients, ingredientsRequest, ingredientsFailed }: any = useSelector(
+    (state: any) => state.ingredients
   );
 
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("запуск запроса");
+    //@ts-ignore
     if (!ingredients.length) dispatch(getIngredients());
   }, [dispatch, ingredients.length]);
 
@@ -83,7 +84,8 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRouteElement
-                  element={<ProfilePage notAuth={false} />}
+                  element={<ProfilePage />}
+                  notAuth={false} 
                 />
               }
             >
