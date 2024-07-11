@@ -1,6 +1,5 @@
-import { AnyAction, Dispatch } from "redux";
-import { ingredientsUrl } from "../../components/utils/urls.jsx";
-import { request } from "../../components/utils/api.jsx";
+import { ingredientsUrl } from "../../components/utils/urls";
+import { request } from "../../components/utils/api";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

@@ -6,13 +6,13 @@ import {
   passwordResetResetUrl,
   logoutUrl,
   tokenUrl,
-} from "../../components/utils/urls.jsx";
+} from "../../components/utils/urls";
 import {
   setCookie,
   deleteCookie,
   getCookie,
-} from "../../components/utils/cookie.jsx";
-import { request } from "../../components/utils/api.jsx";
+} from "../../components/utils/cookie";
+import { request } from "../../components/utils/api";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";

@@ -47,7 +47,7 @@ export function UserProfilePage() {
       // do nothing
     }
 
-    if (curEl !== null) setTimeout(() => curEl.focus(), 0);
+    if (curEl !== null) setTimeout(() => curEl!.focus(), 0);
   };
 
   const resetChanges = () => {
