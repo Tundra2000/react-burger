@@ -17,11 +17,12 @@ export function ForgotPasswordPage() {
 
   const [email, setEmail] = useState("");
 
-  const forgotError = useSelector((state) => state.user.requestError);
+  const forgotError = useSelector((state:any) => state.user.requestError);
 
-  const forgotPassFormSend = async (e) => {
+  const forgotPassFormSend = async (e:any) => {
     e.preventDefault();
     dispatch(
+      //@ts-ignore
       userApi(
         "forgot",
         {
@@ -42,8 +43,7 @@ export function ForgotPasswordPage() {
           placeholder="Укажите e-mail"
           extraClass="mb-6"
           onChange={(e) => setEmail(e.target.value)}
-          error={forgotError !== ""}
-          errorText={forgotError}
+          aria-errormessage={forgotError}
         />
         <Button
           htmlType="submit"

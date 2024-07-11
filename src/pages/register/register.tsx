@@ -20,12 +20,13 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const regError = useSelector((state) => state.user.requestError);
+  const regError = useSelector((state:any) => state.user.requestError);
 
-  const regFormSend = async (e) => {
+  const regFormSend = async (e:any) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "register",
         {
@@ -50,8 +51,7 @@ export function RegisterPage() {
           extraClass="mb-6"
           onChange={(e) => setName(e.target.value)}
           error={regError !== ""}
-          errorText={regError}
-        />
+          errorText={regError} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        />
         <EmailInput
           value={email}
           name="email"

@@ -28,7 +28,7 @@ interface IIngredient {
   type?: string;
 }
 
-const Ingredient = ({ id, item, index, type }:IIngredient) => {
+function Ingredient ({ id, item, index, type }:IIngredient) {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
 

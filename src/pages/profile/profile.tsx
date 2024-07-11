@@ -9,10 +9,11 @@ export function ProfilePage() {
   const navigate = useNavigate();
 
   //выход из учётной записи
-  const logOut = async (e) => {
+  const logOut = async (e:any) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "logout",
         {
@@ -50,8 +51,7 @@ export function ProfilePage() {
           </NavLink>
           <Link
             className="text text_type_main-medium text_color_inactive"
-            onClick={logOut}
-          >
+            onClick={logOut} to={"/login"}          >
             Выход
           </Link>
         </nav>

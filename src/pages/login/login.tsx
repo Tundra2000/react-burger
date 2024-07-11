@@ -9,7 +9,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../services/actions/user";
 import styles from "./login.module.css";
-import { useForm } from "../../hooks/useForm";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -19,12 +18,13 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   //const { value, handleChange } = useForm({ email: "", password: "" });
 
-  const loginError = useSelector((state) => state.user.requestError);
+  const loginError = useSelector((state:any) => state.user.requestError);
 
-  const loginFormSend = async (e) => {
+  const loginFormSend = async (e:any) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "login",
         {
@@ -46,8 +46,7 @@ export function LoginPage() {
           placeholder="E-mail"
           extraClass="mb-6"
           onChange={/*handleChange*/(e) => setEmail(e.target.value)}
-          error={loginError !== ""}
-          errorText={loginError}
+          aria-errormessage={loginError}
         />
         <PasswordInput
           value={/*value.password*/password}
