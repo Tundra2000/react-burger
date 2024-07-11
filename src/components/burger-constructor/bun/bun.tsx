@@ -1,8 +1,6 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./bun.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { FC } from "react";
 
 interface IBunPosition {
   position: 'top' | 'bottom'

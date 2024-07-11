@@ -1,13 +1,11 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import ingredientStyles from "./ingredient.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
-import { IngredientPropTypes } from "../../utils/utils";
 import {
   DEL_FROM_CONSTRUCTOR,
   MOVE_IN_CONSTRUCTOR,
