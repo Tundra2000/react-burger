@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,7 +20,7 @@ export function ResetPasswordPage() {
 
   const forgotError = useSelector((state:any) => state.user.requestError);
 
-  const resetPassFormSend = async (e:any) => {
+  const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(

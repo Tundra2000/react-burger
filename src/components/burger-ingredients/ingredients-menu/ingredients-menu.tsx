@@ -4,9 +4,12 @@ import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { IIngredient } from "../../utils/types";
-//export type TSetCurrent = (value: string) => void;
 
-export function IngredientsMenu({ setCurrent }: any) {
+export type TSetCurrent = {
+  setCurrent: (tab: string) => void
+}
+
+export function IngredientsMenu({ setCurrent }: TSetCurrent) {
   const { ingredients } = useSelector((store: any) => store.ingredients);
 
   const bunIngredients = useMemo(() => {

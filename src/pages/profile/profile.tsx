@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { userApi } from "../../services/actions/user";
 import styles from "./profile.module.css";
+import { FormEvent } from "react";
 
 //profile — страница с настройками профиля пользователя.
 export function ProfilePage() {
@@ -9,7 +10,7 @@ export function ProfilePage() {
   const navigate = useNavigate();
 
   //выход из учётной записи
-  const logOut = async (e:any) => {
+  const logOut = async (e:FormEvent) => {
     e.preventDefault();
 
     dispatch(

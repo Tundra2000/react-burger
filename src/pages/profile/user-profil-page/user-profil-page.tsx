@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Input,
@@ -60,7 +60,7 @@ export function UserProfilePage() {
     setPassValue("");
   };
 
-  const saveChanges = async (e: any) => {
+  const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(
       //@ts-ignore

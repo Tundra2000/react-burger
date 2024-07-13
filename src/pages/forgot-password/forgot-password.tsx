@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,7 +19,7 @@ export function ForgotPasswordPage() {
 
   const forgotError = useSelector((state:any) => state.user.requestError);
 
-  const forgotPassFormSend = async (e:any) => {
+  const sendForgotPassForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       //@ts-ignore
@@ -36,7 +36,7 @@ export function ForgotPasswordPage() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_main-large mb-6">Восстановление пароля</h2>
-      <form onSubmit={forgotPassFormSend} className={styles.form}>
+      <form onSubmit={sendForgotPassForm} className={styles.form}>
         <EmailInput
           value={email}
           name="email"

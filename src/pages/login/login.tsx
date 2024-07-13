@@ -1,5 +1,5 @@
 //login - страница авторизации.
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -20,7 +20,7 @@ export function LoginPage() {
 
   const loginError = useSelector((state:any) => state.user.requestError);
 
-  const loginFormSend = async (e:any) => {
+  const sendLoginForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
@@ -39,7 +39,7 @@ export function LoginPage() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_main-large mb-6">Вход</h2>
-      <form className={styles.form} onSubmit={loginFormSend}>
+      <form className={styles.form} onSubmit={sendLoginForm}>
         <EmailInput
           value={/*value.email*/email}
           name="email"

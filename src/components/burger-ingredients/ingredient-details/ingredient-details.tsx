@@ -2,6 +2,7 @@ import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../../pages/not-found/not-found";
+import { IIngredient } from "../../utils/types";
 
 export default function IngredientDetails() {
   const { id } = useParams();
@@ -11,7 +12,7 @@ export default function IngredientDetails() {
   let ingredientsData  = useSelector((store: any) => store.ingredients.ingredients);
 
   if (!currentIngredient && ingredientsData.length > 0)
-  currentIngredient = ingredientsData.find((item: any) => item._id === id);
+  currentIngredient = ingredientsData.find((item: IIngredient) => item._id === id);
 
   return currentIngredient ? (
     <div className={styles.modal}>

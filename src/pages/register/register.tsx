@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ export function RegisterPage() {
 
   const regError = useSelector((state:any) => state.user.requestError);
 
-  const regFormSend = async (e:any) => {
+  const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
@@ -42,7 +42,7 @@ export function RegisterPage() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_main-large mb-6">Регистрация</h2>
-      <form onSubmit={regFormSend} className={styles.form}>
+      <form onSubmit={sendRegisterForm} className={styles.form}>
         <Input
           value={name}
           type="text"

@@ -56,7 +56,7 @@ export default function BurgerConstructor() {
     if (bun != null || filling.length > 0) {
       const bunPrice = bun != null ? bun.price * 2 : 0;
       console.log(bunPrice);
-      const fillingPrice = filling.reduce((acc: number, cur: any) => acc + cur.price, 0);
+      const fillingPrice = filling.reduce((acc: number, cur: IIngredient) => acc + cur.price, 0);
       console.log(fillingPrice);
       const total = bunPrice + fillingPrice;
       return total;
@@ -93,7 +93,7 @@ export default function BurgerConstructor() {
   };
 
   //Кнопка доступна, если в в кконструктор добавлены булки и что-нибудь ещё
-  const isDisabled = bun != null && idsArray.length > 1 ? true : false;
+  const isDisabled = (bun == null || idsArray.length < 2) ? true : false;
 
   const border = isHover ? "2px dashed green" : "none";
   /*data={bun}*/
