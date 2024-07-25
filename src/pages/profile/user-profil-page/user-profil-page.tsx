@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Input,
@@ -11,7 +11,7 @@ import styles from "./user-profil-page.module.css";
 export function UserProfilePage() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state:any) => state.user.user);
 
   const [isActiveName, setActiveName] = useState(false);
   const [isActiveEmail, setActiveEmail] = useState(false);
@@ -26,11 +26,11 @@ export function UserProfilePage() {
     setEmailValue(user.email);
   }, [dispatch, user]);
 
-  const nameInput = React.createRef();
-  const emailInput = React.createRef();
+  const nameInput = React.createRef<HTMLInputElement>();
+  const emailInput = React.createRef<HTMLInputElement>();
 
-  const editInput = (name) => {
-    let curEl = "";
+  const editInput = (name:string) => {
+    let curEl: HTMLInputElement | null = null;
     switch (name) {
       case "name":
         curEl = nameInput.current;
@@ -47,7 +47,7 @@ export function UserProfilePage() {
       // do nothing
     }
 
-    if (curEl !== "") setTimeout(() => curEl.focus(), 0);
+    if (curEl !== null) setTimeout(() => curEl!.focus(), 0);
   };
 
   const resetChanges = () => {
@@ -60,9 +60,10 @@ export function UserProfilePage() {
     setPassValue("");
   };
 
-  const saveChanges = async (e) => {
+  const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(
+      //@ts-ignore
       userApi("edit", {
         name: nameValue,
         email: emailValue,
@@ -88,7 +89,9 @@ export function UserProfilePage() {
           name="name"
           placeholder="Имя"
           icon="EditIcon"
-          extraClass="mb-6"
+          extraClass="mb-6" 
+          onPointerEnterCapture={undefined} 
+          onPointerLeaveCapture={undefined}        
         />
         <Input
           value={emailValue}
@@ -100,13 +103,14 @@ export function UserProfilePage() {
           name="login"
           placeholder="Логин"
           icon="EditIcon"
-          extraClass="mb-6"
+          extraClass="mb-6" 
+          onPointerEnterCapture={undefined} 
+          onPointerLeaveCapture={undefined}
         />
         <PasswordInput
           value={passValue}
           disabled={!isActivePass}
           onChange={(e) => setPassValue(e.target.value)}
-          onIconClick={() => editInput("password")}
           name="password"
           placeholder="Пароль"
           icon="EditIcon"

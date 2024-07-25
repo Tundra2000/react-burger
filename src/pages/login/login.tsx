@@ -1,5 +1,5 @@
 //login - страница авторизации.
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -9,7 +9,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../services/actions/user";
 import styles from "./login.module.css";
-import { useForm } from "../../hooks/useForm";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -19,12 +18,13 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   //const { value, handleChange } = useForm({ email: "", password: "" });
 
-  const loginError = useSelector((state) => state.user.requestError);
+  const loginError = useSelector((state:any) => state.user.requestError);
 
-  const loginFormSend = async (e) => {
+  const sendLoginForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "login",
         {
@@ -39,15 +39,14 @@ export function LoginPage() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_main-large mb-6">Вход</h2>
-      <form className={styles.form} onSubmit={loginFormSend}>
+      <form className={styles.form} onSubmit={sendLoginForm}>
         <EmailInput
           value={/*value.email*/email}
           name="email"
           placeholder="E-mail"
           extraClass="mb-6"
           onChange={/*handleChange*/(e) => setEmail(e.target.value)}
-          error={loginError !== ""}
-          errorText={loginError}
+          aria-errormessage={loginError}
         />
         <PasswordInput
           value={/*value.password*/password}

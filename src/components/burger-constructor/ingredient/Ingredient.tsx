@@ -1,21 +1,36 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import ingredientStyles from "./ingredient.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
-import { IngredientPropTypes } from "../../utils/utils";
+import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import {
   DEL_FROM_CONSTRUCTOR,
   MOVE_IN_CONSTRUCTOR,
 } from "../../../services/actions/constructor";
+import { XYCoord } from 'dnd-core';
+import { IConstructorIngredient } from "../../utils/types";
 
-const Ingredient = ({ id, item, index, type }) => {
+interface DragItem {
+  index: number;
+  id: string;
+  type: string;
+}
+
+export type ConstructorElementType = "top" | "bottom" | undefined;
+
+interface IIngredient {
+  id: string;
+  item: IConstructorIngredient;
+  index: number;
+  type?: string;
+}
+
+function Ingredient ({ id, item, index, type }:IIngredient) {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
 
   //Попадание элемента в контейнер
   const [{ handlerId }, drop] = useDrop({
@@ -26,12 +41,12 @@ const Ingredient = ({ id, item, index, type }) => {
         isOver: monitor.isOver(),
       };
     },
-    hover(item, monitor) {
+    hover(item, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }
 
-      const dragIndex = item.index;
+      const dragIndex = (item as DragItem).index;
       const dropIndex = index;
 
       if (dragIndex === dropIndex) {
@@ -41,7 +56,7 @@ const Ingredient = ({ id, item, index, type }) => {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
       if (dragIndex < dropIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -56,8 +71,8 @@ const Ingredient = ({ id, item, index, type }) => {
           to: dropIndex,
         },
       });
-      item.index = dropIndex;
-    },
+      (item as DragItem).index = dropIndex;
+    }
   });
 
   const [{ isDragging }, drag] = useDrag({
@@ -91,7 +106,7 @@ const Ingredient = ({ id, item, index, type }) => {
       <div className={ingredientStyles.item_container}>
         <DragIcon type="primary" />
         <ConstructorElement
-          type={type}
+          type={type as ConstructorElementType}
           text={item.name}
           price={item.price}
           thumbnail={item.image}
@@ -103,10 +118,3 @@ const Ingredient = ({ id, item, index, type }) => {
 };
 
 export default Ingredient;
-
-Ingredient.propTypes = {
-  id: PropTypes.string.isRequired,
-  item: IngredientPropTypes.isRequired,
-  index: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-};

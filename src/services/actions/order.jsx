@@ -1,6 +1,6 @@
-import { ordersUrl } from "../../components/utils/urls.jsx";
-import { request } from "../../components/utils/api.jsx";
-import { CLEAR_CONSTRUCTOR } from "./constructor.jsx";
+import { ordersUrl } from "../../components/utils/urls";
+import { request } from "../../components/utils/api";
+import { CLEAR_CONSTRUCTOR } from "./constructor";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";

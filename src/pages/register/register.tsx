@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -20,12 +20,13 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const regError = useSelector((state) => state.user.requestError);
+  const regError = useSelector((state:any) => state.user.requestError);
 
-  const regFormSend = async (e) => {
+  const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "register",
         {
@@ -41,7 +42,7 @@ export function RegisterPage() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_main-large mb-6">Регистрация</h2>
-      <form onSubmit={regFormSend} className={styles.form}>
+      <form onSubmit={sendRegisterForm} className={styles.form}>
         <Input
           value={name}
           type="text"
@@ -50,8 +51,7 @@ export function RegisterPage() {
           extraClass="mb-6"
           onChange={(e) => setName(e.target.value)}
           error={regError !== ""}
-          errorText={regError}
-        />
+          errorText={regError} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        />
         <EmailInput
           value={email}
           name="email"

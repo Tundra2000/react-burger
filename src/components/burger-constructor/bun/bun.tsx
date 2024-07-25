@@ -1,12 +1,16 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./bun.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { IIngredient } from "../../utils/types";
 
-const Bun = ({ position }) => {
-  const bun = useSelector((store) => store.burgerConstructor.bun);
+interface IBunPosition {
+  position: 'top' | 'bottom'
+}
+
+const Bun = ({ position }:IBunPosition) => {
+  const bun: IIngredient = useSelector((store: any) => store.burgerConstructor.bun);
   const isEmpty = !bun;
-  const positionText = position === "top" ? "(верх)" : "(низ)";
+  const positionText: string = position === "top" ? "(верх)" : "(низ)";
 
   return (
     <div className={isEmpty ? styles.bun_empty : styles.bun}>
@@ -22,13 +26,12 @@ const Bun = ({ position }) => {
         <ConstructorElement
           type={position}
           text={"Место для аппетитной булки"}
+          thumbnail=''
+          price={0}
         />
       )}
     </div>
   );
 };
 
-Bun.propTypes = {
-  position: PropTypes.string.isRequired,
-};
 export default Bun;

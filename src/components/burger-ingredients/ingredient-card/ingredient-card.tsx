@@ -6,7 +6,6 @@ import styles from "./ingredient-card.module.css";
 import Modal from "../../modal/modal";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { IngredientPropTypes } from "../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 import {
@@ -14,14 +13,19 @@ import {
   CLEAR_DETAIL_INGREDIENT,
 } from "../../../services/actions/ingredient-detail";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IIngredient } from "../../utils/types";
 
-export default function IngridientCard({ item }) {
+interface IIngredientCard {
+  item: IIngredient;
+}
+
+export default function IngredientCard({ item }:IIngredientCard) {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [visible, setVisible] = React.useState(false);
-  const { counts, bun } = useSelector((store) => store.burgerConstructor);
+  const { counts, bun } = useSelector((store: any) => store.burgerConstructor);
   //Счётчик добавленных в карзину элементов
   const count = bun?._id === item._id ? 2 : counts[item._id];
 
@@ -34,7 +38,7 @@ export default function IngridientCard({ item }) {
     }),
   });
 
-  const openModal = (data) => {
+  const openModal = (data:IIngredient) => {
     //console.log(data);
     dispatch({
       type: SET_DETAIL_INGREDIENT,
@@ -90,7 +94,3 @@ export default function IngridientCard({ item }) {
     </div>
   );
 }
-
-IngridientCard.propTypes = {
-  item: IngredientPropTypes.isRequired,
-};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,12 +18,13 @@ export function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-  const forgotError = useSelector((state) => state.user.requestError);
+  const forgotError = useSelector((state:any) => state.user.requestError);
 
-  const resetPassFormSend = async (e) => {
+  const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
+      //@ts-ignore
       userApi(
         "reset",
         {
@@ -51,8 +52,7 @@ export function ResetPasswordPage() {
           placeholder="Введите новый пароль"
           extraClass="mb-6"
           onChange={(e) => setPassword(e.target.value)}
-          error={forgotError !== ""}
-          errorText={forgotError}
+          aria-errormessage={forgotError}
         />
         <Input
           value={code}
@@ -60,8 +60,7 @@ export function ResetPasswordPage() {
           name="name"
           placeholder="Введите код из письма"
           extraClass="mb-6"
-          onChange={(e) => setCode(e.target.value)}
-        />
+          onChange={(e) => setCode(e.target.value)} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        />
         <Button
           htmlType="submit"
           type="primary"
