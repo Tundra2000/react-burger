@@ -6,15 +6,24 @@ import {
   ORDER_MODAL_CLOSE,
 } from "../actions/order";
 
+import { TOrderActions } from "../actions/order";
+
+export type TOrderState = {
+    order: number;
+    orderRequest: boolean;
+    orderFailed: boolean;
+    isVisible: boolean;
+}
+
 // номер заказа
-const checkoutInitialState = {
+const checkoutInitialState:TOrderState = {
   order: 0,
   orderRequest: false,
   orderFailed: false,
   isVisible: false,
 };
 
-export const orderReducer = (state = checkoutInitialState, action) => {
+export const orderReducer = (state = checkoutInitialState, action: TOrderActions): TOrderState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {

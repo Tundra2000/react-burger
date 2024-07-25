@@ -1,3 +1,13 @@
+
+import type { ThunkDispatch } from 'redux-thunk';
+//import { store } from '../index';
+import { TIngredientState } from '../../services/reducers/ingredients';
+import { TOrderState } from '../../services/reducers/order';
+import { TIngredientDetailState } from '../../services/reducers/ingredient-detail';
+import { TBurgerConstructorState } from '../../services/reducers/constructor';
+import { TUserState } from '../../services/reducers/user';
+import { TWSState } from '../../services/reducers/websocket';
+
 export interface IBun {
     type: "top" | "bottom";
     isLocked: boolean;
@@ -39,8 +49,34 @@ export interface IRegisterRequest {
 export interface IRegisterResponse extends ICheckSuccess {
   accessToken: string;
   refreshToken: string;
-  user: {
-    email: string;
-    name: string;
-  };
+  user: IUser;
 }
+
+export interface IUser {
+  email: string; 
+  name: string
+}
+
+
+export interface IFeedItem {
+  _id: string;
+  ingredients?: [];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+}
+
+
+
+export type TApplicationActions = any;
+export type RootState = {
+    ingredients: TIngredientState,
+    order: TOrderState,
+    TIngredientDetailState: TIngredientDetailState,
+    constructorOrder: TBurgerConstructorState,
+    user: TUserState,
+    websocket: TWSState,
+};
+export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;

@@ -4,9 +4,19 @@ import {
   MOVE_IN_CONSTRUCTOR,
   CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
+import { IIngredient } from "../../components/utils/types";
+import { TConstructorActions } from "../actions/constructor";
+
+
+export type TBurgerConstructorState = {
+  bun: IIngredient | null;
+  filling: IIngredient[];
+  counts: any;
+  //id?: number;
+};
 
 // список всех ингредиентов в текущем конструкторе бургера,
-const burgerConstructorInitialState = {
+const burgerConstructorInitialState: TBurgerConstructorState = {
   filling: [],
   bun: null,
   counts: {},
@@ -14,8 +24,7 @@ const burgerConstructorInitialState = {
 
 export const constructorReducer = (
   state = burgerConstructorInitialState,
-  action
-) => {
+  action: TConstructorActions): TBurgerConstructorState => {
   switch (action.type) {
     case ADD_TO_CONSTRUCTOR: {
       if (action.item.type === "bun") {

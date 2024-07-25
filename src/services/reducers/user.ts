@@ -24,8 +24,18 @@ import {
   GET_REFRESH_SUCCESS,
   GET_REFRESH_FAILED,
 } from "../actions/user";
+import {IUser} from "../../components/utils/types";
 
-const checkoutInitialState = {
+import { TUserActions } from "../actions/user";
+
+export type TUserState = {
+    isUserAuth: boolean;
+    isLoading: boolean;
+    requestError: string;
+    user: IUser;
+}
+
+const userInitialState:TUserState = {
   isUserAuth: false,
   isLoading: false,
   requestError: "",
@@ -35,7 +45,7 @@ const checkoutInitialState = {
   },
 };
 
-export const userReducer = (state = checkoutInitialState, action) => {
+export const userReducer = (state = userInitialState, action:TUserActions):TUserState => {
   switch (action.type) {
     case GET_AUTH_REQUEST:
     case GET_REG_REQUEST:
@@ -94,7 +104,10 @@ export const userReducer = (state = checkoutInitialState, action) => {
       return {
         ...state,
         isUserAuth: false,
-        user: {},
+        user: {
+          email: "",
+          name: ""
+        },
       };
     }
 

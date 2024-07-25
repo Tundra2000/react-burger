@@ -20,7 +20,7 @@ const checkSuccess = <T extends ICheckSuccess>(res: T): Promise<T> => {
 
 // создаем универсальную фукнцию запроса с проверкой ответа и `success`
 // url для запроса храним в urls.jsx, options - параметры запроса (PUT, POST, ... )
-export const request = (url:string, options: any) => { 
+export const request = (url:string, options?: any) => { 
   return fetch(url, options)
     .then(checkResponse)
     .then(checkSuccess);

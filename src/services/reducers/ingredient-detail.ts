@@ -2,21 +2,26 @@ import {
   SET_DETAIL_INGREDIENT,
   CLEAR_DETAIL_INGREDIENT,
 } from "../actions/ingredient-detail";
+import { IIngredient } from "../../components/utils/types";
+import { TDetailIngredientActions } from "../actions/ingredient-detail";
 
-const initialState = {
+
+export type TIngredientDetailState = {
+  ingredient: IIngredient | null;
+}
+
+const ingredientDetailState:TIngredientDetailState = {
   ingredient: null,
 };
 
-export const ingredientDetail = (state = initialState, action) => {
+export const ingredientDetail = (state = ingredientDetailState, action:TDetailIngredientActions) => {
   switch (action.type) {
     case SET_DETAIL_INGREDIENT:
-      console.log(action.ingredient);
       return {
         ...state,
         ingredient: action.ingredient,
       };
     case CLEAR_DETAIL_INGREDIENT:
-      console.log(action.ingredient);
       return {
         ...state,
         ingredient: {},

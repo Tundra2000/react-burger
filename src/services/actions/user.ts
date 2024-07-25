@@ -13,6 +13,7 @@ import {
   getCookie,
 } from "../../components/utils/cookie";
 import { request } from "../../components/utils/api";
+//import {IUser} from "../../components/utils/types";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
@@ -46,8 +47,141 @@ export const GET_REFRESH_REQUEST = "GET_REFRESH_REQUEST";
 export const GET_REFRESH_SUCCESS = "GET_REFRESH_SUCCESS";
 export const GET_REFRESH_FAILED = "GET_REFRESH_FAILED";
 
+export interface IAuthReqAction {
+  readonly type: typeof GET_AUTH_REQUEST;
+}
+
+export interface IAuthSuccessAction {
+  data: any;
+  readonly type: typeof GET_AUTH_SUCCESS;
+}
+
+export interface IAuthFailedAction {
+  data: any;
+  readonly type: typeof GET_AUTH_FAILED;
+}
+
+export interface IRegReqAction {
+  readonly type: typeof GET_REG_REQUEST;
+}
+
+export interface IRegSuccessAction {
+  data: any;
+  readonly type: typeof GET_REG_SUCCESS;
+}
+
+export interface IRegFailedAction {
+  data: any;
+  readonly type: typeof GET_REG_FAILED;
+}
+
+export interface IForgotReqAction {
+  readonly type: typeof GET_FORGOT_REQUEST;
+}
+
+export interface IForgotSuccessAction {
+  readonly type: typeof GET_FORGOT_SUCCESS;
+}
+
+export interface IForgotFailedAction {
+  data: any;
+  readonly type: typeof GET_FORGOT_FAILED;
+}
+
+export interface IResetReqAction {
+  readonly type: typeof GET_RESET_REQUEST;
+}
+
+export interface IResetSuccessAction {
+  readonly type: typeof GET_RESET_SUCCESS;
+}
+
+export interface IResetFailedAction {
+  data: any;
+  readonly type: typeof GET_RESET_FAILED;
+}
+
+export interface ILogoutReqAction {
+  readonly type: typeof GET_LOGOUT_REQUEST;
+}
+
+export interface ILogoutSuccessAction {
+  readonly type: typeof GET_LOGOUT_SUCCESS;
+}
+
+export interface ILogoutFailedAction {
+  data: any;
+  readonly type: typeof GET_LOGOUT_FAILED;
+}
+
+export interface IEditUserReqAction {
+  readonly type: typeof GET_EDIT_REQUEST;
+}
+
+export interface IEditUserSuccessAction {
+  data: any;//{user:IUser};
+  readonly type: typeof GET_EDIT_SUCCESS;
+}
+
+export interface IEditUserFailedAction {
+  data: any;
+  readonly type: typeof GET_EDIT_FAILED;
+}
+
+export interface IUserReqAction {
+  readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IUserSuccessAction {
+  data: any;
+  readonly type: typeof GET_USER_SUCCESS;
+}
+
+export interface IUserFailedAction {
+  data: any;
+  readonly type: typeof GET_USER_FAILED;
+}
+
+export interface IRefreshReqAction {
+  readonly type: typeof GET_REFRESH_REQUEST;
+}
+
+export interface IRefreshSuccessAction {
+  readonly type: typeof GET_REFRESH_SUCCESS;
+}
+
+export interface IRefreshFailedAction {
+  data: any;
+  readonly type: typeof GET_REFRESH_FAILED;
+}
+
+export type TUserActions = IAuthFailedAction
+| IAuthReqAction
+| IAuthSuccessAction
+| IEditUserFailedAction
+| IEditUserReqAction
+| IEditUserSuccessAction
+| IForgotFailedAction
+| IForgotReqAction
+| IForgotSuccessAction
+| ILogoutFailedAction
+| ILogoutReqAction
+| ILogoutSuccessAction
+| IUserFailedAction
+| IUserReqAction
+| IUserSuccessAction
+| IRefreshFailedAction
+| IRefreshReqAction
+| IRefreshSuccessAction  
+| IRegFailedAction
+| IRegReqAction
+| IRegSuccessAction
+| IResetFailedAction
+| IResetReqAction
+| IResetSuccessAction
+
 export function getUser() {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -74,7 +208,8 @@ export function getUser() {
   };
 }
 
-export function userApi(type, data = {}, callbackFunction = () => {}) {
+//@ts-ignore
+export function userApi(type: any, data = {}, callbackFunction = () => {}) {
   let endpoint = "";
   let method = "POST";
   let typeMatch = false;
@@ -84,6 +219,7 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
   let successAction = "";
   let failedAction = "";
 
+  // eslint-disable-next-line default-case
   switch (type) {
     case "login":
       endpoint = loginUrl;
@@ -139,7 +275,7 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
   }
 
   if (typeMatch) {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
       dispatch({
         type: reqAction,
       });
@@ -178,6 +314,7 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
             data: String(err.message),
           });
           if (err === "jwt expired") {
+            //@ts-ignore
             dispatch(refreshToken(userApi(type, data, callbackFunction())));
           }
           console.error(err);
@@ -185,9 +322,9 @@ export function userApi(type, data = {}, callbackFunction = () => {}) {
     };
   }
 }
-
+//@ts-ignore
 const refreshToken = (afterRefresh) => (type, dataAfter, callbackFunction) => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     dispatch({
       type: GET_REFRESH_REQUEST,
     });

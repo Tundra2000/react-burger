@@ -3,6 +3,14 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
 } from "../actions/ingredients";
+import { IIngredient } from "../../components/utils/types";
+import { TIngredientActions } from "../actions/ingredients";
+
+export type TIngredientState = {
+    ingredients: IIngredient[];
+    ingredientsRequest: boolean;
+    ingredientsFailed: boolean;
+}
 
 // список всех полученных ингредиентов
 const ingredientsInitialState = {
@@ -11,7 +19,7 @@ const ingredientsInitialState = {
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: TIngredientActions): TIngredientState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST:
       return {
