@@ -71,6 +71,7 @@ export default function BurgerConstructor() {
     const itemsArr = filling.map((item: IIngredient) => item._id);
     if (bun) {
       itemsArr.push(bun._id);
+      itemsArr.unshift(bun._id);
     }
     return itemsArr;
   }, [filling, bun]);

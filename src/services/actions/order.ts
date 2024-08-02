@@ -51,8 +51,10 @@ export function postOrder(ingredients: Array<string>) {
     });
     request(ordersUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      "authorization": 'Bearer ' + getCookie('token'),
+      headers: { 
+        "Content-Type": "application/json", 
+        "Authorization": 'Bearer ' + getCookie('token')
+      },
       body: JSON.stringify({ingredients}),
     })
       .then((rez) => {
