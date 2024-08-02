@@ -200,10 +200,17 @@ export function getUser() {
       })
       .catch((err) => {
         console.error(err);
+        if (err.message === 'jwt expired') {
+          console.error("Обнови токен пользователя!!!");
+          //deleteCookie("token");
+          //dispatch(refreshToken());
+          //dispatch(getUser());
+      } else {
         dispatch({
           type: GET_USER_FAILED,
           data: String(err.message),
         });
+      }
       });
   };
 }
@@ -293,6 +300,8 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
             data: data,
           });
           if (saveTokens) {
+            console.log("saveTokens");
+            console.log(data.accessToken);
             let authToken;
             if (data.accessToken.indexOf("Bearer") === 0) {
               authToken = data.accessToken.split("Bearer ")[1];

@@ -7,7 +7,7 @@ import { IIngredient } from "../../components/utils/types";
 import { TIngredientActions } from "../actions/ingredients";
 
 export type TIngredientState = {
-    ingredients: IIngredient[];
+    ingredients: IIngredient[] | [];
     ingredientsRequest: boolean;
     ingredientsFailed: boolean;
 }

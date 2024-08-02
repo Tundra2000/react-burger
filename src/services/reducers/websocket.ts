@@ -1,10 +1,10 @@
-import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_FEED } from '../actions/websocket'
+import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_ORDERS } from '../actions/websocket'
 import { TWSActions } from "../actions/websocket";
-import { IFeedItem } from '../../components/utils/types';
+import { IOrder } from '../../components/utils/types';
 
 export type TWSState = {
     wsConnected: boolean;
-    orders: IFeedItem[];
+    orders: IOrder[];
     total: number,
     totalToday: number,
     error?: Event;
@@ -40,7 +40,7 @@ export const websocketReducer = (state = checkoutInitialState, action: TWSAction
             wsConnected: false
           };
     
-        case WS_GET_FEED:
+        case WS_GET_ORDERS:
           const msg = { ...action.payload};
           
           return {

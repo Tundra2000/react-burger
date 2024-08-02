@@ -13,7 +13,7 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
 
 
  
-      if (type === 'WS_FEED_START') {
+      if (type === 'WS_ORDERS_START') {
             // объект класса WebSocket
             if (token === '' || token === undefined) {
               socket = new WebSocket(wsUrl + payload);
@@ -37,8 +37,13 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
 
                 // функция, которая вызывается при получения события от сервера
         socket.onmessage = event => {
-          const { data } = event;
-          dispatch({ type: 'WS_GET_FEED', payload: JSON.parse(data) });
+          const data = JSON.parse(event.data);
+          if (data.success) {
+            dispatch({ type: 'WS_GET_ORDERS', payload: data });
+          } else {
+            socket!.close();
+          }
+
         };
                 // функция, которая вызывается при закрытии соединения
         socket.onclose = event => {
@@ -53,7 +58,7 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
 
         
         if(type === 'WS_CONNECTION_CLOSED'){
-          socket.close(1000, 'user logged out')
+          socket.close(/*1000, 'user logged out'*/)
         }
       }
 

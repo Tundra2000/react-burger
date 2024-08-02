@@ -6,7 +6,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import Bun from "./bun/bun";
 import IngredientsList from "./ingredient-list/ingredient-list";
 import { useDrop } from "react-dnd";
@@ -79,8 +79,8 @@ export default function BurgerConstructor() {
   function openModal() {
     if (isUserAuth) { // авторизован?
       if (idsArray) {
-        //@ts-ignore
-        dispatch(postOrder({ ingredients: idsArray }));
+
+        dispatch(postOrder( idsArray ));
         dispatch({
           type: ORDER_MODAL_OPEN,
         });

@@ -1,12 +1,17 @@
 import { ordersUrl } from "../../components/utils/urls";
 import { request } from "../../components/utils/api";
-import { CLEAR_CONSTRUCTOR } from "./constructor";
 
-export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
-export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
-export const POST_ORDER_FAILED = "POST_ORDER_FAILED";
-export const ORDER_MODAL_CLOSE = "ORDER_MODAL_CLOSE";
-export const ORDER_MODAL_OPEN = "ORDER_MODAL_OPEN";
+import { getCookie } from "../../components/utils/cookie";
+import { CLEAR_CONSTRUCTOR } from "./constructor";
+import { IOrder } from "../../components/utils/types";
+
+export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = "POST_ORDER_REQUEST";
+export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = "POST_ORDER_SUCCESS";
+export const POST_ORDER_FAILED: 'POST_ORDER_FAILED' = "POST_ORDER_FAILED";
+
+export const ORDER_MODAL_CLOSE: 'ORDER_MODAL_CLOSE' = "ORDER_MODAL_CLOSE";
+export const ORDER_MODAL_OPEN: 'ORDER_MODAL_OPEN'= "ORDER_MODAL_OPEN";
+export const ORDER_DETAIL: 'ORDER_DETAIL' = 'ORDER_DETAIL';
 
 export interface IOrderReqAction {
   readonly type: typeof POST_ORDER_REQUEST;
@@ -27,12 +32,19 @@ export interface IOrderModalCloseAction {
 
 export interface IOrderModalOpenAction {
   readonly type: typeof ORDER_MODAL_OPEN;
+  readonly data: any;
 }
 
-export type TOrderActions = IOrderReqAction | IOrderSuccessAction | IOrderFailedAction | IOrderModalCloseAction | IOrderModalOpenAction;
+export interface IOrderDetailActions {
+    readonly type: typeof ORDER_DETAIL;
+    readonly data: IOrder;
+}
+
+export type TOrderActions = IOrderReqAction | IOrderSuccessAction | IOrderFailedAction | IOrderModalCloseAction |
+                            IOrderModalOpenAction | IOrderDetailActions;
 
 
-export function postOrder(data: any) {
+export function postOrder(ingredients: Array<string>) {
   return function (dispatch: any) {
     dispatch({
       type: POST_ORDER_REQUEST,
@@ -40,21 +52,22 @@ export function postOrder(data: any) {
     request(ordersUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(data),
+      "authorization": 'Bearer ' + getCookie('token'),
+      body: JSON.stringify({ingredients}),
     })
-      .then((data) => {
+      .then((rez) => {
         dispatch({
           type: POST_ORDER_SUCCESS,
-          data: data.order.number,
+          data: rez.order.number,
         });
         dispatch({
           type: CLEAR_CONSTRUCTOR,
         });
       })
       .catch((err) => {
-        console.log(err);
         dispatch({
           type: POST_ORDER_FAILED,
+          requestError: String(err)
         });
       });
   };

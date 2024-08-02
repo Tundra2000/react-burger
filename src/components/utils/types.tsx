@@ -1,4 +1,3 @@
-
 import type { ThunkDispatch } from 'redux-thunk';
 //import { store } from '../index';
 import { TIngredientState } from '../../services/reducers/ingredients';
@@ -58,9 +57,9 @@ export interface IUser {
 }
 
 
-export interface IFeedItem {
+export interface IOrder {
   _id: string;
-  ingredients?: [];
+  ingredients?: string[];
   status: string;
   name: string;
   createdAt: string;
@@ -74,7 +73,7 @@ export type TApplicationActions = any;
 export type RootState = {
     ingredients: TIngredientState,
     order: TOrderState,
-    TIngredientDetailState: TIngredientDetailState,
+    ingredientDetail: TIngredientDetailState,
     constructorOrder: TBurgerConstructorState,
     user: TUserState,
     websocket: TWSState,

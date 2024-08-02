@@ -30,7 +30,8 @@ export const ProtectedRouteElement = ({
     dispatch(getUser("get"));
   }
 
-  if (notAuth && isUserAuth && !isLoading) return <Navigate to={from} />;
+  if (notAuth && isUserAuth && !isLoading) 
+    return <Navigate to={from} />;
   if (!notAuth && !isUserAuth && !isLoading)
     return <Navigate to="/login" state={{ from: location }} />;
 

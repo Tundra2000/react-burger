@@ -7,9 +7,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../../services/actions/user";
 import styles from "./user-profil-page.module.css";
+import { useNavigate } from "react-router-dom";
 
 export function UserProfilePage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
 
   const user = useSelector((state:any) => state.user.user);
 
@@ -22,8 +24,13 @@ export function UserProfilePage() {
   const [passValue, setPassValue] = useState("");
 
   useEffect(() => {
-    setNameValue(user.name);
-    setEmailValue(user.email);
+    if(user.name === "" && user.email === ""){
+      navigate("/login");
+    } else
+    {
+      setNameValue(user.name);
+      setEmailValue(user.email);
+    }
   }, [dispatch, user]);
 
   const nameInput = React.createRef<HTMLInputElement>();

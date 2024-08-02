@@ -37,7 +37,7 @@ export default function AppHeader() {
             className={({ isActive }) =>
               isActive ? styles.link_active : styles.link
             }
-            to={"/orders"}
+            to={"/feed"}
           >
             {({ isActive }) => (
               <>

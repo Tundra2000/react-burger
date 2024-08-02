@@ -6,7 +6,7 @@ import styles from "./ingredient-card.module.css";
 import Modal from "../../modal/modal";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../../hooks/useReducer";
 import { useDrag } from "react-dnd";
 import {
   SET_DETAIL_INGREDIENT,
