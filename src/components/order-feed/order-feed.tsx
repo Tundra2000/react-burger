@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useSelector, useDispatch } from '../../hooks/useReducer';
 import { IOrder } from '../../components/utils/types';
 import { ORDER_DETAIL } from '../../services/actions/order';
-//import { russianStatus } from '../../utils/tools';
+import { russianStatus } from '../../components/utils/tools';
 
 interface IOrderFeed {
     item: IOrder;
@@ -65,7 +65,7 @@ const OrderFeed:FC<IOrderFeed> = ( {item, modalOpen}) => {
                     {item.name}
                 </p>
                 {item.status && 
-                    <p>{item.status/*russianStatus(item.status)*/}</p>
+                    <p>{russianStatus(item.status)}</p>
                 }
                 
             </div>
