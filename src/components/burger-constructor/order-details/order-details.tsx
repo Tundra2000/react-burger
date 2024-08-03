@@ -1,10 +1,10 @@
 import OrderDone from "../../../images/done.svg";
 import styles from "./order-details.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../hooks/useReducer";
 
 export default function OrderDetails() {
   const { order, orderRequest, orderFailed } = useSelector(
-    (store: any) => store.order
+    (store) => store.order
   );
 
   return (

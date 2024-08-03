@@ -74,7 +74,7 @@ export type RootState = {
     ingredients: TIngredientState,
     order: TOrderState,
     ingredientDetail: TIngredientDetailState,
-    constructorOrder: TBurgerConstructorState,
+    burgerConstructor: TBurgerConstructorState,
     user: TUserState,
     websocket: TWSState,
 };

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../../hooks/useReducer';
-import { ViewOrder } from "../../../components/order-feed/order-view/order-view";//'../../components/modal/order-view/order-view';
+import { ViewOrder } from "../../../components/order-feed/order-view/order-view";
 import { WS_ORDERS_START, WS_CONNECTION_CLOSED } from '../../../services/actions/websocket';
 import styles from './view-feed.module.css';
 
@@ -30,7 +30,7 @@ export const ViewFeedPage:FC = () => {
             {
                 orders!.length > 0 &&
                 <div className={styles.content}>
-                    <ViewOrder item={item!} />
+                    {<ViewOrder item={item!} />}
                 </div>
             }
         </>

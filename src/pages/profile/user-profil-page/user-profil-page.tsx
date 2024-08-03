@@ -1,5 +1,5 @@
 import React, { useState, useEffect, SyntheticEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../../hooks/useReducer";
 import {
   Input,
   PasswordInput,
@@ -13,7 +13,7 @@ export function UserProfilePage() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
-  const user = useSelector((state:any) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   const [isActiveName, setActiveName] = useState(false);
   const [isActiveEmail, setActiveEmail] = useState(false);
@@ -31,7 +31,7 @@ export function UserProfilePage() {
       setNameValue(user.name);
       setEmailValue(user.email);
     }
-  }, [dispatch, user]);
+  }, [dispatch, navigate, user]);
 
   const nameInput = React.createRef<HTMLInputElement>();
   const emailInput = React.createRef<HTMLInputElement>();
@@ -70,7 +70,7 @@ export function UserProfilePage() {
   const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(
-      //@ts-ignore
+      
       userApi("edit", {
         name: nameValue,
         email: emailValue,

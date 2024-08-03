@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import {
   Input,
   PasswordInput,
@@ -18,13 +18,13 @@ export function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-  const forgotError = useSelector((state:any) => state.user.requestError);
+  const forgotError = useSelector((state) => state.user.requestError);
 
   const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
-      //@ts-ignore
+      
       userApi(
         "reset",
         {

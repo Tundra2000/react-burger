@@ -12,7 +12,6 @@ export type TBurgerConstructorState = {
   bun: IIngredient | null;
   filling: IIngredient[];
   counts: any;
-  //id?: number;
 };
 
 // список всех ингредиентов в текущем конструкторе бургера,

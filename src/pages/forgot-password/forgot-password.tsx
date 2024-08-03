@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import {
   EmailInput,
   Button,
@@ -17,12 +17,11 @@ export function ForgotPasswordPage() {
 
   const [email, setEmail] = useState("");
 
-  const forgotError = useSelector((state:any) => state.user.requestError);
+  const forgotError = useSelector((state) => state.user.requestError);
 
   const sendForgotPassForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      //@ts-ignore
       userApi(
         "forgot",
         {

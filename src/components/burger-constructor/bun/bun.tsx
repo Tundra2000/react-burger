@@ -1,6 +1,6 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./bun.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../hooks/useReducer";
 import { IIngredient } from "../../utils/types";
 
 interface IBunPosition {
@@ -8,7 +8,7 @@ interface IBunPosition {
 }
 
 const Bun = ({ position }:IBunPosition) => {
-  const bun: IIngredient = useSelector((store: any) => store.burgerConstructor.bun);
+  const bun: IIngredient | null = useSelector((store) => store.burgerConstructor.bun);
   const isEmpty = !bun;
   const positionText: string = position === "top" ? "(верх)" : "(низ)";
 

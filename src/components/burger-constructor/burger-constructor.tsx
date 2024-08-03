@@ -24,10 +24,10 @@ import { IIngredient } from "../utils/types";
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { bun, filling } = useSelector((store: any) => store.burgerConstructor);
-  const { order, isVisible } = useSelector((store: any) => store.order);
+  const { bun, filling } = useSelector((store) => store.burgerConstructor);
+  const { isVisible } = useSelector((store) => store.order);
 
-  const { isUserAuth } = useSelector((store: any) => store.user);
+  const { isUserAuth } = useSelector((store) => store.user);
 
   //`action creator` для добавления уникального id ингредиента
   const addToConstructor = (item: IIngredient) => {
@@ -89,7 +89,6 @@ export default function BurgerConstructor() {
     } else navigate("/login");
   }
   const closeModal = () => {
-    console.log(order.number);
     dispatch({ type: ORDER_MODAL_CLOSE });
   };
 

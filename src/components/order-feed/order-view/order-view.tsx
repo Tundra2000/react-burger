@@ -3,10 +3,9 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './order-view.module.css';
 import { useSelector } from '../../../hooks/useReducer';
 import { IOrder } from '../../utils/types';
-//import { russianStatus } from '../../../utils/tools';
 
-export const ViewOrder:FC<{item: IOrder}>= ({item}) => {
-    
+export const ViewOrder: FC<{item: IOrder}>= ({item}) => {
+
     const ingredients = useSelector((state) => state.ingredients.ingredients)
     let orderDetails = [];
     let totalPrice = 0;
@@ -46,7 +45,7 @@ export const ViewOrder:FC<{item: IOrder}>= ({item}) => {
                 {item.name}
             </p>
             {item.status &&
-                <p>{item.status/*russianStatus(item.status)*/}</p>
+                <p>{item.status /*russianStatus(item.status)*/}</p>
             }
             <p className="mt-15 text text_type_main-medium">
                 Состав:

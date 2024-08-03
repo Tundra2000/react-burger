@@ -13,7 +13,7 @@ import {
   getCookie,
 } from "../../components/utils/cookie";
 import { request } from "../../components/utils/api";
-//import {IUser} from "../../components/utils/types";
+import { Dispatch } from "redux";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
@@ -181,7 +181,7 @@ export type TUserActions = IAuthFailedAction
 | IResetSuccessAction
 
 export function getUser() {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -215,8 +215,8 @@ export function getUser() {
   };
 }
 
-//@ts-ignore
-export function userApi(type: any, data = {}, callbackFunction = () => {}) {
+
+export function userApi(type: string, data: {} | undefined = {}, callbackFunction = () => {}) {
   let endpoint = "";
   let method = "POST";
   let typeMatch = false;
@@ -226,7 +226,7 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
   let successAction = "";
   let failedAction = "";
 
-  // eslint-disable-next-line default-case
+
   switch (type) {
     case "login":
       endpoint = loginUrl;
@@ -282,7 +282,7 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
   }
 
   if (typeMatch) {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
       dispatch({
         type: reqAction,
       });
@@ -295,6 +295,7 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
         },
       })
         .then((data) => {
+        if (data.success) {
           dispatch({
             type: successAction,
             data: data,
@@ -316,6 +317,16 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
             localStorage.clear();
           }
           callbackFunction();
+        } else {
+          dispatch({
+              type: failedAction,
+              data: String(data.message)
+          });
+          if (data.message === 'jwt expired') {
+               //@ts-ignore
+              dispatch(refreshToken(userApi(type, data, callbackFunction())))
+          }
+      }
         })
         .catch((err) => {
           dispatch({
@@ -331,9 +342,9 @@ export function userApi(type: any, data = {}, callbackFunction = () => {}) {
     };
   }
 }
-//@ts-ignore
-const refreshToken = (afterRefresh) => (type, dataAfter, callbackFunction) => {
-  return async (dispatch: any) => {
+
+const refreshToken = (afterRefresh:any) => (type: string, dataAfter: any, callbackFunction: void) => {
+  return async (dispatch: Dispatch ) => {
     dispatch({
       type: GET_REFRESH_REQUEST,
     });

@@ -1,11 +1,8 @@
-import React, { FC, ReactNode } from 'react';
+import React from 'react';
 import Modal from '../../modal/modal';
 import { useModal } from '../../../hooks/useModal';
 import { ViewOrder } from '../order-view/order-view';
 import { useSelector } from '../../../hooks/useReducer';
-import { useLocation } from 'react-router-dom';
-
-
 
 const withModal = (WrappedComponent: React.ElementType) => (props: any) => {
     const { modalType, ...exProps } = props;
@@ -22,7 +19,7 @@ const withModal = (WrappedComponent: React.ElementType) => (props: any) => {
             <WrappedComponent {...exProps} modalOpen={openModal} />
             {modalState.isOpen &&
                 <Modal header={title} onClose={closeModal} >
-                    <ViewOrder item={orderDetail}/>
+                    {<ViewOrder item={orderDetail}/>}
                 </Modal>
             }
         </>

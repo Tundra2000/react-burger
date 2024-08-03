@@ -1,5 +1,5 @@
-import { FormEvent, FormEventHandler, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -20,13 +20,12 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const regError = useSelector((state:any) => state.user.requestError);
+  const regError = useSelector((state) => state.user.requestError);
 
   const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
-      //@ts-ignore
       userApi(
         "register",
         {

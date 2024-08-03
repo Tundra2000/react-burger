@@ -1,6 +1,6 @@
 //login - страница авторизации.
 import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import { Link, useNavigate } from "react-router-dom";
 import {
   EmailInput,
@@ -16,20 +16,19 @@ export function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const { value, handleChange } = useForm({ email: "", password: "" });
 
-  const loginError = useSelector((state:any) => state.user.requestError);
+  const loginError = useSelector((state) => state.user.requestError);
 
   const sendLoginForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
-      //@ts-ignore
+      
       userApi(
         "login",
         {
-          email: email,//value.email,
-          password: password//value.password,
+          email: email,
+          password: password
         },
         () => navigate("/")
       )

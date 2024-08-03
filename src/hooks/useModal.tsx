@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/useReducer";
 import { ORDER_MODAL_CLOSE } from "../services/actions/order";
 
 export const useModal = () => {

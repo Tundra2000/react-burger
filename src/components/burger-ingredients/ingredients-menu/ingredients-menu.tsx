@@ -1,7 +1,7 @@
 import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./ingredients-menu.module.css";
 import { useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../../hooks/useReducer";
 import { useInView } from "react-intersection-observer";
 import { IIngredient } from "../../utils/types";
 
@@ -10,7 +10,7 @@ export type TSetCurrent = {
 }
 
 export function IngredientsMenu({ setCurrent }: TSetCurrent) {
-  const { ingredients } = useSelector((store: any) => store.ingredients);
+  const { ingredients } = useSelector((store) => store.ingredients);
 
   const bunIngredients = useMemo(() => {
     return ingredients.filter((item: IIngredient) => item.type === "bun");

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks/useReducer";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { userApi } from "../../services/actions/user";
 import styles from "./profile.module.css";
@@ -14,7 +14,7 @@ export function ProfilePage() {
     e.preventDefault();
 
     dispatch(
-      //@ts-ignore
+      
       userApi(
         "logout",
         {

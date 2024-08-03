@@ -25,8 +25,8 @@ function App() {
   const navigate = useNavigate();
   let background = location.state && location.state.background;
 
-  const { ingredients, ingredientsRequest, ingredientsFailed }: any = useSelector(
-    (state: any) => state.ingredients
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    (state) => state.ingredients
   );
 
   const dispatch = useDispatch();
