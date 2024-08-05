@@ -4,13 +4,13 @@ import {
   MOVE_IN_CONSTRUCTOR,
   CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
-import { IIngredient } from "../../components/utils/types";
+import { IConstructorIngredient } from "../../components/utils/types";
 import { TConstructorActions } from "../actions/constructor";
 
 
 export type TBurgerConstructorState = {
-  bun: IIngredient | null;
-  filling: IIngredient[];
+  bun: IConstructorIngredient | null;
+  filling: IConstructorIngredient[];
   counts: any
 };
 

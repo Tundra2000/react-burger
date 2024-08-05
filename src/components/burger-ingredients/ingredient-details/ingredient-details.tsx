@@ -9,10 +9,10 @@ export default function IngredientDetails() {
 
   let currentIngredient = useSelector((store) => store.ingredientDetail.ingredient);
 
-  let ingredientsData  = useSelector((store:any) => store.ingredients.ingredients);
+  let ingredientsData  = useSelector((store) => store.ingredients.ingredients);
 
   if (!currentIngredient && ingredientsData.length > 0)
-    currentIngredient = ingredientsData.find((item: { _id: string | undefined; }) => item._id === id);
+    currentIngredient = ingredientsData.find((item: { _id: string | undefined; }) => item._id === id) as IIngredient;
 
   return currentIngredient ? (
     <div className={styles.modal}>

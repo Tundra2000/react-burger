@@ -1,7 +1,6 @@
 import { ingredientsUrl } from "../../components/utils/urls";
 import { request } from "../../components/utils/api";
-import { IIngredient } from "../../components/utils/types";
-import { Dispatch } from "redux";
+import { AppDispatch, IIngredient } from "../../components/utils/types";
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -25,7 +24,7 @@ export type TIngredientActions = IIngredientReqAction | IIngredientSuccessAction
 
 
 export function getIngredients() {
-  return function (dispatch: Dispatch) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });

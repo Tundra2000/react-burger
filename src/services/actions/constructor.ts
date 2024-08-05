@@ -1,4 +1,4 @@
-import { IIngredient } from "../../components/utils/types";
+import { IConstructorIngredient } from "../../components/utils/types";
 
 export const ADD_TO_CONSTRUCTOR: 'ADD_TO_CONSTRUCTOR' = 'ADD_TO_CONSTRUCTOR';
 export const DEL_FROM_CONSTRUCTOR: 'DEL_FROM_CONSTRUCTOR' = 'DEL_FROM_CONSTRUCTOR';
@@ -8,7 +8,7 @@ export const CLEAR_CONSTRUCTOR: 'CLEAR_CONSTRUCTOR' = 'CLEAR_CONSTRUCTOR';
 
 export interface IConstructorAddAction {
     readonly type: typeof ADD_TO_CONSTRUCTOR;
-    readonly item: IIngredient;
+    readonly item: IConstructorIngredient;
 }
 
 export interface IConstructorDelAction {

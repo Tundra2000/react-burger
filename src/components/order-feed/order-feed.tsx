@@ -2,7 +2,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './order-feed.module.css';
 import { FC } from 'react';
 import { useSelector, useDispatch } from '../../hooks/useReducer';
-import { IOrder } from '../../components/utils/types';
+import { IIngredient, IOrder } from '../../components/utils/types';
 import { ORDER_DETAIL } from '../../services/actions/order';
 import { russianStatus } from '../../components/utils/tools';
 
@@ -19,7 +19,7 @@ const OrderFeed:FC<IOrderFeed> = ( {item, modalOpen}) => {
     const orderIngredients = item.ingredients
 
     for (let i = 0; i < orderIngredients!.length; i++) {
-        const tempIngredient:any = ingredients.find((item) => item._id === orderIngredients![i])
+        const tempIngredient = ingredients.find((item) => item._id === orderIngredients![i]) as IIngredient;
         totalPrice += tempIngredient.price;
         if (i <= 6) {
             if (i === 6) {

@@ -3,8 +3,8 @@ import { request } from "../../components/utils/api";
 
 import { getCookie } from "../../components/utils/cookie";
 import { CLEAR_CONSTRUCTOR } from "./constructor";
-import { IOrder } from "../../components/utils/types";
-import { Dispatch } from "redux";
+import { AppDispatch, IOrder } from "../../components/utils/types";
+
 
 export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = "POST_ORDER_SUCCESS";
@@ -45,7 +45,7 @@ export type TOrderActions = IOrderReqAction | IOrderSuccessAction | IOrderFailed
 
 
 export function postOrder(ingredients: Array<string>) {
-  return function (dispatch: Dispatch) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: POST_ORDER_REQUEST,
     });

@@ -24,7 +24,6 @@ import {
   GET_REFRESH_SUCCESS,
   GET_REFRESH_FAILED,
 } from "../actions/user";
-import { TGetUserResponse} from "../../components/utils/types";
 
 import { TUserActions } from "../actions/user";
 import { TProfile } from "../../data/apis/user-api/user-types";
