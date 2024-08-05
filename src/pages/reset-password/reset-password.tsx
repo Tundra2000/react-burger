@@ -9,6 +9,8 @@ import {
 import { userApi } from "../../services/actions/user";
 import styles from "./reset-password.module.css";
 import { TUserApi } from "../../components/utils/types";
+import { postResetPassword } from "../../data/apis/user-api/user-api";
+import { TResetPassword } from "../../data/apis/user-api/user-types";
 
 //reset-password - страница сброса пароля.
 export function ResetPasswordPage() {
@@ -24,14 +26,7 @@ export function ResetPasswordPage() {
   const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    /*let inportData: TUserApi = {
-      type: "reset", data: {
-        password: password,
-        token: code,
-      }, 
-      callbackFunction: async () => navigate("/login")
-    }*/
-    dispatch(
+    /*dispatch(
       //@ts-ignore
       userApi(
         "reset",
@@ -40,7 +35,17 @@ export function ResetPasswordPage() {
           'token': code,
         },
         () => navigate("/login")
-        ));
+        ));*/
+
+        dispatch(
+          postResetPassword(
+            {
+              'password': password,
+              'token': code,
+            } as TResetPassword,
+            () => navigate("/login")
+          )
+        )
   };
 
   //ПОПАСТЬ МОЖНО ТОЛЬКО СО СТРАНИЦЫ 'forgot-password'

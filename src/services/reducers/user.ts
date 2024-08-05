@@ -32,7 +32,8 @@ import { TProfile } from "../../data/apis/user-api/user-types";
 export type TUserState = {
     isUserAuth: boolean;
     isLoading: boolean;
-    requestError: string;
+    requestError: string; 
+    //requestSucces: string;
     user: TProfile;
 }
 
@@ -40,6 +41,7 @@ const userInitialState:TUserState = {
   isUserAuth: false,
   isLoading: false,
   requestError: "",
+  //requestSucces: "",
   user: {
     name: '',
     email: '',
@@ -69,23 +71,31 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
       };
     }
     case GET_AUTH_SUCCESS:
-      let userData = action.data as TGetUserResponse;     
+      let userData = action.data as TProfile;     
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
-        user: userData.user,
+        user: {
+          ...state.user,
+          name: userData.name,
+          email: userData.email,
+      },
         requestError: "",
       };
     case GET_REG_SUCCESS:
     case GET_USER_SUCCESS:
     case GET_EDIT_SUCCESS: {
-      let userData = action.data as TGetUserResponse;     
+      let userData = action.data as TProfile;     
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
-        user: userData.user,
+        user: {
+          ...state.user,
+          name: userData.name,
+          email: userData.email,
+      },
         requestError: "",
       };
     }

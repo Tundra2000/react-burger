@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { userApi } from "../../services/actions/user";
 import styles from "./profile.module.css";
 import { FormEvent } from "react";
+import { TLogout } from "../../data/apis/user-api/user-types";
+import { postLogout } from "../../data/apis/user-api/user-api";
 
 //profile — страница с настройками профиля пользователя.
 export function ProfilePage() {
@@ -12,7 +14,14 @@ export function ProfilePage() {
   //выход из учётной записи
   const logOut = async (e:FormEvent) => {
     e.preventDefault();
-
+    dispatch(
+      postLogout(
+        {
+          'token': localStorage.getItem("refreshToken"),
+        } as TLogout, 
+        () => navigate("/login")
+      ));
+/*
     dispatch(
       //@ts-ignore
       userApi(
@@ -22,7 +31,8 @@ export function ProfilePage() {
           }, 
           () => navigate("/login")
         )
-    );
+    );*/
+    
   };
 
   return (

@@ -9,6 +9,8 @@ import { userApi } from "../../../services/actions/user";
 import styles from "./user-profil-page.module.css";
 import { useNavigate } from "react-router-dom";
 import { TUserApi } from "../../../components/utils/types";
+import { TEdit } from "../../../data/apis/user-api/user-types";
+import { patchEdit } from "../../../data/apis/user-api/user-api";
 
 export function UserProfilePage() {
   const dispatch = useDispatch(); 
@@ -70,17 +72,15 @@ export function UserProfilePage() {
 
   const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
+    dispatch(patchEdit({
+      name: nameValue,
+      email: emailValue,
+      password: passValue,
+      token: localStorage.getItem("refreshToken")
+    } as TEdit));
 
-    /*let inportData: TUserApi = {
-      type: "edit", data: {
-        name: nameValue,
-        email: emailValue,
-        password: passValue,
-        token: localStorage.getItem("refreshToken"),
-      }
-    }*/
 
-    dispatch(
+    /*dispatch(
       //@ts-ignore
       userApi(
       'edit',
@@ -90,7 +90,7 @@ export function UserProfilePage() {
         'password': passValue,
         'token': localStorage.getItem("refreshToken"),
       }
-    ));
+    ));*/
 
     setActiveName(false);
     setActiveEmail(false);

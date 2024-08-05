@@ -11,6 +11,8 @@ import {
 import { userApi } from "../../services/actions/user";
 import styles from "./register.module.css";
 import { TUserApi } from "../../components/utils/types";
+import { TProfile } from "../../data/apis/user-api/user-types";
+import { postRegister } from "../../data/apis/user-api/user-api";
 
 //register - страница регистрации.
 export function RegisterPage() {
@@ -25,25 +27,28 @@ export function RegisterPage() {
 
   const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(
+      postRegister(
+        {
+          email: email,
+          password: password,
+          name: name,
+        } as TProfile,
+        () => navigate("/")
+  ))
 
-    /*let inportData: TUserApi = {
-      type: "register", data: {
-        email: email,
-        password: password,
-        name: name,
-      }, callbackFunction: async () => navigate("/")
-    }*/
+    /*
     dispatch(
       //@ts-ignore
       userApi(
       "register", 
       {
-       'email': email,
+        'email': email,
         'password': password,
         'name': name,
       }, 
       () => navigate("/")
-    ));
+    ));*/
   };
 
   return (

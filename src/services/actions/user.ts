@@ -15,6 +15,8 @@ import {
 import { request } from "../../components/utils/api";
 import { TGetUserResponse} from "../../components/utils/types";
 import { AppDispatch } from "../../components/utils/types";
+import { TProfile } from "../../data/apis/user-api/user-types";
+import { refreshToken as ref } from "../../data/apis/user-api/user-api";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
@@ -54,7 +56,7 @@ export interface IAuthReqAction {
 
 export interface IAuthSuccessAction {
   readonly type: typeof GET_AUTH_SUCCESS;
-  data: TGetUserResponse;
+  data: TProfile;
 }
 
 export interface IAuthFailedAction {
@@ -67,7 +69,7 @@ export interface IRegReqAction {
 }
 
 export interface IRegSuccessAction {
-  data: TGetUserResponse;
+  data: TProfile;
   readonly type: typeof GET_REG_SUCCESS;
 }
 
@@ -120,7 +122,7 @@ export interface IEditUserReqAction {
 }
 
 export interface IEditUserSuccessAction {
-  data: TGetUserResponse;
+  readonly data: TProfile;
   readonly type: typeof GET_EDIT_SUCCESS;
 }
 
@@ -135,7 +137,7 @@ export interface IUserReqAction {
 
 export interface IUserSuccessAction {
   readonly type: typeof GET_USER_SUCCESS;
-  data: TGetUserResponse;
+  data: TProfile;
 }
 
 export interface IUserFailedAction {
@@ -209,10 +211,10 @@ export function getUser() {
       })
       .catch((err) => {
         console.error(err);
-        if (err.message === 'jwt expired') {
+        if (err === 'jwt expired') {
           console.error("Обнови токен пользователя!!!");
           //deleteCookie("token");
-          //dispatch(refreshToken());
+          dispatch(ref());
           //dispatch(getUser());
       } else {
         dispatch({

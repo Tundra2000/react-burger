@@ -18,3 +18,20 @@ export type TUserDataResult= {
   user: TProfile
   message: string 
 }
+
+export type TResetPassword = {
+  password: string
+  token: string
+}
+
+
+export type TLogout = {
+  token: string
+}
+
+export type TEdit = {
+  name: string,
+  email: string,
+  password: string,
+  token: string,
+}

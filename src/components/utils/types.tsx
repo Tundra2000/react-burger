@@ -43,6 +43,7 @@ export interface IConstructorIngredient extends IIngredient {
 
 export interface ICheckSuccess {
   success: boolean;
+  message: string;
 }
     
 export interface IRegisterRequest {

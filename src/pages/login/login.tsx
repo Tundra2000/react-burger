@@ -29,7 +29,9 @@ export function LoginPage() {
         {
           'email': email,
           'password': password
-        } as TLogin)
+        } as TLogin,
+        () => navigate('/')
+      )
       );
 
       //@ts-ignore
