@@ -11,6 +11,7 @@ import { TIngredientActions } from '../../services/actions/ingredients';
 import { TOrderActions } from '../../services/actions/order';
 import { TUserActions } from '../../services/actions/user';
 import { TWSActions } from '../../services/actions/websocket';
+import { TProfile } from '../../data/apis/user-api/user-types';
 
 export interface IBun {
     type: "top" | "bottom";
@@ -50,10 +51,7 @@ export interface IRegisterRequest {
   name: string;
 }
 
-export type TLogin = {
-  email: string
-  password: string
-}
+
 
 export interface IRegisterResponse extends ICheckSuccess {
   accessToken: string;
@@ -67,7 +65,7 @@ export interface IUser {
 }
 export type TGetUserResponse = {
   success: boolean;
-  user: IUser;
+  user: TProfile;
 }
 
 export interface IOrder {

@@ -9,6 +9,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../services/actions/user";
 import styles from "./login.module.css";
+import { TLogin } from "../../data/apis/user-api/user-types";
+import { postLogin } from "../../data/apis/user-api/user-api";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -23,16 +25,22 @@ export function LoginPage() {
     e.preventDefault();
 
     dispatch(
+      postLogin(
+        {
+          'email': email,
+          'password': password
+        } as TLogin)
+      );
+
       //@ts-ignore
-      userApi(
+      /*dispatch(userApi(
         'login',
         {
           'email': email,
           'password': password
         },
         () => navigate('/')
-      )
-    );
+      ));*/
   };
 
   return (

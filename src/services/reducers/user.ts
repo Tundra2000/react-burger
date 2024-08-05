@@ -24,15 +24,16 @@ import {
   GET_REFRESH_SUCCESS,
   GET_REFRESH_FAILED,
 } from "../actions/user";
-import { IUser, TGetUserResponse} from "../../components/utils/types";
+import { TGetUserResponse} from "../../components/utils/types";
 
 import { TUserActions } from "../actions/user";
+import { TProfile } from "../../data/apis/user-api/user-types";
 
 export type TUserState = {
     isUserAuth: boolean;
     isLoading: boolean;
     requestError: string;
-    user: IUser;
+    user: TProfile;
 }
 
 const userInitialState:TUserState = {
@@ -40,8 +41,9 @@ const userInitialState:TUserState = {
   isLoading: false,
   requestError: "",
   user: {
-    email: "",
-    name: "",
+    name: '',
+    email: '',
+    password: '',
   },
 };
 
@@ -67,6 +69,14 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
       };
     }
     case GET_AUTH_SUCCESS:
+      let userData = action.data as TGetUserResponse;     
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuth: true,
+        user: userData.user,
+        requestError: "",
+      };
     case GET_REG_SUCCESS:
     case GET_USER_SUCCESS:
     case GET_EDIT_SUCCESS: {
@@ -106,8 +116,9 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
         ...state,
         isUserAuth: false,
         user: {
-          email: "",
-          name: ""
+          name: '',
+          email: '',
+          password: '',
         },
       };
     }
