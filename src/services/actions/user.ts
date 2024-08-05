@@ -13,7 +13,9 @@ import {
   getCookie,
 } from "../../components/utils/cookie";
 import { request } from "../../components/utils/api";
-import { Dispatch } from "redux";
+//import { Dispatch } from "redux";
+import { TGetUserResponse, TUserApi, TLogin } from "../../components/utils/types";
+import { AppDispatch } from "../../components/utils/types";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
 export const GET_AUTH_SUCCESS = "GET_AUTH_SUCCESS";
@@ -52,12 +54,12 @@ export interface IAuthReqAction {
 }
 
 export interface IAuthSuccessAction {
-  data: any;
+  data: TGetUserResponse;
   readonly type: typeof GET_AUTH_SUCCESS;
 }
 
 export interface IAuthFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_AUTH_FAILED;
 }
 
@@ -66,12 +68,12 @@ export interface IRegReqAction {
 }
 
 export interface IRegSuccessAction {
-  data: any;
+  data: TGetUserResponse;
   readonly type: typeof GET_REG_SUCCESS;
 }
 
 export interface IRegFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_REG_FAILED;
 }
 
@@ -84,7 +86,7 @@ export interface IForgotSuccessAction {
 }
 
 export interface IForgotFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_FORGOT_FAILED;
 }
 
@@ -97,7 +99,7 @@ export interface IResetSuccessAction {
 }
 
 export interface IResetFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_RESET_FAILED;
 }
 
@@ -110,7 +112,7 @@ export interface ILogoutSuccessAction {
 }
 
 export interface ILogoutFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_LOGOUT_FAILED;
 }
 
@@ -119,12 +121,12 @@ export interface IEditUserReqAction {
 }
 
 export interface IEditUserSuccessAction {
-  data: any;//{user:IUser};
+  data: TGetUserResponse;
   readonly type: typeof GET_EDIT_SUCCESS;
 }
 
 export interface IEditUserFailedAction {
-  data: any;
+  data: string;
   readonly type: typeof GET_EDIT_FAILED;
 }
 
@@ -133,13 +135,13 @@ export interface IUserReqAction {
 }
 
 export interface IUserSuccessAction {
-  data: any;
   readonly type: typeof GET_USER_SUCCESS;
+  data: TGetUserResponse;
 }
 
 export interface IUserFailedAction {
-  data: any;
   readonly type: typeof GET_USER_FAILED;
+  data: string;
 }
 
 export interface IRefreshReqAction {
@@ -151,8 +153,14 @@ export interface IRefreshSuccessAction {
 }
 
 export interface IRefreshFailedAction {
-  data: any;
   readonly type: typeof GET_REFRESH_FAILED;
+  data: string;
+}
+
+//userApi
+export interface IUserApiAction {
+  readonly type: string;
+  data?: TGetUserResponse | string;
 }
 
 export type TUserActions = IAuthFailedAction
@@ -179,9 +187,11 @@ export type TUserActions = IAuthFailedAction
 | IResetFailedAction
 | IResetReqAction
 | IResetSuccessAction
+| IUserApiAction
+
 
 export function getUser() {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -282,7 +292,7 @@ export function userApi(type: string, data: {} | undefined = {}, callbackFunctio
   }
 
   if (typeMatch) {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: AppDispatch) => {
       dispatch({
         type: reqAction,
       });
@@ -344,7 +354,7 @@ export function userApi(type: string, data: {} | undefined = {}, callbackFunctio
 }
 
 const refreshToken = (afterRefresh:any) => (type: string, dataAfter: any, callbackFunction: void) => {
-  return async (dispatch: Dispatch ) => {
+  return async (dispatch: AppDispatch ) => {
     dispatch({
       type: GET_REFRESH_REQUEST,
     });
@@ -380,3 +390,106 @@ const refreshToken = (afterRefresh:any) => (type: string, dataAfter: any, callba
       });
   };
 };
+
+//-------------------------------------------------------------------------------------------
+/*
+export function postLogin(data: TLogin) {
+  return function (dispatch: AppDispatch) {
+      dispatch({
+          type: GET_AUTH_REQUEST
+      });
+      request(loginUrl, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          authorization: "Bearer " + getCookie("token"),
+        }
+      })
+        .then((res) => {
+          if (res.success) {
+              dispatch({
+                  type: GET_AUTH_SUCCESS,
+                  user: res.user
+              });
+              saveTokens(res.data);
+            } else {
+              dispatch({
+                  type: GET_AUTH_FAILED
+              });
+              if (res.message === 'jwt expired') {
+                dispatch(refreshToken());
+              }
+            }
+          })
+          .catch((err) => {
+              dispatch({
+                  type: GET_AUTH_FAILED
+              });
+              if (err.message === 'jwt expired') {               
+                dispatch(refreshToken());
+            }
+          })
+  };
+}
+
+export function saveTokens(data: any, delTokens: boolean = false) {
+  console.log("saveTokens");
+            console.log(data.accessToken);
+            let authToken;
+            if (data.accessToken.indexOf("Bearer") === 0) {
+              authToken = data.accessToken.split("Bearer ")[1];
+            }
+            if (authToken) {
+              setCookie("token", authToken, { expires: 20 * 60 });
+              localStorage.setItem("refreshToken", data.refreshToken);
+            }
+}
+
+export function delTokens(delTokens: boolean = false) {
+  if (delTokens) {
+    deleteCookie("token");
+    localStorage.clear();
+  }
+}
+
+
+
+
+export function refreshToken() {
+  return async (dispatch: AppDispatch ) => {
+    dispatch({
+      type: GET_REFRESH_REQUEST,
+    });
+    request(tokenUrl, {
+      method: "POST",
+      body: JSON.stringify({
+        token: localStorage.getItem("refreshToken"),
+      }),
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    })
+      .then((data) => {
+        dispatch({
+          type: GET_REFRESH_SUCCESS,
+        });
+        let authToken;
+        if (data.accessToken.indexOf("Bearer") === 0) {
+          authToken = data.accessToken.split("Bearer ")[1];
+        }
+        if (authToken) {
+          setCookie("token", authToken, { expires: 20 * 60 });
+          localStorage.setItem("refreshToken", data.refreshToken);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch({
+          type: GET_REFRESH_FAILED,
+          data: String(err.message)
+        });
+      });
+  };
+};
+*/

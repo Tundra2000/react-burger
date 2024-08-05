@@ -4,6 +4,7 @@ import { request } from "../../components/utils/api";
 import { getCookie } from "../../components/utils/cookie";
 import { CLEAR_CONSTRUCTOR } from "./constructor";
 import { IOrder } from "../../components/utils/types";
+import { Dispatch } from "redux";
 
 export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = "POST_ORDER_SUCCESS";
@@ -32,7 +33,7 @@ export interface IOrderModalCloseAction {
 
 export interface IOrderModalOpenAction {
   readonly type: typeof ORDER_MODAL_OPEN;
-  readonly data: any;
+  readonly data: IOrder;
 }
 
 export interface IOrderDetailActions {
@@ -40,12 +41,11 @@ export interface IOrderDetailActions {
     readonly data: IOrder;
 }
 
-export type TOrderActions = IOrderReqAction | IOrderSuccessAction | IOrderFailedAction | IOrderModalCloseAction |
-                            IOrderModalOpenAction | IOrderDetailActions;
+export type TOrderActions = IOrderReqAction | IOrderSuccessAction | IOrderFailedAction | IOrderModalCloseAction | IOrderModalOpenAction | IOrderDetailActions;
 
 
 export function postOrder(ingredients: Array<string>) {
-  return function (dispatch: any) {
+  return function (dispatch: Dispatch) {
     dispatch({
       type: POST_ORDER_REQUEST,
     });

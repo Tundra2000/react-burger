@@ -23,14 +23,14 @@ export function LoginPage() {
     e.preventDefault();
 
     dispatch(
-      
+      //@ts-ignore
       userApi(
-        "login",
+        'login',
         {
-          email: email,
-          password: password
+          'email': email,
+          'password': password
         },
-        () => navigate("/")
+        () => navigate('/')
       )
     );
   };
@@ -40,19 +40,19 @@ export function LoginPage() {
       <h2 className="text text_type_main-large mb-6">Вход</h2>
       <form className={styles.form} onSubmit={sendLoginForm}>
         <EmailInput
-          value={/*value.email*/email}
+          value={email}
           name="email"
           placeholder="E-mail"
           extraClass="mb-6"
-          onChange={/*handleChange*/(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           aria-errormessage={loginError}
         />
         <PasswordInput
-          value={/*value.password*/password}
+          value={password}
           name="password"
           placeholder="Пароль"
           extraClass="mb-6"
-          onChange={/*handleChange*/(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button
           htmlType="submit"

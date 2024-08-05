@@ -11,7 +11,7 @@ import { TConstructorActions } from "../actions/constructor";
 export type TBurgerConstructorState = {
   bun: IIngredient | null;
   filling: IIngredient[];
-  counts: any;
+  counts: any
 };
 
 // список всех ингредиентов в текущем конструкторе бургера,

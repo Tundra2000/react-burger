@@ -10,6 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../services/actions/user";
 import styles from "./register.module.css";
+import { TUserApi } from "../../components/utils/types";
 
 //register - страница регистрации.
 export function RegisterPage() {
@@ -25,17 +26,24 @@ export function RegisterPage() {
   const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    /*let inportData: TUserApi = {
+      type: "register", data: {
+        email: email,
+        password: password,
+        name: name,
+      }, callbackFunction: async () => navigate("/")
+    }*/
     dispatch(
+      //@ts-ignore
       userApi(
-        "register",
-        {
-          email: email,
-          password: password,
-          name: name,
-        },
-        () => navigate("/")
-      )
-    );
+      "register", 
+      {
+       'email': email,
+        'password': password,
+        'name': name,
+      }, 
+      () => navigate("/")
+    ));
   };
 
   return (

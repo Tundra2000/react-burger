@@ -14,14 +14,14 @@ export function ProfilePage() {
     e.preventDefault();
 
     dispatch(
-      
+      //@ts-ignore
       userApi(
-        "logout",
-        {
-          token: localStorage.getItem("refreshToken"),
-        },
-        () => navigate("/login")
-      )
+          'logout', 
+          {
+            'token': localStorage.getItem("refreshToken"),
+          }, 
+          () => navigate("/login")
+        )
     );
   };
 

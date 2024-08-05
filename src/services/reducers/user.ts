@@ -24,7 +24,7 @@ import {
   GET_REFRESH_SUCCESS,
   GET_REFRESH_FAILED,
 } from "../actions/user";
-import {IUser} from "../../components/utils/types";
+import { IUser, TGetUserResponse} from "../../components/utils/types";
 
 import { TUserActions } from "../actions/user";
 
@@ -70,11 +70,12 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
     case GET_REG_SUCCESS:
     case GET_USER_SUCCESS:
     case GET_EDIT_SUCCESS: {
+      let userData = action.data as TGetUserResponse;     
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
-        user: action.data.user,
+        user: userData.user,
         requestError: "",
       };
     }
@@ -123,7 +124,7 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
         ...state,
         isLoading: false,
         isUserAuth: false,
-        requestError: action.data,
+        requestError: typeof(action.data),
       };
     }
 

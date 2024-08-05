@@ -8,6 +8,7 @@ import {
 import styles from "./forgot-password.module.css";
 import { userApi } from "../../services/actions/user";
 import { useLocation } from "react-router-dom";
+//import { TUserApi } from "../../components/utils/types";
 
 //forgot-password - страница восстановления пароля.
 export function ForgotPasswordPage() {
@@ -22,10 +23,11 @@ export function ForgotPasswordPage() {
   const sendForgotPassForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
+      //@ts-ignore
       userApi(
         "forgot",
         {
-          email: email,
+          'email': email,
         },
         () => navigate("/reset-password", { state: { from: location } })
       )

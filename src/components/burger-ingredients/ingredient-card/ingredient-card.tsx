@@ -25,7 +25,7 @@ export default function IngredientCard({ item }:IIngredientCard) {
   const navigate = useNavigate();
 
   const [visible, setVisible] = React.useState(false);
-  const { counts, bun } = useSelector((store: any) => store.burgerConstructor);
+  const { counts, bun } = useSelector((store) => store.burgerConstructor);
   //Счётчик добавленных в карзину элементов
   const count = bun?._id === item._id ? 2 : counts[item._id];
 

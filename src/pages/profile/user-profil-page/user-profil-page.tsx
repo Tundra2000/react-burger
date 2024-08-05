@@ -8,6 +8,7 @@ import {
 import { userApi } from "../../../services/actions/user";
 import styles from "./user-profil-page.module.css";
 import { useNavigate } from "react-router-dom";
+import { TUserApi } from "../../../components/utils/types";
 
 export function UserProfilePage() {
   const dispatch = useDispatch(); 
@@ -69,15 +70,28 @@ export function UserProfilePage() {
 
   const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(
-      
-      userApi("edit", {
+
+    /*let inportData: TUserApi = {
+      type: "edit", data: {
         name: nameValue,
         email: emailValue,
         password: passValue,
         token: localStorage.getItem("refreshToken"),
-      })
-    );
+      }
+    }*/
+
+    dispatch(
+      //@ts-ignore
+      userApi(
+      'edit',
+      {
+        'name': nameValue,
+        'email': emailValue,
+        'password': passValue,
+        'token': localStorage.getItem("refreshToken"),
+      }
+    ));
+
     setActiveName(false);
     setActiveEmail(false);
     setActivePass(false);

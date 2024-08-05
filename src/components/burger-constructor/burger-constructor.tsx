@@ -25,7 +25,7 @@ export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { bun, filling } = useSelector((store) => store.burgerConstructor);
-  const { isVisible } = useSelector((store) => store.order);
+  const { orderDetail, isVisible } = useSelector((store) => store.order);
 
   const { isUserAuth } = useSelector((store) => store.user);
 
@@ -84,6 +84,7 @@ export default function BurgerConstructor() {
         dispatch(postOrder( idsArray ));
         dispatch({
           type: ORDER_MODAL_OPEN,
+          data: orderDetail
         });
       }
     } else navigate("/login");

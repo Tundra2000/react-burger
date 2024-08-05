@@ -9,9 +9,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { rootReducer } from "./services/reducers/root-reducer";
 
 import { socketMiddleware } from './services/middleware/socketMiddleware';
-
-
-const wsUrl = 'wss://norma.nomoreparties.space/'
+import { wsUrl } from "./components/utils/urls";
 
 const composeEnhancers =
   typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

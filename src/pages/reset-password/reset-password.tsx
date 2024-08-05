@@ -8,6 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { userApi } from "../../services/actions/user";
 import styles from "./reset-password.module.css";
+import { TUserApi } from "../../components/utils/types";
 
 //reset-password - страница сброса пароля.
 export function ResetPasswordPage() {
@@ -23,17 +24,23 @@ export function ResetPasswordPage() {
   const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    /*let inportData: TUserApi = {
+      type: "reset", data: {
+        password: password,
+        token: code,
+      }, 
+      callbackFunction: async () => navigate("/login")
+    }*/
     dispatch(
-      
+      //@ts-ignore
       userApi(
         "reset",
         {
-          password: password,
-          token: code,
+          'password': password,
+          'token': code,
         },
         () => navigate("/login")
-      )
-    );
+        ));
   };
 
   //ПОПАСТЬ МОЖНО ТОЛЬКО СО СТРАНИЦЫ 'forgot-password'

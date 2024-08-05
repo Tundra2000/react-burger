@@ -3,8 +3,9 @@ import Modal from '../../modal/modal';
 import { useModal } from '../../../hooks/useModal';
 import { ViewOrder } from '../order-view/order-view';
 import { useSelector } from '../../../hooks/useReducer';
+import { IOrder } from "../../utils/types";
 
-const withModal = (WrappedComponent: React.ElementType) => (props: any) => {
+const withModal = (WrappedComponent: React.ElementType) => (props: {modalType?: string, item?: IOrder}) => {
     const { modalType, ...exProps } = props;
     const { modalState, openModal, closeModal } = useModal();
     
