@@ -92,13 +92,14 @@ function App() {
             >
               <Route path="" element={<UserProfilePage />} />
               <Route path="orders" element={<OrdersProfilePage />} />
-              <Route path="orders/:number" element={<ProtectedRouteElement element={<NotFoundPage />} notAuth={false} />}
-          />
+              {/*<Route path="orders/:id" element={<ProtectedRouteElement element={<NotFoundPage />} notAuth={false} />} />*/}
+          
             </Route>
             <Route path="/feed" element={<FeedPage />} />
             <Route path="ingredients/:id" element={<IngredientPage />} />
             <Route path="/*" element={<NotFoundPage />} />         
             <Route path='/feed/:id' element={<ViewFeedPage />} />
+            <Route path="/profile/orders/:id" element={<ProtectedRouteElement element={<ViewFeedPage />} notAuth={false}  />} />
           </Routes>
         )}
       </div>
@@ -110,6 +111,19 @@ function App() {
             element={  
               <Modal header="Детали ингредиента" onClose={closeModal}>  
                 <IngredientDetails />  
+              </Modal>  
+            }  
+          />  
+        </Routes>  
+      )}
+
+      {background && (  
+        <Routes>  
+          <Route  
+            path="/profile/orders/:id"  
+            element={  
+              <Modal header="Детали заказа" onClose={closeModal}>  
+                <ViewFeedPage />  
               </Modal>  
             }  
           />  

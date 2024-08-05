@@ -32,7 +32,7 @@ export const OrdersProfilePage: FC = () => {
                     {
                         
                     orders.slice(0).reverse().map((item: IOrder, index: React.Key) => (
-                        <WithModalOrder key={index} item={item} />
+                        <WithModalOrder key={index} item={item} modalType={"orders"}/>
                     )
                     )
                     }
