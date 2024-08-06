@@ -25,9 +25,9 @@ export const ProtectedRouteElement = ({
 
   const cookie = getCookie("token");
   const dispatch = useDispatch();
-  if (!isUserAuth && cookie && cookie !== "" && !isLoading) {
+  /*if (!isUserAuth && cookie && cookie !== "" && !isLoading) {
     dispatch(getUser());
-  }
+  }*/
 
   if (notAuth && isUserAuth && !isLoading) 
     return <Navigate to={from} />;

@@ -195,10 +195,10 @@ export function getUser() {
         authorization: "Bearer " + getCookie("token"),
       },
     })
-      .then((data) => {
+      .then((res) => {
         dispatch({
           type: GET_USER_SUCCESS,
-          data: data,
+          data: res.user,
         });
       })
       .catch((err) => {

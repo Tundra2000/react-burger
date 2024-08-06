@@ -2,12 +2,8 @@ import { useEffect } from 'react';
 import styles from './feed.module.css';
 import { useSelector, useDispatch } from '../../hooks/useReducer';
 import { WS_ORDERS_START, WS_CONNECTION_CLOSED } from '../../services/actions/websocket';
-import Order from '../../components/order-feed/order-feed';
+import { OrderCard } from '../../components/order-feed/order-card';
 import { IOrder } from '../../components/utils/types';
-import withModal from '../../components/order-feed/order-modal/order-modal';
-
-const WithModalOrderFeed = withModal(Order);
-
 
 export function FeedPage() {
   const orders = useSelector((state) => state.websocket.orders);
@@ -33,7 +29,7 @@ export function FeedPage() {
               <div className={`p-2 ${styles.orders} ${styles.scrollbar}`}>
                   {orders!.map((item: IOrder, index: number) => (
 
-                      <WithModalOrderFeed key={index} item={item} modalType={"feed"}/>
+                      <OrderCard key={index} item={item}/>
                   )
                   )}
               </div>

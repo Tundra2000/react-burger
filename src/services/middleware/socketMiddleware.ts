@@ -7,12 +7,12 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
         let socket: WebSocket | null = null;
 
     return next => (action: TWSActions) => {
-      const { dispatch } = store;
-      
+      const { dispatch } = store;     
       const { type, payload, token } = action;
+      
 
 
- 
+ //переписать на вызов заказов по отдельности.
       if (type === 'WS_ORDERS_START') {
             if (token === '' || token === undefined) {
               socket = new WebSocket(wsUrl + payload);

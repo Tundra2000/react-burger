@@ -40,15 +40,13 @@ export const websocketReducer = (state = checkoutInitialState, action: TWSAction
             wsConnected: false
           };
     
-        case WS_GET_ORDERS:
-          const msg = { ...action.payload};
-          
+        case WS_GET_ORDERS:         
           return {
             ...state,
             error: undefined,
-            orders: msg.orders,
-            total: msg.total,
-            totalToday: msg.totalToday
+            orders: action.payload.orders ? action.payload.orders : state.orders,
+            total: action.payload.total,
+            totalToday: action.payload.totalToday
           };
     
         default:

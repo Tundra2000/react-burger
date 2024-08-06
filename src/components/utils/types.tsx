@@ -10,7 +10,7 @@ import { TDetailIngredientActions } from '../../services/actions/ingredient-deta
 import { TIngredientActions } from '../../services/actions/ingredients';
 import { TOrderActions } from '../../services/actions/order';
 import { TUserActions } from '../../services/actions/user';
-import { TWSActions } from '../../services/actions/websocket';
+import { TWSActions, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_ORDERS, WS_ORDERS_START, WS_SEND_MESSAGE } from '../../services/actions/websocket';
 import { TProfile } from '../../data/apis/user-api/user-types';
 
 export interface IBun {
@@ -105,4 +105,13 @@ export type TUserApi = {
   type:string; 
   data:{};
   callbackFunction: () => {}
+}
+
+export type TWSOrderActions = {
+  wsInit: typeof WS_ORDERS_START,
+  onOpen: typeof WS_CONNECTION_SUCCESS,
+  onClose: typeof WS_CONNECTION_CLOSED,
+  onError: typeof WS_CONNECTION_ERROR,
+  onOrders: typeof WS_GET_ORDERS,
+  onSendMessage: typeof WS_SEND_MESSAGE,
 }

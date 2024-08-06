@@ -1,17 +1,21 @@
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './order-feed.module.css';
+import styles from './order-card.module.css';
 import { FC } from 'react';
 import { useSelector, useDispatch } from '../../hooks/useReducer';
-import { IIngredient, IOrder } from '../../components/utils/types';
+import { IIngredient, IOrder } from '../utils/types';
 import { ORDER_DETAIL } from '../../services/actions/order';
-import { russianStatus } from '../../components/utils/tools';
+import { russianStatus } from '../utils/tools';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-interface IOrderFeed {
+
+interface IOrderCard {
     item: IOrder;
-    modalOpen?: () => void;
 }
 
-const OrderFeed:FC<IOrderFeed> = ( {item, modalOpen}) => {
+export const OrderCard:FC<IOrderCard> = ({ item }) => {
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const ingredients = useSelector((state) => state.ingredients.ingredients)
     let orderImgs = [];
@@ -41,17 +45,17 @@ const OrderFeed:FC<IOrderFeed> = ( {item, modalOpen}) => {
         }
     }
 
-    const dispatcher = useDispatch();
-    const handleClick = () => {
-        dispatcher({
-            type: ORDER_DETAIL,
-            data: { ...item }
-        })
-        modalOpen?.()
-    }
-
+function openModal() {
+    dispatch({
+      type: ORDER_DETAIL,
+      data: { ...item }
+    });
+    navigate(`${location.pathname}/${item.number}`, { state: { background: location } });
+  };
     return (
-        <div onClick={handleClick} className={`p-6 mb-4 ${styles.order}`}>
+        <>
+        <div className={`p-6 mb-4 ${styles.order}`} 
+        onClick={() => openModal()}>
             <div className={`mb-6 ${styles.stats}`}>
                 <p className="text text_type_digits-medium">
                     #{item.number}
@@ -80,7 +84,6 @@ const OrderFeed:FC<IOrderFeed> = ( {item, modalOpen}) => {
                 </div>
             </div>
         </div>
+        </>
     )
-}
-
-export default OrderFeed
+};

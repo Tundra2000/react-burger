@@ -9,6 +9,7 @@ import styles from "./user-profil-page.module.css";
 import { useNavigate } from "react-router-dom";
 import { TEdit } from "../../../data/apis/user-api/user-types";
 import { patchEdit } from "../../../data/apis/user-api/user-api";
+import { getUser } from "../../../services/actions/user";
 
 export function UserProfilePage() {
   const dispatch = useDispatch(); 
@@ -26,13 +27,15 @@ export function UserProfilePage() {
 
   useEffect(() => {
     if(user.name === "" && user.email === ""){
-      navigate("/login");
+      dispatch(getUser());
     } else
     {
       setNameValue(user.name);
       setEmailValue(user.email);
+      setPassValue(user.password);
+
     }
-  }, [dispatch, navigate, user]);
+  }, [dispatch, emailValue, nameValue, navigate, user]);
 
   const nameInput = React.createRef<HTMLInputElement>();
   const emailInput = React.createRef<HTMLInputElement>();

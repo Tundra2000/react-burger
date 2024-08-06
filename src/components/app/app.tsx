@@ -19,6 +19,7 @@ import { OrdersProfilePage } from "../../pages/profile/order-profil-page/order-p
 import Modal from "../modal/modal";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details";
 import {ViewFeedPage} from "../../pages/feed/view-feed/view-feed";
+import { getUser } from "../../services/actions/user";
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
   useEffect(() => {
     console.log("запуск запроса");
     if (!ingredients.length) dispatch(getIngredients());
+    dispatch(getUser());
   }, [dispatch, ingredients.length]);
 
   const closeModal = () => navigate(-1);
@@ -91,7 +93,7 @@ function App() {
               }
             >
               <Route path="" element={<UserProfilePage />} />
-              <Route path="orders" element={<OrdersProfilePage />} />
+              <Route path="orders" element={<ProtectedRouteElement element={<OrdersProfilePage />}  notAuth={false} />}/>
               {/*<Route path="orders/:id" element={<ProtectedRouteElement element={<NotFoundPage />} notAuth={false} />} />*/}
           
             </Route>
@@ -121,6 +123,19 @@ function App() {
         <Routes>  
           <Route  
             path="/profile/orders/:id"  
+            element={  
+              <Modal header="Детали заказа" onClose={closeModal}>  
+                <ViewFeedPage />  
+              </Modal>  
+            }  
+          />  
+        </Routes>  
+      )}
+
+      {background && (  
+        <Routes>  
+          <Route  
+            path="/feed/:id"  
             element={  
               <Modal header="Детали заказа" onClose={closeModal}>  
                 <ViewFeedPage />  
