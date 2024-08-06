@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import styles from './feed.module.css';
 import { useSelector, useDispatch } from '../../hooks/useReducer';
 import { WS_ORDERS_START, WS_CONNECTION_CLOSED } from '../../services/actions/websocket';

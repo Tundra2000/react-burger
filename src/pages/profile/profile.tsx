@@ -1,6 +1,5 @@
 import { useDispatch } from "../../hooks/useReducer";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { userApi } from "../../services/actions/user";
 import styles from "./profile.module.css";
 import { FormEvent } from "react";
 import { TLogout } from "../../data/apis/user-api/user-types";
@@ -21,17 +20,7 @@ export function ProfilePage() {
         } as TLogout, 
         () => navigate("/login")
       ));
-/*
-    dispatch(
-      //@ts-ignore
-      userApi(
-          'logout', 
-          {
-            'token': localStorage.getItem("refreshToken"),
-          }, 
-          () => navigate("/login")
-        )
-    );*/
+
     
   };
 

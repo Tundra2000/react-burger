@@ -6,9 +6,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../services/actions/user";
 import styles from "./reset-password.module.css";
-import { TUserApi } from "../../components/utils/types";
 import { postResetPassword } from "../../data/apis/user-api/user-api";
 import { TResetPassword } from "../../data/apis/user-api/user-types";
 
@@ -25,18 +23,6 @@ export function ResetPasswordPage() {
 
   const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    /*dispatch(
-      //@ts-ignore
-      userApi(
-        "reset",
-        {
-          'password': password,
-          'token': code,
-        },
-        () => navigate("/login")
-        ));*/
-
         dispatch(
           postResetPassword(
             {

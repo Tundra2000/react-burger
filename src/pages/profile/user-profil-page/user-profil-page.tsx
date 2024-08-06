@@ -5,10 +5,8 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../../services/actions/user";
 import styles from "./user-profil-page.module.css";
 import { useNavigate } from "react-router-dom";
-import { TUserApi } from "../../../components/utils/types";
 import { TEdit } from "../../../data/apis/user-api/user-types";
 import { patchEdit } from "../../../data/apis/user-api/user-api";
 
@@ -78,20 +76,6 @@ export function UserProfilePage() {
       password: passValue,
       token: localStorage.getItem("refreshToken")
     } as TEdit));
-
-
-    /*dispatch(
-      //@ts-ignore
-      userApi(
-      'edit',
-      {
-        'name': nameValue,
-        'email': emailValue,
-        'password': passValue,
-        'token': localStorage.getItem("refreshToken"),
-      }
-    ));*/
-
     setActiveName(false);
     setActiveEmail(false);
     setActivePass(false);

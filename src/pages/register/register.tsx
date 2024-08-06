@@ -8,9 +8,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../services/actions/user";
 import styles from "./register.module.css";
-import { TUserApi } from "../../components/utils/types";
 import { TProfile } from "../../data/apis/user-api/user-types";
 import { postRegister } from "../../data/apis/user-api/user-api";
 
@@ -36,19 +34,6 @@ export function RegisterPage() {
         } as TProfile,
         () => navigate("/")
   ))
-
-    /*
-    dispatch(
-      //@ts-ignore
-      userApi(
-      "register", 
-      {
-        'email': email,
-        'password': password,
-        'name': name,
-      }, 
-      () => navigate("/")
-    ));*/
   };
 
   return (
