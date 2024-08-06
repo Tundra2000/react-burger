@@ -12,16 +12,13 @@ const withModal = (WrappedComponent: React.ElementType) => (props: {modalType?: 
     const orderDetail = useSelector((state) => state.order.orderDetail);
     const title = 'Детали заказа';
     
-    //переделать отображение в зависимости от локализации (откуда запускалось модальное окно)
 
-    //window.history.replaceState(null, orderDetail.name, '/feed/' + orderDetail._id);
-
-    if ( modalType === 'orders' && orderDetail._id) {
-        window.history.replaceState(null, orderDetail.name, "/profile/orders/" + orderDetail._id)
+    if ( modalType === 'orders' && orderDetail.number) {
+        window.history.replaceState(null, orderDetail.name, "/profile/orders/" + orderDetail.number)
     }
 
-    if ( modalType === 'feed' && orderDetail._id) {
-        window.history.replaceState(null, orderDetail.name, '/feed/' + orderDetail._id)
+    if ( modalType === 'feed' && orderDetail.number) {
+        window.history.replaceState(null, orderDetail.name, '/feed/' + orderDetail.number)
     }
 
     return (

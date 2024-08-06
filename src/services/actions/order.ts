@@ -1,4 +1,4 @@
-import { ordersUrl } from "../../components/utils/urls";
+import { orderNumberUrl, ordersUrl } from "../../components/utils/urls";
 import { request } from "../../components/utils/api";
 
 import { getCookie } from "../../components/utils/cookie";
@@ -73,4 +73,8 @@ export function postOrder(ingredients: Array<string>) {
         });
       });
   };
+}
+
+export function getOrderByNumber(number: string) {
+  return request(orderNumberUrl + number)
 }

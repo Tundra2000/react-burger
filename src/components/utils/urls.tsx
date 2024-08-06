@@ -13,3 +13,5 @@ export const userUrl = `${BASE_URL}auth/user`;
 export const tokenUrl = `${BASE_URL}auth/token`;
 
 export const wsUrl = 'wss://norma.nomoreparties.space/';
+
+export const orderNumberUrl =`${BASE_URL}orders/`;

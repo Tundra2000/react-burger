@@ -4,9 +4,10 @@ import styles from './order-view.module.css';
 import { useSelector } from '../../../hooks/useReducer';
 import { IOrder } from '../../utils/types';
 import { russianStatus } from "../../utils/tools";
+import { useLocation } from 'react-router-dom';
 
 export const ViewOrder: FC<{item: IOrder}>= ({item}) => {
-
+    const location = useLocation();
     const ingredients = useSelector((state) => state.ingredients.ingredients)
     let orderDetails = [];
     let totalPrice = 0;
@@ -35,7 +36,8 @@ export const ViewOrder: FC<{item: IOrder}>= ({item}) => {
     }
 
 
-   
+    //const linkTo = `${location.pathname}/${item.number}`;
+
     return (
         <div className={styles.container}>
 
