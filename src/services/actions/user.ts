@@ -5,9 +5,8 @@ import {
   getCookie,
 } from "../../components/utils/cookie";
 import { request } from "../../components/utils/api";
-import { TGetUserResponse} from "../../components/utils/types";
 import { AppDispatch } from "../../components/utils/types";
-import { TProfile } from "../../data/apis/user-api/user-types";
+import { TUser } from "../../data/apis/user-api/user-types";
 import { refreshToken as ref } from "../../data/apis/user-api/user-api";
 
 export const GET_AUTH_REQUEST = "GET_AUTH_REQUEST";
@@ -48,12 +47,12 @@ export interface IAuthReqAction {
 
 export interface IAuthSuccessAction {
   readonly type: typeof GET_AUTH_SUCCESS;
-  data: TProfile;
+  user: TUser;
 }
 
 export interface IAuthFailedAction {
-  data: string;
   readonly type: typeof GET_AUTH_FAILED;
+  message: string;
 }
 
 export interface IRegReqAction {
@@ -61,13 +60,13 @@ export interface IRegReqAction {
 }
 
 export interface IRegSuccessAction {
-  data: TProfile;
   readonly type: typeof GET_REG_SUCCESS;
+  user: TUser;
 }
 
 export interface IRegFailedAction {
-  data: string;
   readonly type: typeof GET_REG_FAILED;
+  message: string;
 }
 
 export interface IForgotReqAction {
@@ -79,8 +78,8 @@ export interface IForgotSuccessAction {
 }
 
 export interface IForgotFailedAction {
-  data: string;
   readonly type: typeof GET_FORGOT_FAILED;
+  message: string;
 }
 
 export interface IResetReqAction {
@@ -92,8 +91,8 @@ export interface IResetSuccessAction {
 }
 
 export interface IResetFailedAction {
-  data: string;
   readonly type: typeof GET_RESET_FAILED;
+  message: string;
 }
 
 export interface ILogoutReqAction {
@@ -105,8 +104,8 @@ export interface ILogoutSuccessAction {
 }
 
 export interface ILogoutFailedAction {
-  data: string;
   readonly type: typeof GET_LOGOUT_FAILED;
+  message: string;
 }
 
 export interface IEditUserReqAction {
@@ -114,13 +113,13 @@ export interface IEditUserReqAction {
 }
 
 export interface IEditUserSuccessAction {
-  readonly data: TProfile;
   readonly type: typeof GET_EDIT_SUCCESS;
+  user: TUser;
 }
 
 export interface IEditUserFailedAction {
-  data: string;
   readonly type: typeof GET_EDIT_FAILED;
+  message: string;
 }
 
 export interface IUserReqAction {
@@ -129,12 +128,12 @@ export interface IUserReqAction {
 
 export interface IUserSuccessAction {
   readonly type: typeof GET_USER_SUCCESS;
-  data: TProfile;
+  user: TUser;
 }
 
 export interface IUserFailedAction {
   readonly type: typeof GET_USER_FAILED;
-  data: string;
+  message: string;
 }
 
 export interface IRefreshReqAction {
@@ -147,14 +146,9 @@ export interface IRefreshSuccessAction {
 
 export interface IRefreshFailedAction {
   readonly type: typeof GET_REFRESH_FAILED;
-  data: string;
+  message: string;
 }
 
-//userApi
-export interface IUserApiAction {
-  readonly type: string;
-  data?: TGetUserResponse | string;
-}
 
 export type TUserActions = IAuthFailedAction
 | IAuthReqAction
@@ -180,7 +174,6 @@ export type TUserActions = IAuthFailedAction
 | IResetFailedAction
 | IResetReqAction
 | IResetSuccessAction
-| IUserApiAction
 
 
 export function getUser() {
@@ -198,7 +191,7 @@ export function getUser() {
       .then((res) => {
         dispatch({
           type: GET_USER_SUCCESS,
-          data: res.user,
+          user: res.user,
         });
       })
       .catch((err) => {
@@ -209,7 +202,7 @@ export function getUser() {
       } else {
         dispatch({
           type: GET_USER_FAILED,
-          data: String(err.message),
+          message: err,
         });
       }
       });

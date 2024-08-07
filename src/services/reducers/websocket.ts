@@ -7,10 +7,10 @@ export type TWSState = {
     orders: IOrder[];
     total: number,
     totalToday: number,
-    error?: Event;
+    error?: string;
 }
 
-const checkoutInitialState: TWSState = {
+export const checkoutInitialState: TWSState = {
     wsConnected: false,
     orders: [],
     total: 0,
@@ -22,7 +22,6 @@ export const websocketReducer = (state = checkoutInitialState, action: TWSAction
         case WS_CONNECTION_SUCCESS:
           return {
             ...state,
-            error: undefined,
             wsConnected: true
           };
     
@@ -36,14 +35,12 @@ export const websocketReducer = (state = checkoutInitialState, action: TWSAction
         case WS_CONNECTION_CLOSED:
           return {
             ...state,
-            error: undefined,
             wsConnected: false
           };
     
         case WS_GET_ORDERS:         
           return {
             ...state,
-            error: undefined,
             orders: action.payload.orders ? action.payload.orders : state.orders,
             total: action.payload.total,
             totalToday: action.payload.totalToday

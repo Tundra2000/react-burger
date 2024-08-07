@@ -3,11 +3,15 @@ export type TLogin = {
     password: string
   }
 
-  
+export type TUser = {
+  email: string
+  name: string
+}
+
 export type TProfile = {
     name: string
     email: string
-    password: string
+    password?: string
 }
 
 
@@ -15,7 +19,7 @@ export type TUserDataResult= {
   success: boolean
   accessToken: string
   refreshToken: string
-  user: TProfile
+  user: TUser
   message: string 
 }
 

@@ -26,17 +26,17 @@ import {
 } from "../actions/user";
 
 import { TUserActions } from "../actions/user";
-import { TProfile } from "../../data/apis/user-api/user-types";
+import { TUser } from "../../data/apis/user-api/user-types";
 
 export type TUserState = {
     isUserAuth: boolean;
     isLoading: boolean;
     requestError: string; 
     //requestSucces: string;
-    user: TProfile;
+    user: TUser;
 }
 
-const userInitialState:TUserState = {
+export const userInitialState:TUserState = {
   isUserAuth: false,
   isLoading: false,
   requestError: "",
@@ -44,7 +44,6 @@ const userInitialState:TUserState = {
   user: {
     name: '',
     email: '',
-    password: '',
   },
 };
 
@@ -69,31 +68,29 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
         requestError: "",
       };
     }
-    case GET_AUTH_SUCCESS:
-      let userData = action.data as TProfile;     
+    case GET_AUTH_SUCCESS:     
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
         user: {
           ...state.user,
-          name: userData.name,
-          email: userData.email,
+          name: action.user.name,
+          email: action.user.email,
       },
         requestError: "",
       };
     case GET_REG_SUCCESS:
     case GET_USER_SUCCESS:
-    case GET_EDIT_SUCCESS: {
-      let userData = action.data as TProfile;     
+    case GET_EDIT_SUCCESS: {   
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
         user: {
           ...state.user,
-          name: userData.name,
-          email: userData.email,
+          name: action.user.name,
+          email: action.user.email,
       },
         requestError: "",
       };
@@ -127,7 +124,6 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
         user: {
           name: '',
           email: '',
-          password: '',
         },
       };
     }
@@ -144,7 +140,7 @@ export const userReducer = (state = userInitialState, action:TUserActions):TUser
         ...state,
         isLoading: false,
         isUserAuth: false,
-        requestError: typeof(action.data),
+        requestError: action.message,
       };
     }
 

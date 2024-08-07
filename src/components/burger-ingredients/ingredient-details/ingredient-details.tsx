@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../../pages/not-found/not-found";
 import { useEffect } from "react";
 import { SET_DETAIL_INGREDIENT } from "../../../services/actions/ingredient-detail";
+import { IIngredient } from "../../utils/types";
 
 export default function IngredientDetails() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export default function IngredientDetails() {
 
   useEffect(() => {
     if (!currentIngredient && id && ingredientsData) {
-        const ingredient = ingredientsData.find((ingredient) => ingredient._id === id);
+        const ingredient = ingredientsData.find((ingredient) => ingredient._id === id) as IIngredient;
         dispatch({
             type: SET_DETAIL_INGREDIENT,
             ingredient: ingredient,

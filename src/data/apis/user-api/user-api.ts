@@ -34,14 +34,14 @@ export function postLogin(data: TLogin, callbackFunction = () => {}) {
             if (res.success) {
                 dispatch({
                     type: GET_AUTH_SUCCESS,
-                    data: res.user
+                    user: res.user
                 });
                 saveTokens(res);
                 callbackFunction();
               } else {
                 dispatch({
                     type: GET_AUTH_FAILED,
-                    data: 'Ошибка запроса'
+                    message: 'Ошибка запроса'
                 });
                 if (res.message === 'jwt expired') {
                   dispatch(refreshToken());
@@ -51,7 +51,7 @@ export function postLogin(data: TLogin, callbackFunction = () => {}) {
             .catch((err) => {
                 dispatch({
                     type: GET_AUTH_FAILED,
-                    data: 'Ошибка запроса'
+                    message: 'Ошибка запроса'
                 });
                 if (err.message === 'jwt expired') {               
                   dispatch(refreshToken());
@@ -115,7 +115,7 @@ export function postLogin(data: TLogin, callbackFunction = () => {}) {
           console.error(err);
           dispatch({
             type: GET_REFRESH_FAILED,
-            data: String(err.message)
+            message: err
           });
         });
     };
@@ -142,14 +142,14 @@ export function postRegister(data: TProfile, callbackFunction = () => {}) {
           if (res.success) {
               dispatch({
                   type: GET_REG_SUCCESS,
-                  data: res.user
+                  user: res.user
               });
               saveTokens(res);              
               callbackFunction();
             } else {
               dispatch({
                   type: GET_REG_FAILED,
-                  data: 'Ошибка запроса'
+                  message: 'Ошибка запроса'
               });
               if (res.message === 'jwt expired') {
                 dispatch(refreshToken());
@@ -159,7 +159,7 @@ export function postRegister(data: TProfile, callbackFunction = () => {}) {
           .catch((err) => {
               dispatch({
                   type: GET_REG_FAILED,
-                  data: err
+                  message: err
               });
               if (err.message === 'jwt expired') {               
                 dispatch(refreshToken());
@@ -193,7 +193,7 @@ export function postForgot(email: string, callbackFunction = () => {}) {
             } else {
               dispatch({
                   type: GET_FORGOT_FAILED,
-                  data: 'Ошибка запроса'
+                  message: 'Ошибка запроса'
               });
               if (res.message === 'jwt expired') {
                 dispatch(refreshToken());
@@ -203,7 +203,7 @@ export function postForgot(email: string, callbackFunction = () => {}) {
           .catch((err) => {
               dispatch({
                   type: GET_REG_FAILED,
-                  data: err
+                  message: err
               });
               if (err === 'jwt expired') {               
                 dispatch(refreshToken());
@@ -236,7 +236,7 @@ export function postResetPassword(data: TResetPassword, callbackFunction = () =>
             } else {
               dispatch({
                   type: GET_RESET_FAILED,
-                  data: 'Ошибка запроса'
+                  message: 'Ошибка запроса'
               });
               if (res.message === 'jwt expired') {
                 dispatch(refreshToken());
@@ -246,7 +246,7 @@ export function postResetPassword(data: TResetPassword, callbackFunction = () =>
           .catch((err) => {
               dispatch({
                   type: GET_RESET_FAILED,
-                  data: err
+                  message: err
               });
               if (err === 'jwt expired') {               
                 dispatch(refreshToken());
@@ -279,7 +279,7 @@ export function postLogout(data: TLogout, callbackFunction = () => {}) {
             } else {
               dispatch({
                   type: GET_LOGOUT_FAILED,
-                  data: 'Ошибка запроса'
+                  message: 'Ошибка запроса'
               });
               if (res.message === 'jwt expired') {
                 dispatch(refreshToken());
@@ -289,7 +289,7 @@ export function postLogout(data: TLogout, callbackFunction = () => {}) {
           .catch((err) => {
               dispatch({
                   type: GET_LOGOUT_FAILED,
-                  data: err
+                  message: err
               });
               if (err === 'jwt expired') {               
                 dispatch(refreshToken());
@@ -316,12 +316,12 @@ export function patchEdit(data: TEdit) {
           if (res.success) {
               dispatch({
                   type: GET_EDIT_SUCCESS,
-                  data: res.user
+                  user: res.user
               });
             } else {
               dispatch({
                   type: GET_EDIT_FAILED,
-                  data: 'Ошибка запроса'
+                  message: 'Ошибка запроса'
               });
               if (res.message === 'jwt expired') {
                 dispatch(refreshToken());
@@ -332,7 +332,7 @@ export function patchEdit(data: TEdit) {
           .catch((err) => {
               dispatch({
                   type: GET_EDIT_FAILED,
-                  data: err
+                  message: err
               });
               if (err === 'jwt expired') {               
                 dispatch(refreshToken());

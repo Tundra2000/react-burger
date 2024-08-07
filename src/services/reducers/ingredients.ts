@@ -13,7 +13,7 @@ export type TIngredientState = {
 }
 
 // список всех полученных ингредиентов
-const ingredientsInitialState = {
+export const ingredientsInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,

@@ -10,8 +10,15 @@ import { TDetailIngredientActions } from '../../services/actions/ingredient-deta
 import { TIngredientActions } from '../../services/actions/ingredients';
 import { TOrderActions } from '../../services/actions/order';
 import { TUserActions } from '../../services/actions/user';
-import { TWSActions, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_ORDERS, WS_ORDERS_START, WS_SEND_MESSAGE } from '../../services/actions/websocket';
-import { TProfile } from '../../data/apis/user-api/user-types';
+import { 
+  TWSActions, 
+  WS_CONNECTION_CLOSED, 
+  WS_CONNECTION_ERROR, 
+  WS_CONNECTION_SUCCESS, 
+  WS_GET_ORDERS, 
+  WS_ORDERS_START, 
+  WS_SEND_MESSAGE 
+} from '../../services/actions/websocket';
 
 export interface IBun {
     type: "top" | "bottom";
@@ -64,10 +71,12 @@ export interface IUser {
   email: string; 
   name: string
 }
+
+/*
 export type TGetUserResponse = {
   success: boolean;
   user: TProfile;
-}
+}*/
 
 export interface IOrder {
   _id: string;
@@ -97,7 +106,7 @@ export type RootState = {
 };
 
 // Типизация всех экшенов приложения
-type TApplicationActions = TConstructorActions | TDetailIngredientActions | TIngredientActions | TOrderActions | TUserActions | TWSActions | TUserApi; 
+type TApplicationActions = TConstructorActions | TDetailIngredientActions | TIngredientActions | TOrderActions | TUserActions | TWSActions; 
 export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;
 
 

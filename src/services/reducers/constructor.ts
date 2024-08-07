@@ -15,7 +15,7 @@ export type TBurgerConstructorState = {
 };
 
 // список всех ингредиентов в текущем конструкторе бургера,
-const burgerConstructorInitialState: TBurgerConstructorState = {
+export const burgerConstructorInitialState: TBurgerConstructorState = {
   filling: [],
   bun: null,
   counts: {},
