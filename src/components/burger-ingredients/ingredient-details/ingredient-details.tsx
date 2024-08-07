@@ -1,18 +1,26 @@
 import styles from "./ingredient-details.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../hooks/useReducer";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../../pages/not-found/not-found";
-import { IIngredient } from "../../utils/types";
+import { useEffect } from "react";
+import { SET_DETAIL_INGREDIENT } from "../../../services/actions/ingredient-detail";
 
 export default function IngredientDetails() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  let currentIngredient = useSelector((store) => store.ingredientDetail.ingredient);
+  let ingredientsData  = useSelector((store) => store.ingredients.ingredients);
 
-  let currentIngredient = useSelector((store: any) => store.ingredientDetail.ingredient);
+  useEffect(() => {
+    if (!currentIngredient && id && ingredientsData) {
+        const ingredient = ingredientsData.find((ingredient) => ingredient._id === id);
+        dispatch({
+            type: SET_DETAIL_INGREDIENT,
+            ingredient: ingredient,
+        })
+    }
+}, [currentIngredient, id, ingredientsData, dispatch]);
 
-  let ingredientsData  = useSelector((store: any) => store.ingredients.ingredients);
-
-  if (!currentIngredient && ingredientsData.length > 0)
-  currentIngredient = ingredientsData.find((item: IIngredient) => item._id === id);
 
   return currentIngredient ? (
     <div className={styles.modal}>

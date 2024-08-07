@@ -1,14 +1,15 @@
 //login - страница авторизации.
 import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import { Link, useNavigate } from "react-router-dom";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../services/actions/user";
 import styles from "./login.module.css";
+import { TLogin } from "../../data/apis/user-api/user-types";
+import { postLogin } from "../../data/apis/user-api/user-api";
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -16,24 +17,21 @@ export function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const { value, handleChange } = useForm({ email: "", password: "" });
 
-  const loginError = useSelector((state:any) => state.user.requestError);
+  const loginError = useSelector((state) => state.user.requestError);
 
   const sendLoginForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(
-      //@ts-ignore
-      userApi(
-        "login",
+      postLogin(
         {
-          email: email,//value.email,
-          password: password//value.password,
-        },
-        () => navigate("/")
+          'email': email,
+          'password': password
+        } as TLogin,
+        () => navigate('/')
       )
-    );
+      );
   };
 
   return (
@@ -41,19 +39,19 @@ export function LoginPage() {
       <h2 className="text text_type_main-large mb-6">Вход</h2>
       <form className={styles.form} onSubmit={sendLoginForm}>
         <EmailInput
-          value={/*value.email*/email}
+          value={email}
           name="email"
           placeholder="E-mail"
           extraClass="mb-6"
-          onChange={/*handleChange*/(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           aria-errormessage={loginError}
         />
         <PasswordInput
-          value={/*value.password*/password}
+          value={password}
           name="password"
           placeholder="Пароль"
           extraClass="mb-6"
-          onChange={/*handleChange*/(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button
           htmlType="submit"

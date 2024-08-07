@@ -25,17 +25,30 @@ import {
   GET_REFRESH_FAILED,
 } from "../actions/user";
 
-const checkoutInitialState = {
+import { TUserActions } from "../actions/user";
+import { TProfile } from "../../data/apis/user-api/user-types";
+
+export type TUserState = {
+    isUserAuth: boolean;
+    isLoading: boolean;
+    requestError: string; 
+    //requestSucces: string;
+    user: TProfile;
+}
+
+const userInitialState:TUserState = {
   isUserAuth: false,
   isLoading: false,
   requestError: "",
+  //requestSucces: "",
   user: {
-    email: "",
-    name: "",
+    name: '',
+    email: '',
+    password: '',
   },
 };
 
-export const userReducer = (state = checkoutInitialState, action) => {
+export const userReducer = (state = userInitialState, action:TUserActions):TUserState => {
   switch (action.type) {
     case GET_AUTH_REQUEST:
     case GET_REG_REQUEST:
@@ -57,14 +70,31 @@ export const userReducer = (state = checkoutInitialState, action) => {
       };
     }
     case GET_AUTH_SUCCESS:
-    case GET_REG_SUCCESS:
-    case GET_USER_SUCCESS:
-    case GET_EDIT_SUCCESS: {
+      let userData = action.data as TProfile;     
       return {
         ...state,
         isLoading: false,
         isUserAuth: true,
-        user: action.data.user,
+        user: {
+          ...state.user,
+          name: userData.name,
+          email: userData.email,
+      },
+        requestError: "",
+      };
+    case GET_REG_SUCCESS:
+    case GET_USER_SUCCESS:
+    case GET_EDIT_SUCCESS: {
+      let userData = action.data as TProfile;     
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuth: true,
+        user: {
+          ...state.user,
+          name: userData.name,
+          email: userData.email,
+      },
         requestError: "",
       };
     }
@@ -94,7 +124,11 @@ export const userReducer = (state = checkoutInitialState, action) => {
       return {
         ...state,
         isUserAuth: false,
-        user: {},
+        user: {
+          name: '',
+          email: '',
+          password: '',
+        },
       };
     }
 
@@ -110,7 +144,7 @@ export const userReducer = (state = checkoutInitialState, action) => {
         ...state,
         isLoading: false,
         isUserAuth: false,
-        requestError: action.data,
+        requestError: typeof(action.data),
       };
     }
 

@@ -1,7 +1,7 @@
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import { getIngredients } from "../../services/actions/ingredients";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { MainPage } from "../../pages/main/main";
@@ -10,28 +10,31 @@ import { RegisterPage } from "../../pages/register/register";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
 import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
 import { ProfilePage } from "../../pages/profile/profile";
-import { OrderPage } from "../../pages/order/order";
+import { FeedPage } from "../../pages/feed/feed";
 import { UserProfilePage } from "../../pages/profile/user-profil-page/user-profil-page";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { IngredientPage } from "../../pages/ingredient/ingredient";
+import { OrdersProfilePage } from "../../pages/profile/order-profil-page/order-profil-page";
 import Modal from "../modal/modal";
 import IngredientDetails from "../burger-ingredients/ingredient-details/ingredient-details";
+import {ViewFeedPage} from "../../pages/feed/view-feed/view-feed";
+import { getUser } from "../../services/actions/user";
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   let background = location.state && location.state.background;
 
-  const { ingredients, ingredientsRequest, ingredientsFailed }: any = useSelector(
-    (state: any) => state.ingredients
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    (state) => state.ingredients
   );
 
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("запуск запроса");
-    //@ts-ignore
     if (!ingredients.length) dispatch(getIngredients());
+    dispatch(getUser());
   }, [dispatch, ingredients.length]);
 
   const closeModal = () => navigate(-1);
@@ -90,11 +93,15 @@ function App() {
               }
             >
               <Route path="" element={<UserProfilePage />} />
-              <Route path="orders" element={<NotFoundPage />} />
+              <Route path="orders" element={<ProtectedRouteElement element={<OrdersProfilePage />}  notAuth={false} />}/>
+              {/*<Route path="orders/:id" element={<ProtectedRouteElement element={<NotFoundPage />} notAuth={false} />} />*/}
+          
             </Route>
-            <Route path="/orders" element={<OrderPage />} />
-            <Route path="/*" element={<NotFoundPage />} />
+            <Route path="/feed" element={<FeedPage />} />
             <Route path="ingredients/:id" element={<IngredientPage />} />
+            <Route path="/*" element={<NotFoundPage />} />         
+            <Route path='/feed/:id' element={<ViewFeedPage />} />
+            <Route path="/profile/orders/:id" element={<ProtectedRouteElement element={<ViewFeedPage />} notAuth={false}  />} />
           </Routes>
         )}
       </div>
@@ -106,6 +113,32 @@ function App() {
             element={  
               <Modal header="Детали ингредиента" onClose={closeModal}>  
                 <IngredientDetails />  
+              </Modal>  
+            }  
+          />  
+        </Routes>  
+      )}
+
+      {background && (  
+        <Routes>  
+          <Route  
+            path="/profile/orders/:id"  
+            element={  
+              <Modal header="Детали заказа" onClose={closeModal}>  
+                <ViewFeedPage />  
+              </Modal>  
+            }  
+          />  
+        </Routes>  
+      )}
+
+      {background && (  
+        <Routes>  
+          <Route  
+            path="/feed/:id"  
+            element={  
+              <Modal header="Детали заказа" onClose={closeModal}>  
+                <ViewFeedPage />  
               </Modal>  
             }  
           />  

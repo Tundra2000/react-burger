@@ -15,13 +15,19 @@ const checkSuccess = <T extends ICheckSuccess>(res: T): Promise<T> => {
     return Promise.resolve(res);
   }
   // нпрокидываем ошибку наверх, чтобы она попала в `catch`
-  return Promise.reject(`Ответ не success: ${res}`);
+  return Promise.reject(res.message);
 };
 
 // создаем универсальную фукнцию запроса с проверкой ответа и `success`
 // url для запроса храним в urls.jsx, options - параметры запроса (PUT, POST, ... )
-export const request = (url:string, options: any) => { 
+export const request = (url:RequestInfo | URL, options?: RequestInit) => { 
   return fetch(url, options)
     .then(checkResponse)
     .then(checkSuccess);
 };
+
+
+
+
+
+

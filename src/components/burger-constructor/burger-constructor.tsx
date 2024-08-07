@@ -6,7 +6,7 @@ import {
 import styles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import Bun from "./bun/bun";
 import IngredientsList from "./ingredient-list/ingredient-list";
 import { useDrop } from "react-dnd";
@@ -24,10 +24,10 @@ import { IIngredient } from "../utils/types";
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { bun, filling } = useSelector((store: any) => store.burgerConstructor);
-  const { order, isVisible } = useSelector((store: any) => store.order);
+  const { bun, filling } = useSelector((store) => store.burgerConstructor);
+  const { orderDetail, isVisible } = useSelector((store) => store.order);
 
-  const { isUserAuth } = useSelector((store: any) => store.user);
+  const { isUserAuth } = useSelector((store) => store.user);
 
   //`action creator` для добавления уникального id ингредиента
   const addToConstructor = (item: IIngredient) => {
@@ -71,6 +71,7 @@ export default function BurgerConstructor() {
     const itemsArr = filling.map((item: IIngredient) => item._id);
     if (bun) {
       itemsArr.push(bun._id);
+      itemsArr.unshift(bun._id);
     }
     return itemsArr;
   }, [filling, bun]);
@@ -79,16 +80,16 @@ export default function BurgerConstructor() {
   function openModal() {
     if (isUserAuth) { // авторизован?
       if (idsArray) {
-        //@ts-ignore
-        dispatch(postOrder({ ingredients: idsArray }));
+
+        dispatch(postOrder( idsArray ));
         dispatch({
           type: ORDER_MODAL_OPEN,
+          data: orderDetail
         });
       }
     } else navigate("/login");
   }
   const closeModal = () => {
-    console.log(order.number);
     dispatch({ type: ORDER_MODAL_CLOSE });
   };
 

@@ -1,13 +1,13 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
-import { userApi } from "../../services/actions/user";
 import { useLocation } from "react-router-dom";
+import { postForgot } from "../../data/apis/user-api/user-api";
 
 //forgot-password - страница восстановления пароля.
 export function ForgotPasswordPage() {
@@ -17,17 +17,12 @@ export function ForgotPasswordPage() {
 
   const [email, setEmail] = useState("");
 
-  const forgotError = useSelector((state:any) => state.user.requestError);
+  const forgotError = useSelector((state) => state.user.requestError);
 
   const sendForgotPassForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      //@ts-ignore
-      userApi(
-        "forgot",
-        {
-          email: email,
-        },
+      postForgot(email,
         () => navigate("/reset-password", { state: { from: location } })
       )
     );

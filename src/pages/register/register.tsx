@@ -1,5 +1,5 @@
-import { FormEvent, FormEventHandler, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -8,8 +8,9 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../services/actions/user";
 import styles from "./register.module.css";
+import { TProfile } from "../../data/apis/user-api/user-types";
+import { postRegister } from "../../data/apis/user-api/user-api";
 
 //register - страница регистрации.
 export function RegisterPage() {
@@ -20,23 +21,19 @@ export function RegisterPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const regError = useSelector((state:any) => state.user.requestError);
+  const regError = useSelector((state) => state.user.requestError);
 
   const sendRegisterForm = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     dispatch(
-      //@ts-ignore
-      userApi(
-        "register",
+      postRegister(
         {
           email: email,
           password: password,
           name: name,
-        },
+        } as TProfile,
         () => navigate("/")
-      )
-    );
+  ))
   };
 
   return (

@@ -4,17 +4,37 @@ import {
   POST_ORDER_FAILED,
   ORDER_MODAL_OPEN,
   ORDER_MODAL_CLOSE,
+  ORDER_DETAIL
 } from "../actions/order";
+import { TOrderActions } from "../actions/order";
+import { IOrder } from "../../components/utils/types";
+
+export type TOrderState = {
+    order: number;
+    orderRequest: boolean;
+    orderFailed: boolean;
+    isVisible: boolean;
+    orderDetail: IOrder;
+}
 
 // номер заказа
-const checkoutInitialState = {
+const checkoutInitialState:TOrderState = {
   order: 0,
   orderRequest: false,
   orderFailed: false,
   isVisible: false,
+  orderDetail: {
+    _id: "",
+    ingredients: [],
+    status: "",
+    name: "",
+    createdAt: "",
+    updatedAt: "",
+    number: 0
+}
 };
 
-export const orderReducer = (state = checkoutInitialState, action) => {
+export const orderReducer = (state = checkoutInitialState, action: TOrderActions): TOrderState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
@@ -40,9 +60,13 @@ export const orderReducer = (state = checkoutInitialState, action) => {
         order: 0,
       };
     }
+    case ORDER_DETAIL: {
+      return { ...state, orderDetail: action.data };
+    }
     case ORDER_MODAL_OPEN: {
       return {
-        ...state,
+        ...state, 
+        orderDetail: action.data,
         isVisible: true,
       };
     }
@@ -50,6 +74,16 @@ export const orderReducer = (state = checkoutInitialState, action) => {
       return {
         ...state,
         isVisible: false,
+        orderDetail: {
+          _id: "",
+          ingredients: [],
+          status: "",
+          name: "",
+          createdAt: "",
+          updatedAt: "",
+          number: 0
+        }, 
+        order: 0
       };
     }
     default: {

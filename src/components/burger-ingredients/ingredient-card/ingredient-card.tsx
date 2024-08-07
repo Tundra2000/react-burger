@@ -6,7 +6,7 @@ import styles from "./ingredient-card.module.css";
 import Modal from "../../modal/modal";
 import React from "react";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../../hooks/useReducer";
 import { useDrag } from "react-dnd";
 import {
   SET_DETAIL_INGREDIENT,
@@ -25,7 +25,7 @@ export default function IngredientCard({ item }:IIngredientCard) {
   const navigate = useNavigate();
 
   const [visible, setVisible] = React.useState(false);
-  const { counts, bun } = useSelector((store: any) => store.burgerConstructor);
+  const { counts, bun } = useSelector((store) => store.burgerConstructor);
   //Счётчик добавленных в карзину элементов
   const count = bun?._id === item._id ? 2 : counts[item._id];
 

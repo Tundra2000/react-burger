@@ -1,13 +1,14 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks/useReducer";
 import {
   Input,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../services/actions/user";
 import styles from "./reset-password.module.css";
+import { postResetPassword } from "../../data/apis/user-api/user-api";
+import { TResetPassword } from "../../data/apis/user-api/user-types";
 
 //reset-password - страница сброса пароля.
 export function ResetPasswordPage() {
@@ -18,22 +19,19 @@ export function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-  const forgotError = useSelector((state:any) => state.user.requestError);
+  const forgotError = useSelector((state) => state.user.requestError);
 
   const resetPassFormSend = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    dispatch(
-      //@ts-ignore
-      userApi(
-        "reset",
-        {
-          password: password,
-          token: code,
-        },
-        () => navigate("/login")
-      )
-    );
+        dispatch(
+          postResetPassword(
+            {
+              'password': password,
+              'token': code,
+            } as TResetPassword,
+            () => navigate("/login")
+          )
+        )
   };
 
   //ПОПАСТЬ МОЖНО ТОЛЬКО СО СТРАНИЦЫ 'forgot-password'

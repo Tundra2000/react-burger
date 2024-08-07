@@ -1,17 +1,21 @@
 import React, { useState, useEffect, SyntheticEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../../hooks/useReducer";
 import {
   Input,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { userApi } from "../../../services/actions/user";
 import styles from "./user-profil-page.module.css";
+import { useNavigate } from "react-router-dom";
+import { TEdit } from "../../../data/apis/user-api/user-types";
+import { patchEdit } from "../../../data/apis/user-api/user-api";
+import { getUser } from "../../../services/actions/user";
 
 export function UserProfilePage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
 
-  const user = useSelector((state:any) => state.user.user);
+  const user = useSelector((state) => state.user.user);
 
   const [isActiveName, setActiveName] = useState(false);
   const [isActiveEmail, setActiveEmail] = useState(false);
@@ -22,9 +26,16 @@ export function UserProfilePage() {
   const [passValue, setPassValue] = useState("");
 
   useEffect(() => {
-    setNameValue(user.name);
-    setEmailValue(user.email);
-  }, [dispatch, user]);
+    if(user.name === "" && user.email === ""){
+      dispatch(getUser());
+    } else
+    {
+      setNameValue(user.name);
+      setEmailValue(user.email);
+      setPassValue(user.password);
+
+    }
+  }, [dispatch, emailValue, nameValue, navigate, user]);
 
   const nameInput = React.createRef<HTMLInputElement>();
   const emailInput = React.createRef<HTMLInputElement>();
@@ -62,15 +73,12 @@ export function UserProfilePage() {
 
   const saveChanges = async (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(
-      //@ts-ignore
-      userApi("edit", {
-        name: nameValue,
-        email: emailValue,
-        password: passValue,
-        token: localStorage.getItem("refreshToken"),
-      })
-    );
+    dispatch(patchEdit({
+      name: nameValue,
+      email: emailValue,
+      password: passValue,
+      token: localStorage.getItem("refreshToken")
+    } as TEdit));
     setActiveName(false);
     setActiveEmail(false);
     setActivePass(false);

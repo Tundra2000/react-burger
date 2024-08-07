@@ -11,3 +11,7 @@ export const passwordResetResetUrl = `${BASE_URL}password-reset/reset`;
 export const logoutUrl = `${BASE_URL}auth/logout`;
 export const userUrl = `${BASE_URL}auth/user`;
 export const tokenUrl = `${BASE_URL}auth/token`;
+
+export const wsUrl = 'wss://norma.nomoreparties.space/';
+
+export const orderNumberUrl =`${BASE_URL}orders/`;
