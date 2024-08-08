@@ -17,16 +17,6 @@ describe('Создание заказа', () => {
         cy.clearLocalStorage();
         cy.clearCookies() ;
 
-        /*window.localStorage.setItem(
-            'refreshToken',
-            JSON.stringify('d7725b3c053694ca1f1b8edc9330a553d54f39cf6780b07d8a50c05fe866a8c772d8317cef3c1459')
-        );
-        cy.setCookie(
-            'token',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDRmNTFmNmQyOTk3MDAxY2FhOTA0OCIsImlhdCI6MTY5NDgyNjczNCwiZXhwIjoxNjk0ODI3OTM0fQ.xz0qInrHX5NyDvpzVD9f16bhcI712JklHvyoDsSpLxA'
-        );*/
-
-        //cy.intercept('GET', 'api/auth/user', user);
         cy.intercept('GET', 'api/ingredients', ingredients);
 
         //Modal
@@ -40,7 +30,6 @@ describe('Создание заказа', () => {
         //dragDrop
         cy.drag('Краторная булка N-200i');
         cy.drag('Филе Люминесцентного тетраодонтимформа');
-        //cy.drag('Соус традиционный галактический');
 
 
         // Переход на страницу авторизации
