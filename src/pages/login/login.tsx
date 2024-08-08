@@ -45,6 +45,7 @@ export function LoginPage() {
           extraClass="mb-6"
           onChange={(e) => setEmail(e.target.value)}
           aria-errormessage={loginError}
+          data-test='email'
         />
         <PasswordInput
           value={password}
@@ -52,8 +53,9 @@ export function LoginPage() {
           placeholder="Пароль"
           extraClass="mb-6"
           onChange={(e) => setPassword(e.target.value)}
+          data-test='password'
         />
-        <Button
+        <Button id='loginBtn'
           htmlType="submit"
           type="primary"
           size="medium"
