@@ -18,7 +18,7 @@ export type TOrderState = {
 }
 
 // номер заказа
-const checkoutInitialState:TOrderState = {
+export const checkoutInitialState:TOrderState = {
   order: 0,
   orderRequest: false,
   orderFailed: false,

@@ -32,8 +32,7 @@ export function UserProfilePage() {
     {
       setNameValue(user.name);
       setEmailValue(user.email);
-      setPassValue(user.password);
-
+      setPassValue("");
     }
   }, [dispatch, emailValue, nameValue, navigate, user]);
 

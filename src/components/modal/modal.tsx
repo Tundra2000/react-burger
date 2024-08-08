@@ -33,7 +33,7 @@ export default function Modal({
     <>
       <div className={styles.modal}>
         <h2 className={styles.heading}>{header}</h2>
-        <span className={styles.close} onClick={onClose}>
+        <span id="closeModal" className={styles.close} onClick={onClose}>
           <CloseIcon  type = "primary"/>
         </span>
           {children}

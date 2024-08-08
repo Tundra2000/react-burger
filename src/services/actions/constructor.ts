@@ -12,8 +12,8 @@ export interface IConstructorAddAction {
 }
 
 export interface IConstructorDelAction {
-    id: string;
     readonly type: typeof DEL_FROM_CONSTRUCTOR;
+    id: string;
     readonly index: number;
 }
 

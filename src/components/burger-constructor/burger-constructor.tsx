@@ -100,7 +100,7 @@ export default function BurgerConstructor() {
   /*data={bun}*/
   return (
     <>
-      <div className={styles.container} ref={dropRef} style={{ border }}>
+      <div className={styles.container} ref={dropRef} style={{ border }} data-test="constructor">
         <Bun position="top" />
         <div className={styles.scroller}>
           <IngredientsList />
@@ -110,7 +110,7 @@ export default function BurgerConstructor() {
           <p className={styles.price}>
             {totalPrice + " "}
             <CurrencyIcon type="primary" />
-            <Button
+            <Button id="orderBtn"
               htmlType="button"
               type="primary"
               size="medium"

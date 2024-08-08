@@ -43,7 +43,8 @@ export function getIngredients() {
     .catch((err) => {
       console.log(err);
       dispatch({
-        type: GET_INGREDIENTS_FAILED
+        type: GET_INGREDIENTS_FAILED,
+        data: String(err.message),
       });
     });
   }  

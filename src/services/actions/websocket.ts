@@ -21,7 +21,7 @@ export interface IWSConnectionStart {
   
   export interface IWSConnectionErrorAction {
     readonly type: typeof WS_CONNECTION_ERROR;
-    readonly payload: Event;
+    readonly payload?: string;
     readonly token?: string;
   }
   

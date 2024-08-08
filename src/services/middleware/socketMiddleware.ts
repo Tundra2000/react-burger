@@ -28,7 +28,7 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
         };
 
         socket.onerror = event => {
-          dispatch({ type: 'WS_CONNECTION_ERROR', payload: event });
+          dispatch({ type: 'WS_CONNECTION_ERROR', payload: String(event) });
         };
 
         socket.onmessage = event => {
